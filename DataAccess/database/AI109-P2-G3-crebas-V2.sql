@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `tontapat` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `tontapat`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tontapat
@@ -40,6 +38,7 @@ CREATE TABLE `cloture_par_race` (
 
 LOCK TABLES `cloture_par_race` WRITE;
 /*!40000 ALTER TABLE `cloture_par_race` DISABLE KEYS */;
+INSERT INTO `cloture_par_race` VALUES (1,1),(2,2),(3,3),(4,4);
 /*!40000 ALTER TABLE `cloture_par_race` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +92,7 @@ CREATE TABLE `distance_ville` (
 
 LOCK TABLES `distance_ville` WRITE;
 /*!40000 ALTER TABLE `distance_ville` DISABLE KEYS */;
+INSERT INTO `distance_ville` VALUES (1,2,20.5),(1,3,46.6),(1,4,32.5),(1,5,50.2),(1,6,38.2),(1,7,30.7),(1,8,19.2),(1,9,198),(1,10,43.4),(1,11,73.9),(1,12,83.2),(1,13,78.8),(1,14,64.5),(1,15,38.1),(1,16,110),(2,3,43.4),(2,4,27),(2,5,51.3),(2,6,47.4),(2,7,49.6),(2,8,38.3),(2,9,195),(2,10,67),(2,11,97.7),(2,12,107),(2,13,88.2),(2,14,83.4),(2,15,61.4),(2,16,110),(3,4,74),(3,5,91.3),(3,6,78.5),(3,7,74.2),(3,8,62.9),(3,9,161),(3,10,41.2),(3,11,94),(3,12,127),(3,13,119),(3,14,108),(3,15,82.4),(3,16,47.3),(4,5,24.9),(4,6,37.9),(4,7,46.7),(4,8,39.3),(4,9,225),(4,10,77.8),(4,11,108),(4,12,105),(4,13,80.8),(4,14,74.5),(4,15,72.1),(4,16,132),(5,6,34.9),(5,7,57.6),(5,8,50.2),(5,9,243),(5,10,95.4),(5,11,119),(5,12,115),(5,13,58.5),(5,14,85.4),(5,15,83.2),(5,16,148),(6,7,21.3),(6,8,17.2),(6,9,229),(6,10,70.2),(6,11,83.3),(6,12,73.5),(6,13,36.7),(6,14,45.1),(6,15,47),(6,16,145),(7,8,10),(7,9,225),(7,10,69.7),(7,11,63.8),(7,12,66.7),(7,13,64.5),(7,14,35.6),(7,15,27.5),(7,16,130),(8,9,214),(8,10,58.2),(8,11,71.9),(8,12,74.9),(8,13,60.6),(8,14,43.8),(8,15,35.6),(8,16,129),(9,10,198),(9,11,250),(9,12,283),(9,13,287),(9,14,260),(9,15,238),(9,16,146),(10,11,56.8),(10,12,89.7),(10,13,114),(10,14,74.6),(10,15,44.5),(10,16,62.7),(11,12,33.3),(11,13,105),(11,14,54.9),(11,15,35.8),(11,16,117),(12,13,71.8),(12,14,34.6),(12,15,45.1),(12,16,150),(13,14,48.8),(13,15,74.7),(13,16,184),(14,15,32.3),(14,16,137),(15,16,107);
 /*!40000 ALTER TABLE `distance_ville` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ CREATE TABLE `motif_annulation_prestation` (
   `id_motif` int NOT NULL AUTO_INCREMENT,
   `nom_motif` varchar(254) DEFAULT NULL,
   PRIMARY KEY (`id_motif`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,6 +229,7 @@ CREATE TABLE `motif_annulation_prestation` (
 
 LOCK TABLES `motif_annulation_prestation` WRITE;
 /*!40000 ALTER TABLE `motif_annulation_prestation` DISABLE KEYS */;
+INSERT INTO `motif_annulation_prestation` VALUES (1,'Problème technique'),(2,'Indisponibilité à ces dates'),(3,'J\'ai trouvé mieux'),(4,'Désaccord avec mon partenaire'),(5,'Autre');
 /*!40000 ALTER TABLE `motif_annulation_prestation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,7 +244,7 @@ CREATE TABLE `motif_demande_intervention` (
   `id_motif` int NOT NULL AUTO_INCREMENT,
   `nom_motif` varchar(254) DEFAULT NULL,
   PRIMARY KEY (`id_motif`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,6 +253,7 @@ CREATE TABLE `motif_demande_intervention` (
 
 LOCK TABLES `motif_demande_intervention` WRITE;
 /*!40000 ALTER TABLE `motif_demande_intervention` DISABLE KEYS */;
+INSERT INTO `motif_demande_intervention` VALUES (1,'Une clôture est endommagée'),(2,'L\'abri est endommagé'),(3,'Un ou plusieurs abreuvoirs sont endommagés'),(4,'Une ou plusieurs bêtes se sont échappées'),(5,'Une ou plusieurs bêtes semblent malades');
 /*!40000 ALTER TABLE `motif_demande_intervention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +292,7 @@ CREATE TABLE `motif_refus_prestation` (
   `id_motif` int NOT NULL AUTO_INCREMENT,
   `nom_motif` varchar(254) DEFAULT NULL,
   PRIMARY KEY (`id_motif`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,6 +301,7 @@ CREATE TABLE `motif_refus_prestation` (
 
 LOCK TABLES `motif_refus_prestation` WRITE;
 /*!40000 ALTER TABLE `motif_refus_prestation` DISABLE KEYS */;
+INSERT INTO `motif_refus_prestation` VALUES (1,'J\'ai un imprévu'),(2,'Votre demande ne me correspond pas'),(3,'J\'ai déjà accepté une autre offre'),(4,'Autre');
 /*!40000 ALTER TABLE `motif_refus_prestation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -878,7 +881,7 @@ CREATE TABLE `ville` (
   `nom_ville` varchar(254) DEFAULT NULL,
   `Code_postal` int DEFAULT NULL,
   PRIMARY KEY (`id_ville`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -887,6 +890,7 @@ CREATE TABLE `ville` (
 
 LOCK TABLES `ville` WRITE;
 /*!40000 ALTER TABLE `ville` DISABLE KEYS */;
+INSERT INTO `ville` VALUES (1,'Dijon',21000),(2,'Marliens',21110),(3,'Beaune',21200),(4,'Pontailler-sur-Saône',21270),(5,'Gray',70100),(6,'Orville',21260),(7,'Saulx-le-Duc',21120),(8,'Chaignay',21120),(9,'Francheville',21440),(10,'Pouilly-en-Auxois',21320),(11,'Montbard',21500),(12,'Châtillon-sur-Seine',21400),(13,'Langres',52200),(14,'Terrefondrée',21290),(15,'Chanceaux',21440),(16,'Le Creusot',71200);
 /*!40000 ALTER TABLE `ville` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -899,4 +903,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-10 11:50:58
+-- Dump completed on 2021-06-10 20:07:42
