@@ -8,5 +8,11 @@ namespace Fr.EQL.AI109.Tontapat.Model
 {
     class FreqIntervention
     {
+        public int Id { get; set; }
+        public int ValeurFrequence { get; set; }
+
+        public FreqIntervention()
+        {
+        }
     }
 }
