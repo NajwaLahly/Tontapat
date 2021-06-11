@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class DistanceVille
+    class DistanceVilles
     {
         public  int IdVille { get; set; }
         public int IdVille2 { get; set; }
         public float Distance { get; set; }
 
-        public DistanceVille()
+        public DistanceVilles()
         {
         }
     }
