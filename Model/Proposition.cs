@@ -10,6 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
         public int Id { get; set; }
         public int IdNegociation { get; set; }
+        public int IdUtilisateur { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateAnnulation { get; set; }
         public DateTime DateValidation { get; set; }

@@ -13,8 +13,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int IdCloture { get; set; }
         public int IdUtilisateur { get; set; }
         public int IdTypeTerrain { get; set; }
-        public string NomTerrain { get; set; }
-        public float SuperficieTerrain { get; set; }
+        public string Nom { get; set; }
+        public float Superficie { get; set; }
         public  string Description { get; set; }
         public DateTime DateAjout { get; set; }
         public bool AccesPublic { get; set; }
@@ -26,7 +26,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string Photo3 { get; set; }
         public string Photo4 { get; set; }
         public string Photo5 { get; set; }
-        public DateTime DateRetraitTerrain { get; set; }
+        public DateTime DateRetrait { get; set; }
         public bool PresenceCamera { get; set; }
         public bool ServiceSecurite { get; set; }
 

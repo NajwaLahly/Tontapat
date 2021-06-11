@@ -9,7 +9,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     class MotifAnnulationPrestation
     {
         public int Id { get; set; }
-        public string NomMotif { get; set; }
+        public string Nom { get; set; }
 
         public MotifAnnulationPrestation()
         {

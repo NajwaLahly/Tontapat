@@ -10,7 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
         public int Id { get; set; }
         public int IdEspece { get; set; }
-        public string NomRace { get; set; }
+        public string Nom { get; set; }
 
         public Race()
         {

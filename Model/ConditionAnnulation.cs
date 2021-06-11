@@ -10,7 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
         public int Id { get; set; }
         public string NomCondition { get; set; }
-        public int DelaiJour { get; set; }
+        public int DelaiJours { get; set; }
         public float PourcentageFacturation { get; set; }
 
         public ConditionAnnulation()

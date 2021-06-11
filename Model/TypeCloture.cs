@@ -9,7 +9,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     class TypeCloture
     {
         public int Id { get; set; }
-        public string NomCloture { get; set; }
+        public string Nom { get; set; }
 
         public TypeCloture()
         {

@@ -8,8 +8,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
 {
     class Espece
     {
-        public  int id { get; set; }
-        public string NomEspece { get; set; }
+        public  int Id { get; set; }
+        public string Nom { get; set; }
 
         public Espece()
         {
