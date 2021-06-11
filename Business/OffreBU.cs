@@ -27,5 +27,17 @@ namespace Fr.EQL.AI109.Tontapat.Business
             dao.Create(o);
             Console.WriteLine("create executée");
         }
+
+        public List<Offre> GetAll()
+        {
+            OffreDAO dao = new();
+            return dao.GetAll();
+        }
+
+        public Offre GetById(int id)
+        {
+            OffreDAO dao = new();
+            return dao.GetById(id);
+        }
     }
 }

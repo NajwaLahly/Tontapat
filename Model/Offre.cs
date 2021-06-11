@@ -12,8 +12,6 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int IdFrequence { get; set; }
         public int IdTroupeau { get; set; }
         public int IdTypeTonte { get; set; }
-        public int IdPrestation { get; set; }
-        public int IdTarif { get; set; }
         public int IdCondition { get; set; }
         public string NomOffre { get; set; }
         public bool TypeInstallation { get; set; }
@@ -22,8 +20,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public DateTime DateFin { get; set; }
         public string DescriptionOffre { get; set; }
         public float PrixKm { get; set; }
-        public float PrixInstallation { get; set; }
-        public float PrixIntervention { get; set; }
+        public float CoefInstallation { get; set; }
+        public float CoefIntervention { get; set; }
         public float PrixBeteJour { get; set; }
         public int ZoneCouverture { get; set; }
         public string AdresseOffre { get; set; }
@@ -33,17 +31,14 @@ namespace Fr.EQL.AI109.Tontapat.Model
         {
         }
 
-        public Offre(int idFrequence, int idTroupeau, int idTypeTonte, int idPrestation, int idTarif,
-            int idCondition, string nomOffre, bool typeInstallation, DateTime dateAjout, DateTime dateDebut, 
-            DateTime dateFin, string descriptionOffre, float prixKm, float prixInstallation, float prixIntervention, 
-            float prixBeteJour, int zoneCouverture, string adresseOffre, DateTime? dateAnnulationOffre)
+        public Offre(int idFrequence, int idTroupeau, int idTypeTonte, int idCondition, string nomOffre, 
+            bool typeInstallation, DateTime dateAjout, DateTime dateDebut, DateTime dateFin, string descriptionOffre,
+            float prixKm, float coefInstallation, float coefIntervention, float prixBeteJour, int zoneCouverture, string adresseOffre, DateTime? dateAnnulationOffre)
         {
             
             IdFrequence = idFrequence;
             IdTroupeau = idTroupeau;
             IdTypeTonte = idTypeTonte;
-            IdPrestation = idPrestation;
-            IdTarif = idTarif;
             IdCondition = idCondition;
             NomOffre = nomOffre;
             TypeInstallation = typeInstallation;
@@ -52,8 +47,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
             DateFin = dateFin;
             DescriptionOffre = descriptionOffre;
             PrixKm = prixKm;
-            PrixInstallation = prixInstallation;
-            PrixIntervention = prixIntervention;
+            CoefInstallation = coefInstallation;
+            CoefIntervention = coefIntervention;
             PrixBeteJour = prixBeteJour;
             ZoneCouverture = zoneCouverture;
             AdresseOffre = adresseOffre;

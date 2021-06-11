@@ -349,8 +349,6 @@ CREATE TABLE `offre` (
   `id_frequence` int NOT NULL,
   `id_troupeau` int NOT NULL,
   `id_type` int NOT NULL,
-  `id_prestation` int DEFAULT NULL,
-  `id_tarif` int NOT NULL,
   `id_condition` int NOT NULL,
   `nom_offre` varchar(254) DEFAULT NULL,
   `date_ajout` datetime DEFAULT NULL,
@@ -359,26 +357,22 @@ CREATE TABLE `offre` (
   `description_offre` varchar(254) DEFAULT NULL,
   `type_installation` tinyint(1) DEFAULT NULL,
   `prix_km` float DEFAULT NULL,
-  `prix_installation` float DEFAULT NULL,
-  `prix_intervention` float DEFAULT NULL,
+  `coef_installation` float DEFAULT NULL,
+  `coef_intervention` float DEFAULT NULL,
   `prix_bete_jour` float DEFAULT NULL,
   `zone_couverture` int DEFAULT NULL,
   `adresse_offre` varchar(254) DEFAULT NULL,
-  `Date_annulation_offre` datetime DEFAULT NULL,
+  `date_annulation_offre` datetime DEFAULT NULL,
   PRIMARY KEY (`id_offre`),
   KEY `FK_Association_14` (`id_type`),
-  KEY `FK_Association_28` (`id_tarif`),
   KEY `FK_Association_31` (`id_frequence`),
-  KEY `FK_Association_32` (`id_prestation`),
   KEY `FK_Association_41` (`id_condition`),
   KEY `FK_Association_6` (`id_troupeau`),
   CONSTRAINT `FK_Association_14` FOREIGN KEY (`id_type`) REFERENCES `type_tonte` (`id_type`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_28` FOREIGN KEY (`id_tarif`) REFERENCES `seuil_tarification` (`id_tarif`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_31` FOREIGN KEY (`id_frequence`) REFERENCES `frequence_intervention` (`id_frequence`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_32` FOREIGN KEY (`id_prestation`) REFERENCES `prestation` (`id_prestation`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_41` FOREIGN KEY (`id_condition`) REFERENCES `condition_annulation` (`id_condition`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_6` FOREIGN KEY (`id_troupeau`) REFERENCES `troupeau` (`id_troupeau`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,6 +381,7 @@ CREATE TABLE `offre` (
 
 LOCK TABLES `offre` WRITE;
 /*!40000 ALTER TABLE `offre` DISABLE KEYS */;
+INSERT INTO `offre` VALUES (1,3,1,4,3,'Fiers moutons cherchent vertes étendues','2020-09-06 00:00:00','2020-09-07 00:00:00','2021-08-15 00:00:00','Mes moutons n\'attendent plus que votre herbe pour trouver le bonheur.',1,0.25,90,6,2,50,'1, rue de Tart-le-Haut',NULL);
 /*!40000 ALTER TABLE `offre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -400,6 +395,7 @@ DROP TABLE IF EXISTS `prestation`;
 CREATE TABLE `prestation` (
   `id_prestation` int NOT NULL AUTO_INCREMENT,
   `id_motif` int DEFAULT NULL,
+  `id_offre` int DEFAULT NULL,
   `id_terrain` int NOT NULL,
   `id_troupeau` int NOT NULL,
   `Mot_id_motif` int DEFAULT NULL,
@@ -418,10 +414,12 @@ CREATE TABLE `prestation` (
   KEY `FK_Association_16` (`id_terrain`),
   KEY `FK_Association_26` (`id_motif`),
   KEY `FK_Association_27` (`Mot_id_motif`),
+  KEY `FK_offre_prestation_idx` (`id_offre`),
   CONSTRAINT `FK_Association_15` FOREIGN KEY (`id_troupeau`) REFERENCES `troupeau` (`id_troupeau`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_16` FOREIGN KEY (`id_terrain`) REFERENCES `terrain` (`id_terrain`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_26` FOREIGN KEY (`id_motif`) REFERENCES `motif_annulation_prestation` (`id_motif`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_27` FOREIGN KEY (`Mot_id_motif`) REFERENCES `motif_refus_prestation` (`id_motif`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_Association_27` FOREIGN KEY (`Mot_id_motif`) REFERENCES `motif_refus_prestation` (`id_motif`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_offre_prestation` FOREIGN KEY (`id_offre`) REFERENCES `offre` (`id_offre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -538,9 +536,9 @@ CREATE TABLE `seuil_tarification` (
   `id_tarif` int NOT NULL AUTO_INCREMENT,
   `nom_seuil` varchar(254) DEFAULT NULL,
   `prix_km` float DEFAULT NULL,
-  `prix_bete_jour` float DEFAULT NULL,
-  `coef_intervention` float DEFAULT NULL,
   `coef_installation` float DEFAULT NULL,
+  `coef_intervention` float DEFAULT NULL,
+  `prix_bete_jour` float DEFAULT NULL,
   PRIMARY KEY (`id_tarif`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -551,7 +549,7 @@ CREATE TABLE `seuil_tarification` (
 
 LOCK TABLES `seuil_tarification` WRITE;
 /*!40000 ALTER TABLE `seuil_tarification` DISABLE KEYS */;
-INSERT INTO `seuil_tarification` VALUES (1,'Bas',0.15,1,4,70),(2,'Haut',0.3,3,8,120);
+INSERT INTO `seuil_tarification` VALUES (1,'Bas',0.15,70,4,1),(2,'Haut',0.3,120,8,3);
 /*!40000 ALTER TABLE `seuil_tarification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -593,7 +591,7 @@ CREATE TABLE `terrain` (
   CONSTRAINT `FK_Association_33` FOREIGN KEY (`id_cloture`) REFERENCES `type_cloture` (`id_cloture`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_36` FOREIGN KEY (`id_ville`) REFERENCES `ville` (`id_ville`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_40` FOREIGN KEY (`id_type_terrain`) REFERENCES `type_terrain` (`id_type_terrain`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,6 +600,7 @@ CREATE TABLE `terrain` (
 
 LOCK TABLES `terrain` WRITE;
 /*!40000 ALTER TABLE `terrain` DISABLE KEYS */;
+INSERT INTO `terrain` VALUES (1,1,1,1,1,'Le garden conceptéen',0.012,'Notre jardin de 1200 mètres carrés s\'inscrit dans la pure veine des jardins dijonnais : baobabs et couscoussières côtoient une herbe qui n\'en finit plus de pousser !','2020-09-05',0,NULL,NULL,'3 bis rue de la Flexisécurité',NULL,NULL,NULL,NULL,NULL,NULL,1,0);
 /*!40000 ALTER TABLE `terrain` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -640,7 +639,7 @@ CREATE TABLE `troupeau` (
   CONSTRAINT `FK_Association_2` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_4` FOREIGN KEY (`id_race`) REFERENCES `race` (`id_race`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_42` FOREIGN KEY (`id_ville`) REFERENCES `ville` (`id_ville`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -649,6 +648,7 @@ CREATE TABLE `troupeau` (
 
 LOCK TABLES `troupeau` WRITE;
 /*!40000 ALTER TABLE `troupeau` DISABLE KEYS */;
+INSERT INTO `troupeau` VALUES (1,1,1,2,40,'Les moumoutes à Robert','Les moumoutes à Robert, c\'est 40 bêtes avec un coeur gros comme ça, prêtes à manger l\'herbe de vos terrains pour votre plus grand paisir.','1, rue de Tart-le-Haut',NULL,NULL,'2020-09-04 00:00:00','2020-09-05 00:00:00','2021-08-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `troupeau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -736,7 +736,7 @@ CREATE TABLE `type_tonte` (
   `nom_type` varchar(254) DEFAULT NULL,
   `coef_rapidite` int DEFAULT NULL,
   PRIMARY KEY (`id_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -745,7 +745,7 @@ CREATE TABLE `type_tonte` (
 
 LOCK TABLES `type_tonte` WRITE;
 /*!40000 ALTER TABLE `type_tonte` DISABLE KEYS */;
-INSERT INTO `type_tonte` VALUES (1,'Rapide',80),(2,'Modérée',50),(3,'Lente',20);
+INSERT INTO `type_tonte` VALUES (1,'Lente',20),(2,'Modérée',50),(3,'Rapide',80),(4,'Toutes tontes',0);
 /*!40000 ALTER TABLE `type_tonte` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -907,4 +907,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-11 11:02:08
+-- Dump completed on 2021-06-11 12:01:04
