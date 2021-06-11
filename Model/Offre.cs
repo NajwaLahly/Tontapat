@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class Offre
+    public class Offre
     {
         public int Id { get; set; }
         public int IdFrequence { get; set; }
@@ -27,10 +27,37 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public float PrixBeteJour { get; set; }
         public int ZoneCouverture { get; set; }
         public string AdresseOffre { get; set; }
-        public DateTime DateAnnulationOffre { get; set; }
+        public DateTime? DateAnnulationOffre { get; set; }
 
         public Offre()
         {
+        }
+
+        public Offre(int idFrequence, int idTroupeau, int idTypeTonte, int idPrestation, int idTarif,
+            int idCondition, string nomOffre, bool typeInstallation, DateTime dateAjout, DateTime dateDebut, 
+            DateTime dateFin, string descriptionOffre, float prixKm, float prixInstallation, float prixIntervention, 
+            float prixBeteJour, int zoneCouverture, string adresseOffre, DateTime? dateAnnulationOffre)
+        {
+            
+            IdFrequence = idFrequence;
+            IdTroupeau = idTroupeau;
+            IdTypeTonte = idTypeTonte;
+            IdPrestation = idPrestation;
+            IdTarif = idTarif;
+            IdCondition = idCondition;
+            NomOffre = nomOffre;
+            TypeInstallation = typeInstallation;
+            DateAjout = dateAjout;
+            DateDebut = dateDebut;
+            DateFin = dateFin;
+            DescriptionOffre = descriptionOffre;
+            PrixKm = prixKm;
+            PrixInstallation = prixInstallation;
+            PrixIntervention = prixIntervention;
+            PrixBeteJour = prixBeteJour;
+            ZoneCouverture = zoneCouverture;
+            AdresseOffre = adresseOffre;
+            DateAnnulationOffre = dateAnnulationOffre;
         }
     }
 }

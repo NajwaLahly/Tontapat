@@ -28,6 +28,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string VirementIBAN { get; set; }
         public string BIC { get; set; }
         public string PayPalEmail { get; set; }
+        public string Presentation { get; set; }
 
         public Utilisateur()
         {
