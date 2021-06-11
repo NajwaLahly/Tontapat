@@ -5,8 +5,4 @@
     <RootNamespace>Fr.EQL.AI109.Tontapat.PresentationWeb</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
 </Project>
