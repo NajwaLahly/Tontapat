@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class Race
+    public class Race
     {
         public int Id { get; set; }
         public int IdEspece { get; set; }

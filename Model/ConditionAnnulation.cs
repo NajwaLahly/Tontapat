@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class ConditionAnnulation
+    public class ConditionAnnulation
     {
         public int Id { get; set; }
         public string NomCondition { get; set; }

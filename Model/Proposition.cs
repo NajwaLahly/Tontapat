@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class Proposition
+    public class Proposition
     {
         public int Id { get; set; }
         public int IdNegociation { get; set; }

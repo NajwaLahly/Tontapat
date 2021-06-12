@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class VegeToxiqueEspece
+    public class VegeToxiqueEspece
     {
         public int IdEspece { get; set; }
         public int IdVegetation { get; set; }
