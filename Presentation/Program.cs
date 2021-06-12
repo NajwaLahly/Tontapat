@@ -16,7 +16,7 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
             List<Offre> offres = go.GetAll();
             foreach(Offre o in offres)
             {
-                Console.WriteLine(o.DateDebut);
+                Console.WriteLine(o.DateDebut + " : " + o.NomOffre);
             }
         }
     }
