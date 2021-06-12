@@ -38,5 +38,17 @@ namespace Fr.EQL.AI109.Tontapat.Business
             TroupeauDAO dao = new();
             return dao.GetById(id);
         }
+
+        public List<Troupeau> GetAllByUtilisateurId(int id)
+        {
+
+            if (id <= 0)
+            {
+                throw new Exception("Id troupeau invalide");
+            }
+
+            TroupeauDAO dao = new();
+            return dao.GetAllByUtilisateurId(id);
+        }
     }
 }

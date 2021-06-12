@@ -116,5 +116,30 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        public List<Troupeau> GetAllByUtilisateurId(int id)
+        {
+            List<Troupeau> result = null;
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT *
+                                FROM troupeau
+                                WHERE id_utilisateur = @id_utilisateur";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", id));
+
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Troupeau t = new();
+                t = DataReaderToTroupeau(dr);
+                result.Add(t);
+            }
+
+            cmd.Connection.Close();
+
+            return result;
+        }
     }
 }
