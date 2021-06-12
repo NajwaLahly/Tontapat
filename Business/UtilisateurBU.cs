@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Business
 {
-    class UtilisateurBU
+    public class UtilisateurBU
     {
     }
 }
