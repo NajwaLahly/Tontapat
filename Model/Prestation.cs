@@ -29,5 +29,21 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public Prestation()
         {
         }
+
+        public Prestation(int idOffre, int idTerrain, int idTroupeau, int nombreBetes,
+            DateTime dateDemande, DateTime dateValidation, float prixConvenu, DateTime dateDebut,
+            DateTime dateFin, bool typeInstallationFinal)
+        {
+            IdOffre = idOffre;
+            IdTerrain = idTerrain;
+            IdTroupeau = idTroupeau;
+            NombreBetes = nombreBetes;
+            DateDemande = dateDemande;
+            DateValidation = dateValidation;
+            PrixConvenu = prixConvenu;
+            DateDebut = dateDebut;
+            DateFin = DateFin;
+            TypeInstallationFinal = typeInstallationFinal;
+        }
     }
 }
