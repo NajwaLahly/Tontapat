@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.DataAccess
 {
-    class VegeToxiqueEspeceDAO
+    public class VegeToxiqueEspeceDAO : DAO
     {
     }
 }
