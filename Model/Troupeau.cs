@@ -32,5 +32,33 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public Troupeau()
         {
         }
+
+        public Troupeau(int id, int idRace, int idUtilisateur, int idVille, int nombreBetes,
+            string nomTroupeau, string description, string adresseVoie, float adresseLong,
+            float adresseLat, DateTime dateAjout, DateTime dateDisponibilite,
+            DateTime dateIndisponibilite, string photo1, string photo2, string photo3,
+            string photo4, string photo5, DateTime dateRetrait, bool divisibilite)
+        {
+            Id = id;
+            IdRace = idRace;
+            IdUtilisateur = idUtilisateur;
+            IdVille = idVille;
+            NombreBetes = nombreBetes;
+            NomTroupeau = nomTroupeau;
+            Description = description;
+            AdresseVoie = adresseVoie;
+            AdresseLong = adresseLong;
+            AdresseLat = adresseLat;
+            DateAjout = dateAjout;
+            DateDisponibilite = dateDisponibilite;
+            DateIndisponibilite = dateIndisponibilite;
+            Photo1 = photo1;
+            Photo2 = photo2;
+            Photo3 = photo3;
+            Photo4 = photo4;
+            Photo5 = photo5;
+            DateRetrait = dateRetrait;
+            Divisibilite = divisibilite;
+        }
     }
 }
