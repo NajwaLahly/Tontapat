@@ -17,5 +17,19 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             List<OffreDetail> od = bu.GetAllWithDetails();           
             return View(od);
         }
+
+        public IActionResult Recherche()
+        {
+            // Model : List of offres
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
+            ViewBag.Terrains = terrains;
+            EspeceBU ebu = new();
+            List<Espece> especes = ebu.GetAll();
+            ViewBag.Especes = especes;
+            return View();
+        }
+
+
     }
 }
