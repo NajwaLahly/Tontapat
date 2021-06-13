@@ -17,22 +17,36 @@
     {
         
     <div class="box-offre">
-        <h3>
-            @od.NomOffre
-        </h3>
-        @od.PrenomEleveur
+        <div class="img-offre">
+            <img class="offre-thumbnail" src="~/img/photos/troupeau/2_1.jpg"/>
+        </div>
+        <div class="info-offre">
+            <h3>
+                @od.NomOffre
+            </h3>
+            <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/1.png" />
+            @od.PrenomEleveur,
 
-        @od.DateAjout.ToString("dd MMMM yyyy")
+            <i>@od.VilleTroupeau</i>
+            (@od.ZoneCouverture Km)
+            <br />
+            <br />
 
-        @od.DescriptionOffre
-
-        @od.AdresseOffre
-
-        @od.TypeTonte
-
-        @od.VilleTroupeau
-
-        @od.Condition
+            <div class="info-footer">
+                <div>
+                    <img class="icon" src="~/img/icons/espece/1.png" />@od.Race
+                </div>
+                <div>
+                    <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/mm/yyyy")
+                </div>
+                <div>
+                    <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                </div>
+                <div>
+                    <i class="fa fa-times"></i>@od.Condition
+                </div>
+                </div>
+            </div>
 
     </div>
     }
