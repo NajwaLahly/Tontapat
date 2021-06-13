@@ -106,6 +106,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: roboto;
 }
 .footer {
   position: absolute;
@@ -140,4 +141,46 @@ body {
 
 .search-container i{
     padding: 0 5px 0 0;
+}
+
+/* Offre flex  box*/
+.Offre-container{
+    display: flex;
+    flex-direction: column;
+    
+}
+.box-offre {
+    display: flex;
+    margin-top: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+    flex-direction: row;
+}
+.img-offre{
+    
+}
+
+.offre-thumbnail{
+    width: 250px;
+    border-radius: 10px 0 0 10px;
+}
+ .info-offre{
+     padding: 10px;
+     
+ }
+.img-offre-thumbnail-profil {
+    max-width: 2.4rem;
+    border-radius: 50%;
+    outline-offset: -.1rem;
+}
+
+.icon{
+    width: 30px
+}
+
+*.info-footer{
+    display: flex;
+    padding-right: 10px;
+    flex-direction: row;
 }

@@ -5,4 +5,9 @@
     <RootNamespace>Fr.EQL.AI109.Tontapat.PresentationWeb</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+  </ItemGroup>
+
 </Project>
