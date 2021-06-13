@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class SeuilTarification
+    public class SeuilTarification
     {
         public int Id { get; set; }
-        public string NomSeuil { get; set; }
+        public string Nom { get; set; }
         public float PrixKm { get; set; }
         public float PrixBeteJour { get; set; }
         public float CoefIntervention { get; set; }

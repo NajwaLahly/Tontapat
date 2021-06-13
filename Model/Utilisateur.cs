@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class Utilisateur
+    public class Utilisateur
     {
         public int Id { get; set; }
         public int IdVille { get; set; }
@@ -18,7 +18,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string PhotoProfil { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-        public string RaisonSocial { get; set; }
+        public string RaisonSociale { get; set; }
         public string AdresseVoie { get; set; }
         public float AdresseLong { get; set; }
         public float AdresseLat { get; set; }

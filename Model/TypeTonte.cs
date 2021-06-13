@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class TypeTonte
+    public class TypeTonte
     {
         public int Id { get; set; }
-        public string NomTypeTonte { get; set; }
+        public string Nom { get; set; }
         public int CoefRapidite { get; set; }
 
         public TypeTonte()

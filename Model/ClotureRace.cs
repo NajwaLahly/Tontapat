@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class ClotureRace
+    public class ClotureRace
     {
-        public int Id { get; set; }
+        public int IdCloture { get; set; }
         public int IdRace { get; set; }
 
         public ClotureRace()

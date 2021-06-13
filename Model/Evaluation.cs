@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class Evaluation
+    public class Evaluation
     {
         public int Id { get; set; }
-        public int IdPrestationEvaluee { get; set; }
-        public int IdUtilisateurEvaluee { get; set; }
-        public int NoteEvaluation { get; set; }
-        public string CommentaireEvaluation { get; set; }
+        public int IdPrestation { get; set; }
+        public int IdUtilisateurCible { get; set; }
+        public int Note { get; set; }
+        public string Commentaire { get; set; }
 
         public Evaluation()
         {

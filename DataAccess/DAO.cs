@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Fr.EQL.AI109.Tontapat.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

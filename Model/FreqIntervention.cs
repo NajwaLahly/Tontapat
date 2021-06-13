@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class FreqIntervention
+    public class FreqIntervention
     {
         public int Id { get; set; }
-        public int ValeurFrequence { get; set; }
+        public int Valeur { get; set; }
 
         public FreqIntervention()
         {
