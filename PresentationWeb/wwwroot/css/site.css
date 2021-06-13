@@ -141,3 +141,16 @@ body {
 .search-container i{
     padding: 0 5px 0 0;
 }
+
+/* Offre flex  box*/
+.Offre-container{
+    display: flex;
+    flex-direction: column;
+    
+}
+.box-offre {
+    margin-top: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+}
