@@ -144,7 +144,7 @@ h1 {
     text-align: center;
 }
 
-.search-container i{
+.search-container i {
     padding: 0 5px 0 0;
 }
 
@@ -264,4 +264,7 @@ input[type=range]::-moz-range-track {
     padding: 20px;
     display: flex;
     flex-direction: row;
+}
+.liste-detail-eleveur {
+    list-style-type: none;
 }

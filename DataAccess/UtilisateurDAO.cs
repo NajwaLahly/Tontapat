@@ -79,7 +79,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.CommandText = @"SELECT u.*, e.note_evaluation, v.nom_ville
                                 FROM utilisateur u 
-                                INNER JOIN evaluation e ON e.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN evaluation e ON e.id_utilisateur = u.id_utilisateur
                                 LEFT JOIN ville v ON v.id_ville = u.id_ville
                                 WHERE u.id_utilisateur= @id";
 
@@ -112,7 +112,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 result.BIC = u.BIC;
                 result.PayPalEmail = u.PayPalEmail;
                 result.Presentation = u.Presentation;
-                result.Evalutation = dr.GetInt32("note_evaluation");
                 result.NomVille = dr.GetString("nom_ville");
             }
 
