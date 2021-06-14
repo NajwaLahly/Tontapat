@@ -238,5 +238,57 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        public  OffreDetail GetWithDetailsById(int id)
+        {
+            OffreDetail od = new OffreDetail();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition  
+                                FROM offre o
+                                LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
+                                LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
+                                LEFT JOIN race r ON t.id_race = r.id_race
+                                LEFT JOIN espece e ON r.id_espece = e.id_espece
+                                LEFT JOIN utilisateur u ON u.id_utilisateur = t.id_utilisateur
+                                LEFT JOIN ville v ON v.id_ville = t.id_ville
+                                LEFT JOIN condition_annulation c ON c.id_condition= o.id_condition
+                                WHERE o.id_offre = @id";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Offre o = DataReaderToOffre(dr);
+
+                od.Id = o.Id;
+                od.IdFrequence = o.IdFrequence;
+                od.IdTroupeau = o.IdTroupeau;
+                od.IdTypeTonte = o.IdTypeTonte;
+                od.NomOffre = o.NomOffre;
+                od.DateAjout = o.DateAjout;
+                od.DateDebut = o.DateAjout;
+                od.DateFin = o.DateFin;
+                od.DescriptionOffre = o.DescriptionOffre;
+                od.TypeInstallation = o.TypeInstallation;
+                od.PrixKm = o.PrixKm;
+                od.CoefInstallation = o.CoefInstallation;
+                od.CoefIntervention = o.CoefIntervention;
+                od.PrixBeteJour = o.PrixBeteJour;
+                od.ZoneCouverture = o.ZoneCouverture;
+                od.AdresseOffre = o.AdresseOffre;
+                od.TypeTonte = dr.GetString("nom_type");
+                od.PrenomEleveur = dr.GetString("prenom");
+                od.VilleTroupeau = dr.GetString("nom_ville");
+                od.Race = dr.GetString("nom_race");
+                od.Espece = dr.GetString("nom_espece");
+                od.Condition = dr.GetString("nom_condition");
+            }
+
+            cmd.Connection.Close();
+
+            return od;
+        }
     }
 }
