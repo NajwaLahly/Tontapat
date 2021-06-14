@@ -132,7 +132,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur 
+            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece  
                                 FROM offre o
                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
                                 LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
@@ -228,6 +228,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.VilleTroupeau = dr.GetString("nom_ville");
                 od.Race = dr.GetString("nom_race");
                 od.Condition = dr.GetString("nom_condition");
+                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+                od.IdEspece = dr.GetInt32("id_espece");
                 result.Add(od);
             }
 
@@ -235,7 +237,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-
 
     }
 }
