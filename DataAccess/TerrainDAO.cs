@@ -63,24 +63,26 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.IdUtilisateur = dr.GetInt32("id_utilisateur");
             result.IdTypeTerrain = dr.GetInt32("id_type_terrain");
             result.Nom = dr.GetString("nom_terrain");
-            result.Superficie = dr.GetFloat("superficie");
+            result.Superficie = dr.GetFloat("superficie_terrain");
             result.Description = dr.GetString("description");
             result.DateAjout = dr.GetDateTime("date_ajout");
             result.AccesPublic = dr.GetBoolean("acces_public");
             result.AdresseVoie = dr.GetString("adresse_voie");
-            result.Photo1 = dr.GetString("photo1");
+            /*
+             * result.Photo1 = dr.GetString("photo1");
             result.Photo2 = dr.GetString("photo2");
             result.Photo3 = dr.GetString("photo3");
             result.Photo4 = dr.GetString("photo4");
             result.Photo5 = dr.GetString("photo5");
+            */
             result.PresenceCamera = dr.GetBoolean("presence_camera");
             result.ServiceSecurite = dr.GetBoolean("presence_service_securite");
 
-            if (!dr.IsDBNull(dr.GetOrdinal("adresse_lat")))
+            if (!dr.IsDBNull(dr.GetOrdinal("adresse_long")))
             {
                 result.AdresseLong = dr.GetFloat("adresse_long");
             }
-            if (!dr.IsDBNull(dr.GetOrdinal("")))
+            if (!dr.IsDBNull(dr.GetOrdinal("adresse_lat")))
             {
                 result.AdresseLat = dr.GetFloat("adresse_lat");
             }
@@ -113,7 +115,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
         public List<Terrain> GetAllByUtilisateurId(int id)
         {
-            List<Terrain> result = null;
+            List<Terrain> result = new();
             MySqlCommand cmd = CreerCommande();
 
             cmd.CommandText = @"SELECT *
@@ -127,8 +129,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Terrain t = new();
-                t = DataReaderToTerrain(dr);
+                Terrain t = DataReaderToTerrain(dr);
                 result.Add(t);
             }
 

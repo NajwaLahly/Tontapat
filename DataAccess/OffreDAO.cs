@@ -51,7 +51,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
         public List<Offre> GetAll()
         {
-            List<Offre> result = new List<Offre>();
+            List<Offre> result = new();
 
             MySqlCommand cmd = CreerCommande();
 

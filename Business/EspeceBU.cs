@@ -10,5 +10,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class EspeceBU
     {
+
+        public List<Espece> GetAll()
+        {
+            EspeceDAO dao = new();
+            return dao.GetAll();
+        }
     }
 }
