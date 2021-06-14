@@ -1,0 +1,132 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Fr.EQL.AI109.Tontapat.Model
+
+@model OffreDetail
+@{
+    string InstallationString = null;
+    if (Model.TypeInstallation == true)
+    {
+        InstallationString = "du client";
+    }
+    else
+    {
+        InstallationString = "de l'éleveur";
+    }
+
+}
+
+<h1>@Model.NomOffre</h1>
+<div>
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (XX)
+<img src="~/img/photos/profile/@Model.Id
+     </div>
+
+<div class="box-offre-details">
+
+
+    <div class="offre-details-main">
+        <div class="box-offre">
+            <div class="info-offre">
+                <h3>Caractéristiques de l'offre</h3>
+                <div class="info-footer">
+                    <ul>
+                        <li><img class="icon" src="~/img/icons/espece/1.png" />@Model.Race</li>
+                        <li><i class="fas fa-calendar-alt"></i>Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")</li>
+                        <li><i class="fas fa-tachometer-alt"></i>@Model.TypeTonte</li>
+                        <li><img class="icon" src="~/img/icons/install.png" />Installation à la charge @InstallationString</li>
+                        <li>Fréquence intervention : tous les @Model.IdFrequence jours</li>
+                        <li>
+                            <i class="fa fa-times"></i>Conditions d'annulation @Model.Condition
+                            <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Description</h3>
+                    @Model.DescriptionOffre
+                </div>
+
+                <div>
+                    <h3>Photos</h3>
+                    <div class="details-photo">
+                        <img src="~/img/photos/troupeaux/1_1.jpg" />
+                        <img src="~/img/photos/troupeaux/1_1.jpg" />
+                        <img src="~/img/photos/troupeaux/1_1.jpg" />
+                        <img src="~/img/photos/troupeaux/1_1.jpg" />
+                        <img src="~/img/photos/troupeaux/1_1.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-boutons">
+            <button class="btn-success" type="submit" form="offre" value="submit">Réserver</button>
+            <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+        </div>
+    </div>
+
+    <div class="offre-details-tarif">
+        <div class="box-offre">
+            <div class="info-offre tarif">
+                <h3>Tarification</h3>
+                <table class="tarif">
+                    <tr>
+                        <td>
+                            Installation
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Frais de bétail
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Interventions
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Frais de service
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            TVA 20%
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            -€
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="box-boutons">
+            <button class="btn-success" type="submit" form="offre" value="submit">Réserver</button>
+            <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+        </div>
+    </div>
+</div>

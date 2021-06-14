@@ -1,5 +1,11 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 
+<!-- DEBUT DIVS DE MODAL
+<div id="Search-modal" class="modal">
+
+    <div class="modal-content">
+        <span class="close-modal"></span>"
+    -->
 <h1>Rechercher une prestation</h1>
 
 <form method="get" id="recherche">
@@ -12,9 +18,9 @@
             <select name="terrain" id="terrain-select">
                 @foreach (Terrain t in ViewBag.Terrains)
                 {
-                <option value="@t.Id">@t.Nom</option>
+                    <option value="@t.Id">@t.Nom</option>
                 }
-                
+
             </select>
             <label for="aire-recherche">Aire de recherche :</label>
             <input type="range" min="5" max="200" step="1" list="aire-recherche-list" name="aire-recherche" />
@@ -43,19 +49,32 @@
                 <label for="tonte">Type de tonte :</label>
                 <select name="tonte" id="tonte-select">
                     <option value="">Toutes tontes</option>
+                    @foreach (TypeTonte tt in ViewBag.TypesTonte)
+                    {
+                        <option value="@tt.CoefRapidite">@tt.Nom</option>
+                    }
                 </select>
                 <i class="far fa-question-circle" title="Le type de tonte concerne la vitesse à laquelle votre terrain sera tondu. Il influe sur le nombre de bêtes présent sur votre terrain et la date de fin de la prestation."></i>
             </p>
             <p>
                 <label for="installation">Type d'installation :</label>
                 <select name="installation" id="installation-select">
-                    <option value="">Peu importe</option>
+                    <option value="-1">Peu importe</option>
+                    <option value="">À la charge de l'éleveur</option>
+                    <option value="">À votre charge</option>
+
                 </select>
                 <i class="far fa-question-circle" title="Le type d'installation définit à qui revient la charge d'installer les infrastructures nécessaires à la prestation (clôtures, abris, abreuvoirs...)"></i>
 
                 <label for="freqintervention">Fréquence d'intervention :</label>
                 <select name="freqintervention" id="freqintervention-select">
-                    <option value="">Peu importe</option>
+                    <option value="0">Peu importe</option>
+                    @foreach (FreqIntervention fi in ViewBag.FreqsIntervention)
+                    {
+                        <option value="1">Tous les jours</option>
+                    }
+
+                    })
                 </select>
                 <i class="far fa-question-circle" title="La fréquence d'intervention définit l'intervalle de temps entre laquelle l'éleveur se rendra sur votre terrain pour effectuer ses vérifications."></i>
 
@@ -71,7 +90,7 @@
             <input type="date" id="datedebut" name="datedebut"
                    value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
                    min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
-            
+
             <label for="datefin">Date de fin :</label>
             <input type="date" id="datefin" name="datefin"
                    value="2021-12-31" disabled />
@@ -85,3 +104,8 @@
     </div>
 
 </form>
+
+<!-- FIN DIVS DE MODAL
+    </div>
+</div>
+    -->

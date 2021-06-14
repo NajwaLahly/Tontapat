@@ -55,23 +55,23 @@
 
 
                         <!--
-                       <div class="dropdown">
-                           <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                               <img id="profile-nav" src="~/img/profile/1.png" asp-area="" asp-controller="Home" asp-action="Index" />
+                           <div class="dropdown">
+                               <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                   <img id="profile-nav" src="~/img/profile/1.png" asp-area="" asp-controller="Home" asp-action="Index" />
 
-                               <i class="fa fa-caret-down"></i>
-                           </a>
-                           <div class="dropdown-content">
-                               <a href="#">Link 1</a>
-                               <a href="#">Link 2</a>
-                               <a href="#">Link 3</a>
+                                   <i class="fa fa-caret-down"></i>
+                               </a>
+                               <div class="dropdown-content">
+                                   <a href="#">Link 1</a>
+                                   <a href="#">Link 2</a>
+                                   <a href="#">Link 3</a>
+                               </div>
                            </div>
-                       </div>
-                    -->
+                        -->
                     </ul>
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id="profile-nav" src="~/img/photos/profile/1.png"/>
+                            <img id="profile-nav" src="~/img/photos/profile/1.png" />
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">
@@ -98,19 +98,127 @@
             </div>
         </nav>
         <div class="search-container">
-            <a class="nav-link" asp-area="" asp-controller="Offre" asp-action="Recherche">
-                <button class="button-search">
-                    <i class="fa fa-search"></i>Rechercher une prestation
-                </button>
-                </a>
-</div>
+            <a asp-area="" asp-controller="Offre" asp-action="Recherche">
+            <button class="search-button" id="Search-modal-button">
+                <i class="fa fa-search"></i>Rechercher une prestation
+            </button>
+            </a>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-        
+
     </div>
+
+    <!-- DEBUT RECHERCHE
+    <div id="Search-modal" class="modal">
+
+            <div class="modal-content">
+                <span class="close-modal"></span>"
+        <h1>Rechercher une prestation</h1>
+
+        <form method="get" id="recherche">
+            <div class="box-offre">
+                <div class="info-offre">
+                    <h3>Sélectionnez le lieu de la prestation</h3>
+
+
+                    <label for="terrain">Votre terrain :</label>
+                    <select name="terrain" id="terrain-select">
+                        foreach (Terrain t in ViewBag.Terrains)
+                        {
+                            <option value="t.Id">t.Nom</option>
+                        }
+
+                    </select>
+                    <label for="aire-recherche">Aire de recherche :</label>
+                    <input type="range" min="5" max="200" step="1" list="aire-recherche-list" name="aire-recherche" />
+                    <datalist id="aire-recherche-list">
+                        <option value="5" label="5km"></option>
+                        <option value="200" label="200km"></option>
+                    </datalist>
+                    <i class="far fa-question-circle" title="Ce critère permet de définir à quelle distance maximale de votre terrain vous souhaitez rechercher une prestation."></i>
+                </div>
+            </div>
+
+            <div class="box-offre">
+                <div class="info-offre">
+                    <h3>Sélectionnez les détails de la prestation</h3>
+
+                    <p>
+                        <label for="espece">Type de bétail :</label>
+                        <select name="espece" id="espece-select">
+                            <option value="">Tous</option>
+                            foreach (Espece e in ViewBag.Especes)
+                            {
+                                <option value="e.Id">e.Nom</option>
+                            }
+                        </select>
+
+                        <label for="tonte">Type de tonte :</label>
+                        <select name="tonte" id="tonte-select">
+                            <option value="">Toutes tontes</option>
+                            foreach (TypeTonte tt in ViewBag.TypesTonte)
+                            {
+                                <option value="tt.CoefRapidite">tt.Nom</option>
+                            }
+                        </select>
+                        <i class="far fa-question-circle" title="Le type de tonte concerne la vitesse à laquelle votre terrain sera tondu. Il influe sur le nombre de bêtes présent sur votre terrain et la date de fin de la prestation."></i>
+                    </p>
+                    <p>
+                        <label for="installation">Type d'installation :</label>
+                        <select name="installation" id="installation-select">
+                            <option value="-1">Peu importe</option>
+                            <option value="">À la charge de l'éleveur</option>
+                            <option value="">À votre charge</option>
+
+                        </select>
+                        <i class="far fa-question-circle" title="Le type d'installation définit à qui revient la charge d'installer les infrastructures nécessaires à la prestation (clôtures, abris, abreuvoirs...)"></i>
+
+                        <label for="freqintervention">Fréquence d'intervention :</label>
+                        <select name="freqintervention" id="freqintervention-select">
+                            <option value="0">Peu importe</option>
+                            foreach (FreqIntervention fi in ViewBag.FreqsIntervention)
+                            {
+                                <option value="1">Tous les jours</option>
+                            }
+
+                            })
+                        </select>
+                        <i class="far fa-question-circle" title="La fréquence d'intervention définit l'intervalle de temps entre laquelle l'éleveur se rendra sur votre terrain pour effectuer ses vérifications."></i>
+
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="box-offre">
+                <div class="info-offre">
+                    <h3>Choisissez votre date de début</h3>
+                    <label for="datedebut">Date de début :</label>
+                    <input type="date" id="datedebut" name="datedebut"
+                           value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
+                           min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
+
+                    <label for="datefin">Date de fin :</label>
+                    <input type="date" id="datefin" name="datefin"
+                           value="2021-12-31" disabled />
+                    <i class="far fa-question-circle" title="La date de fin est calculée à partir de la superficie de votre terrain et le type de tonte que vous sélectionnez."></i>
+
+                </div>
+            </div>
+            <div class="box-boutons">
+                <button class="btn-success" type="submit" form="recherche" value="submit">Rechercher des prestations</button>
+                <button class="btn-danger" type="reset" form="recherche" value="reset">Réinitialiser la recherche</button>
+            </div>
+
+        </form>
+
+    </div>
+    </div>
+    FIN RECHERCHE-->
 
     <footer class="border-top footer text-muted">
         <div class="container">
