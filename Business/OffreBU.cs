@@ -44,5 +44,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             return new OffreDAO().GetAllWithDetails();
         }
+
+        public List<OffreDetail> GetAllWithDetailsByUtilisateurId(int id)
+        {
+            return new OffreDAO().GetAllWithDetailsByUtilisateurId(id);
+        }
     }
 }

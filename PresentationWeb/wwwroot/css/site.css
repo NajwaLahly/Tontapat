@@ -184,3 +184,10 @@ body {
     padding-right: 10px;
     flex-direction: row;
 }
+
+                /* Utilisateur détails*/
+utilisateur-profil{
+    display: flex;
+    float: left;
+
+}
