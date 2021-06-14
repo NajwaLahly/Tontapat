@@ -71,6 +71,55 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
+
+        public UtilisateurDetail GetAllWithDetailsById(int id)
+        {
+            UtilisateurDetail result = new();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT u.*, e.note_evaluation, v.nom_ville
+                                FROM utilisateur u 
+                                INNER JOIN evaluation e ON e.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN ville v ON v.id_ville = u.id_ville
+                                WHERE u.id_utilisateur= @id";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Utilisateur u = DataReaderToUtilisateur(dr);
+
+                result.Id = u.Id;
+                result.IdVille = u.IdVille;
+                result.IdTypeClient = u.IdTypeClient;
+                result.Email = u.Email;
+                result.MotDePasse = u.MotDePasse;
+                result.DateNaissance = u.DateNaissance;
+                result.DateInscription = u.DateInscription;
+                result.PhotoProfil = u.PhotoProfil;
+                result.Nom = u.Nom;
+                result.Prenom = u.Prenom;
+                result.RaisonSociale = u.RaisonSociale;
+                result.AdresseVoie = u.AdresseVoie;
+                result.AdresseLong = u.AdresseLong;
+                result.AdresseLat = u.AdresseLat;
+                result.CarteNumero = u.CarteNumero;
+                result.CarteExpiration = u.CarteExpiration;
+                result.CarteCVC = u.CarteCVC;
+                result.VirementIBAN = u.VirementIBAN;
+                result.BIC = u.BIC;
+                result.PayPalEmail = u.PayPalEmail;
+                result.Presentation = u.Presentation;
+                result.Evalutation = dr.GetInt32("note_evaluation");
+                result.NomVille = dr.GetString("nom_ville");
+            }
+
+            cmd.Connection.Close();
+
+            return result;
+        }
         public List<Utilisateur> GetAll()
         {
             List<Utilisateur> result = new List<Utilisateur>();

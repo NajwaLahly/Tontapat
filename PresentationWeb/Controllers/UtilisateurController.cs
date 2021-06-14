@@ -14,13 +14,14 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         public IActionResult Eleveur(int id)
         {
             UtilisateurBU bu = new();
-            Utilisateur u = bu.GetById(id);
+            UtilisateurDetail ud = bu.GetAllWithDetailById(id);
             
             OffreBU bu2 = new();
-            List<OffreDetail> offres = bu2.GetAllWithDetailsByUtilisateurId(id);
-            ViewBag.Offres = offres;
+            List<OffreDetail> offresDetails = bu2.GetAllWithDetailsByUtilisateurId(id);
+            ViewBag.OffresDetails = offresDetails;
 
-            return View(u);
+
+            return View(ud);
         }
     }
 }

@@ -195,8 +195,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                                 LEFT JOIN espece e ON r.id_espece = e.id_espece
                                 LEFT JOIN ville v ON v.id_ville = t.id_ville
                                 LEFT JOIN condition_annulation c ON c.id_condition= o.id_condition
-                                LEFT JOIN utilisateur u on u.id_utilisateur = t.id_utilisateur where u.id_utilisateur= @id;
-                                ORDER BY date_debut ASC;";
+                                LEFT JOIN utilisateur u on u.id_utilisateur = t.id_utilisateur where u.id_utilisateur= @id;";
+
             cmd.Parameters.Add(new MySqlParameter("@id", id));
             cmd.Connection.Open();
             MySqlDataReader dr = cmd.ExecuteReader();

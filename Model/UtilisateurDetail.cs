@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    class UtilisateurDetail : Utilisateur
+    public class UtilisateurDetail : Utilisateur
     {
         public float Evalutation { get; set; } 
+        public string NomVille { get; set; }
     }
 }

@@ -5,11 +5,63 @@
 
 }
 @using Fr.EQL.AI109.Tontapat.Model;
-@model Utilisateur
+@model UtilisateurDetail
 
-<div class="utilisateur-profil">
-    <div class="img-profil">
-        <img src="~/img/photos/profile/1.png" />
+
+
+<div class="box-profil">
+    <div class="img-profil-div">
+        <img class="img-profil" src="~/img/photos/profile/@(Model.Id).png" />
     </div>
-
+    <div class="info-utilisateur">
+        <h2>@Model.Prenom</h2>
+        <p>@Model.NomVille</p>
+    </div>
 </div>
+<div class="box-presentation">
+    <h3>Présentation</h3>
+    <div class="box-description">
+        @Model.Presentation
+    </div>
+</div>
+<div class="Offre-container">
+    @foreach (OffreDetail od in ViewBag.OffresDetails)
+    {
+
+        <div class="box-offre">
+            <div class="img-offre">
+                <img class="offre-thumbnail" src="~/img/photos/troupeau/2_1.jpg" />
+            </div>
+            <div class="info-offre">
+                <h3>
+                    @od.NomOffre
+                </h3>
+                <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/1.png" />
+                @od.PrenomEleveur,
+
+                <i>@od.VilleTroupeau</i>
+                (@od.ZoneCouverture Km)
+                <br />
+                <br />
+
+                <div class="info-footer">
+                    <div>
+                        <img class="icon" src="~/img/icons/espece/1.png" />@od.Race
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/mm/yyyy")
+                    </div>
+                    <div>
+                        <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                    </div>
+                    <div>
+                        <i class="fa fa-times"></i>@od.Condition
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+
