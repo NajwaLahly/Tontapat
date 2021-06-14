@@ -13,7 +13,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string VilleTroupeau { get; set; }
         public string Race { get; set; }
         public string Espece { get; set; }
-
+        public int IdUtilisateur { get; set; }
         public string Condition { get; set; }
+        public int IdEspece { get; set; }
     }
 }

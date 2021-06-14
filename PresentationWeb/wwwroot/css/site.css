@@ -169,32 +169,56 @@ h1 {
 .offre-thumbnail{
     width: 250px;
     border-radius: 10px 0 0 10px;
+    height: 180px;
 }
- .info-offre{
-     padding: 10px;
-     
- }
+.info-offre {
+    padding: 10px 0px 0px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .img-offre-thumbnail-profil {
-    max-width: 2.4rem;
+    max-width: 2rem;
     border-radius: 50%;
     outline-offset: -.1rem;
 }
 
-.icon{
-    width: 30px
+.icon {
+    width: 25px;
+    opacity: 25%;
 }
-
-*.info-footer{
+.en-tete-offre{
+    flex:3;
+}
+.info-footer{
     display: flex;
     padding-right: 10px;
     flex-direction: row;
+    flex: 1;
 }
 
+.description{
+    flex: 2;
+    padding-top: 8px;
+}
+
+.info-footer > div{
+    color: rgb(180 180 180);
+    margin: 10px;
+}
+div.info-footer i,img{
+    margin-right: 5px;
+}
+
+div.description p{
+    color: rgb(128, 128, 128);
+    font-size: .9rem;
+}
+/*module de recherche*/
 select {
     min-width: 100px;
     border: 1px solid rgb(183, 183, 183);
     border-radius: 5px;
-
 }
 
 h3 {
