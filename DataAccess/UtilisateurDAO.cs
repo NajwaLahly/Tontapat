@@ -113,6 +113,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 result.PayPalEmail = u.PayPalEmail;
                 result.Presentation = u.Presentation;
                 result.NomVille = dr.GetString("nom_ville");
+                result.Moyenne = GetAverageByUtilisateurId(id);
             }
 
             cmd.Connection.Close();
@@ -139,6 +140,28 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Connection.Close();
 
+            return result;
+        }
+
+        public double GetAverageByUtilisateurId(int id)
+        {
+            double result = new();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT AVG(note_evaluation) 'average' FROM evaluation e
+	                            WHERE id_utilisateur = @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                result = dr.GetDouble("average");
+            }
+
+
+            cmd.Connection.Close();
             return result;
         }
 

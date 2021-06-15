@@ -1,4 +1,5 @@
-﻿using Fr.EQL.AI109.Tontapat.Model;
+﻿using Fr.EQL.AI109.Tontapat.Business;
+using Fr.EQL.AI109.Tontapat.Model;
 using System;
 using System.Collections.Generic;
 
@@ -23,9 +24,9 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
                gu.AddOffre();*/
 
             GestionUtilisateur gu = new();
+            EvaluationBU bu = new();
+            Console.WriteLine(bu.GetAllWithDetailByOffreAndUtilisateurId(1,2)); 
             
-            Console.WriteLine(gu.GetAll());
-
         }
     }
 }

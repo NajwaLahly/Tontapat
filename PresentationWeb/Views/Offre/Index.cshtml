@@ -20,6 +20,7 @@
     <div class="box-offre">
         <div class="img-offre">
             <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg"/>
+            @od.IdUtilisateur
         </div>
         <div class="info-offre">
             <div class="en-tete-offre">
@@ -53,7 +54,7 @@
                     <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race
                 </div>
                 <div>
-                    <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/mm/yyyy")
+                    <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
                 </div>
                 <div>
                     <i class="fas fa-tachometer-alt"></i>@od.TypeTonte

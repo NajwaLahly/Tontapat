@@ -10,7 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
 {
     class GestionPrestation
     {
-        public void AddPrestation(int idOffre, int idTerrain, int idTroupeau, int nombreBetes,
+    /*    public void AddPrestation(int idOffre, int idTerrain, int idTroupeau, int nombreBetes,
             DateTime dateDemande, DateTime dateValidation, float prixConvenu, DateTime dateDebut,
             DateTime dateFin, bool typeInstallationFinal)
         {
@@ -20,6 +20,6 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
 
             PrestationBU bu = new();
             bu.Insert(p);
-        }
+        }*/
     }
 }

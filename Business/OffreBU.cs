@@ -55,5 +55,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             return new OffreDAO().GetAllWithDetailsByUtilisateurId(id);
         }
+
+
     }
 }

@@ -20,6 +20,11 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             List<OffreDetail> offresDetails = bu2.GetAllWithDetailsByUtilisateurId(id);
             ViewBag.OffresDetails = offresDetails;
 
+            EvaluationBU ebu= new();
+            List<EvaluationDetail> evaluationsDetails = ebu.GetAllWithDetailsByEleveurId(id);
+            ViewBag.EvaluationsDetails = evaluationsDetails;
+
+
 
             return View(ud);
         }
