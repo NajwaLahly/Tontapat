@@ -10,6 +10,6 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
         public float Evalutation { get; set; } 
         public string NomVille { get; set; }
-        public double Moyenne { get; set; }
+        public double? Moyenne { get; set; }
     }
 }

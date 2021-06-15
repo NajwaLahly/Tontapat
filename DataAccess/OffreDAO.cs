@@ -312,9 +312,16 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             if (dr.Read())
             {
-                result = dr.GetDouble("average");
-            }
+                if (!dr.IsDBNull(dr.GetOrdinal("average")))
+                {
+                    result = dr.GetDouble("average");
+                }
 
+            }
+            else
+            {
+                result = -1;
+            }
 
             cmd.Connection.Close();
             return result;
