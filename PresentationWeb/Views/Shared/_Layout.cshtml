@@ -42,9 +42,30 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fas fa-bell fa-lg" title="Notifications"></i>
-                            </a>
+
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-lg" title="Notifications"></i>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-file-alt"></i>Votre prestation a été mise à jour.
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-pen-alt"></i>Robert vous a envoyé une contre-proposition.
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-check"></i>Robert a accepté votre demande de réservation.
+                                    </a>
+
+
+                                </div>
+                            </div>
+
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
@@ -55,20 +76,23 @@
 
 
                         <!--
-                           <div class="dropdown">
-                               <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                   <img id="profile-nav" src="~/img/profile/1.png" asp-area="" asp-controller="Home" asp-action="Index" />
+           <div class="dropdown">
+               <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                   <img id="profile-nav" src="~/img/profile/1.png" asp-area="" asp-controller="Home" asp-action="Index" />
 
-                                   <i class="fa fa-caret-down"></i>
-                               </a>
-                               <div class="dropdown-content">
-                                   <a href="#">Link 1</a>
-                                   <a href="#">Link 2</a>
-                                   <a href="#">Link 3</a>
-                               </div>
-                           </div>
-                        -->
+                   <i class="fa fa-caret-down"></i>
+               </a>
+               <div class="dropdown-content">
+                   <a href="#">Link 1</a>
+                   <a href="#">Link 2</a>
+                   <a href="#">Link 3</a>
+               </div>
+           </div>
+        -->
                     </ul>
+
+                    
+
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img id="profile-nav" src="~/img/photos/profile/1.png" />

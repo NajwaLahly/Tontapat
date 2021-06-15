@@ -244,7 +244,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             OffreDetail od = new OffreDetail();
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition  
+            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece
                                 FROM offre o
                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
                                 LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
@@ -285,6 +285,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Race = dr.GetString("nom_race");
                 od.Espece = dr.GetString("nom_espece");
                 od.Condition = dr.GetString("nom_condition");
+                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+                od.IdEspece = dr.GetInt32("id_espece");
                 od.Moyenne = GetAverageByOffreId(id);
             }
 

@@ -1,0 +1,203 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Fr.EQL.AI109.Tontapat.Model
+
+@model Prestation
+
+@{
+    string InstallationString = null;
+    if (false == true)
+    {
+        InstallationString = "votre charge";
+    }
+    else
+    {
+        InstallationString = "la charge de l'éleveur";
+    }
+}
+
+
+<h1>Prestation #@Model.DateValidation.ToString("yyMMdd")-@Model.Id</h1>
+
+<div class="box-offre-details-header">
+    <div>
+        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/0).png" />
+        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">Eleveur</a>
+    </div>
+    <div class="box-boutons">
+        <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+        <button class="btn-danger" type="submit" form="offre" value="cancel">Annuler la prestation</button>
+    </div>
+</div>
+
+<div class="box-offre-details">
+
+    <div class="offre-details-main">
+        <div class="box-offre">
+            <div class="info-offre">
+                <h3>Caractéristiques de l'offre</h3>
+
+                <table class="offre-features">
+                    <tr>
+                        <td>
+                            <i class="fas fa-location-arrow"></i>
+                        </td>
+                        <td>
+                            Terrain, Ville
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/espece/1.png" />
+                        </td>
+                        <td>
+                            Moutons
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-calendar-alt"></i>
+                        </td>
+                        <td>
+                            Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </td>
+                        <td>
+                            type de tonte
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/install.png" />
+                        </td>
+                        <td>
+                            Installation à la charge @InstallationString
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-binoculars"></i>
+                        </td>
+                        <td>
+                            Fréquence d'intervention : tous les (freq) jours
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-times fa-lg"></i>
+                        </td>
+                        <td>
+                            Conditions d'annulation CONDITION
+                            <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="offre-details-tarif">
+        <div class="box-offre">
+            <div class="info-offre tarif">
+                <h3>Tarification</h3>
+                <table class="tarif">
+                    <tr>
+                        <td>
+                            Installation
+                        </td>
+                        <td class="prix">
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Frais de bétail
+                        </td>
+                        <td class="prix">
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Interventions
+                        </td>
+                        <td class="prix">
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Frais de service
+                        </td>
+                        <td class="prix">
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            TVA (20%)
+                        </td>
+                        <td class="prix">
+                            -€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Total</h4>
+                        </td>
+                        </td>
+                        <td class="prix">
+                            <h4>-€</h4>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="box-offre">
+    <div class="info-offre">
+        <h3>Historique</h3>
+
+        <table>
+            <tr>
+                <td>
+                    <i class="fas fa-arrow-up"></i>
+                </td>
+                <td>Demande envoyée le @Model.DateDemande.ToString("dd/MM/yy") à partir de l'offre // de PRENOM</td>
+            </tr>
+            @if (Model.DateValidation == DateTime.MinValue)
+            {
+                <tr>
+                    <td>
+                        <i class="fas fa-check"></i>
+                    </td>
+                    <td>Demande acceptée par PRENOM le @Model.DateValidation.ToString("dd/MM/yy")</td>
+                </tr>
+            }
+            else if (Model.DateRefus == DateTime.MinValue)
+            {
+                <tr>
+                    <td>
+                        <i class="fas fa-times fa-lg"></i>
+                    </td>
+                    <td>Demande refusée par PRENOM le @Model.DateValidation.ToString("dd/MM/yy") (Motif: @Model.DescriptionRefus</td>
+                </tr>
+            }
+        </table>
+Demande 
+    </div>
+</div>
+
+<div class="box-boutons">
+    <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+    <button class="btn-danger" type="submit" form="offre" value="cancel">Annuler la prestation</button>
+</div>
