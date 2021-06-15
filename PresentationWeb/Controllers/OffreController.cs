@@ -30,6 +30,19 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View();
         }
 
+        public IActionResult ResultatRecherche()
+        {
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
+            ViewBag.Terrains = terrains;
+            EspeceBU ebu = new();
+            List<Espece> especes = ebu.GetAll();
+            ViewBag.Especes = especes;
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> tontes = ttbu.GetAll();
+            ViewBag.Tontes = tontes;
+            return View();
+        }
 
     }
 }

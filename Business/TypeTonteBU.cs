@@ -10,5 +10,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class TypeTonteBU
     {
+        public List<TypeTonte> GetAll()
+        {
+            TypeTonteDAO dao = new();
+            return dao.GetAll();
+        }
     }
 }
