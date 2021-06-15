@@ -25,7 +25,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
         public List<EvaluationDetail> GetAllWithDetailByOffreAndUtilisateurId(int idOffre, int idUtilisateur)
         {
             EvaluationDAO dao = new();
-            return dao.GetAllWithDetailByOffreAndUtilisateurId(idOffre, idUtilisateur);
+            return dao.GetAllWithDetailByOffreId(idOffre);
         }
 
     }
