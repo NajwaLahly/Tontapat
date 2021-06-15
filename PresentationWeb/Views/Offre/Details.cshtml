@@ -19,31 +19,79 @@
 }
 
 <h1>@Model.NomOffre</h1>
-<div>
-<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (XX)
-<img src="~/img/photos/profile/@Model.Id
-     </div>
+
+<div class="box-offre-details-header">
+    <div>
+        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(Model.IdUtilisateur).png" />
+        Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> | <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half"></i>
+        4,5 (XX évaluations)
+    </div>
+</div>
 
 <div class="box-offre-details">
-
 
     <div class="offre-details-main">
         <div class="box-offre">
             <div class="info-offre">
                 <h3>Caractéristiques de l'offre</h3>
-                <div class="info-footer">
-                    <ul>
-                        <li><img class="icon" src="~/img/icons/espece/1.png" />@Model.Race</li>
-                        <li><i class="fas fa-calendar-alt"></i>Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")</li>
-                        <li><i class="fas fa-tachometer-alt"></i>@Model.TypeTonte</li>
-                        <li><img class="icon" src="~/img/icons/install.png" />Installation à la charge @InstallationString</li>
-                        <li>Fréquence intervention : tous les @Model.IdFrequence jours</li>
-                        <li>
-                            <i class="fa fa-times"></i>Conditions d'annulation @Model.Condition
-                            <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
-                        </li>
-                    </ul>
-                </div>
+
+                    <table class="offre-features">
+                        <tr>
+                            <td><i class="fas fa-location-arrow"></i>
+                            </td>
+                            <td>
+                                @Model.VilleTroupeau (et @(Model.ZoneCouverture)km autour)
+                                                    </td>
+                        </tr>
+                        <tr>
+                            <td><img class="icon-list" src="~/img/icons/espece/1.png" />
+                            </td>
+                            <td>
+                                @Model.Race
+                                                    </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-calendar-alt"></i>
+</td>
+                            <td>
+                                Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-tachometer-alt"></i>
+                            </td>
+                            <td>
+                                @Model.TypeTonte
+                                                    </td>
+                        </tr>
+                        <tr>
+                            <td><img class="icon-list" src="~/img/icons/install.png" />
+                            </td>
+                            <td>
+                                Installation à la charge @InstallationString
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-binoculars"></i>
+                            </td>
+                            <td>
+                                Fréquence d'intervention : tous les @Model.IdFrequence jours
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-times fa-lg"></i>
+                            </td>
+                            <td>
+                                Conditions d'annulation @Model.Condition
+                                <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                            </td>
+                        </tr>
+
+                    </table>
 
                 <div>
                     <h3>Description</h3>
@@ -77,7 +125,7 @@
                         <td>
                             Installation
                         </td>
-                        <td>
+                        <td class="prix">
                             -€
                         </td>
                     </tr>
@@ -85,7 +133,7 @@
                         <td>
                             Frais de bétail
                         </td>
-                        <td>
+                        <td class="prix">
                             -€
                         </td>
                     </tr>
@@ -93,7 +141,7 @@
                         <td>
                             Interventions
                         </td>
-                        <td>
+                        <td class="prix">
                             -€
                         </td>
                     </tr>
@@ -101,24 +149,25 @@
                         <td>
                             Frais de service
                         </td>
-                        <td>
+                        <td class="prix">
                             -€
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            TVA 20%
+                            TVA (20%)
                         </td>
-                        <td>
+                        <td class="prix">
                             -€
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Total
+                            <h4>Total</h4>
+                            </td>
                         </td>
-                        <td>
-                            -€
+                        <td class="prix">
+                            <h4>-€</h4>
                         </td>
                     </tr>
                 </table>

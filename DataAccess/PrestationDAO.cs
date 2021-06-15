@@ -52,8 +52,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.IdTerrain = dr.GetInt32("id_terrain");
             result.IdTroupeau = dr.GetInt32("id_troupeau");
             result.NombreBetes = dr.GetInt32("nb_betes");
-            result.DescriptionRefus = dr.GetString("description_refus");
-            result.DescriptionAnnulation = dr.GetString("description_annulation");
             result.PrixConvenu = dr.GetFloat("prix_convenu");
             result.DateDebut = dr.GetDateTime("date_debut");
             result.DateFin = dr.GetDateTime("date_fin");
@@ -69,7 +67,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             }
             if (!dr.IsDBNull(dr.GetOrdinal("date_demande")))
             {
-                result.DateDemande = dr.GetDateTime("_date_demande");
+                result.DateDemande = dr.GetDateTime("date_demande");
             }
             if (!dr.IsDBNull(dr.GetOrdinal("date_validation")))
             {
@@ -82,6 +80,14 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             if (!dr.IsDBNull(dr.GetOrdinal("date_annulation")))
             {
                 result.DateAnnulation = dr.GetDateTime("date_annulation");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("description_refus")))
+            {
+                result.DescriptionRefus = dr.GetString("description_refus");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("description_annulation")))
+            {
+                result.DescriptionAnnulation = dr.GetString("description_annulation");
             }
             return result;
         }
