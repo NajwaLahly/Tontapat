@@ -360,6 +360,26 @@ table.offre-features > img,i {
     color: rgb(180 180 180);
 }
 
-h3:not(:first-child) {
-    margin-top: 1rem;
+.details-photo img {
+    height: 6em;
+}
+}
+
+/* Search result page*/
+.div-search {
+    background-color: white;
+    border: 1px solid rgb(230,230,230);
+    color: rgb(128 128 128);
+    padding: 4px 30px 6px 30px;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+}
+.terrain-select-search {
+    border: 0px !important;
+}
+.search-bar{
+    display: flex;
+    flex-direction: row;
 }
