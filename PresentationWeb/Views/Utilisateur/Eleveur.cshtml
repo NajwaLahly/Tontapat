@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+@using Fr.EQL.AI109.Tontapat.Model;
+@model UtilisateurDetail
+
+
+
+<div class="box-profil">
+    <div class="img-profil-div">
+        <img class="img-profil" src="~/img/photos/profile/@(Model.Id).png" />
+    </div>
+    <div class="info-utilisateur">
+        <h2>@Model.Prenom</h2>
+        <p>@Model.NomVille</p>
+    </div>
+</div>
+<div class="box-presentation">
+    <h3>Présentation</h3>
+    <div class="box-description">
+        @Model.Presentation
+    </div>
+</div>
+<div class="Offre-container">
+    @foreach (OffreDetail od in ViewBag.OffresDetails)
+    {
+
+        <div class="box-offre">
+            <div class="img-offre">
+                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
+            </div>
+            <div class="info-offre">
+                <h3>
+                    @od.NomOffre
+                </h3>
+                <p>Ici c'est l'évaluation</p>
+                <div class="info-footer">
+                    <ul class="liste-detail-eleveur">
+                        <li><img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race</li>
+                        <li><i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/mm/yyyy")</li>
+                        <li> <i class="fas fa-tachometer-alt"></i>@od.TypeTonte</li>
+                        <li><i class="fa fa-times"></i>@od.Condition</li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+

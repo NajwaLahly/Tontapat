@@ -32,5 +32,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             UtilisateurDAO dao = new();
             return dao.GetAll();
         }
+        public UtilisateurDetail GetAllWithDetailById(int id)
+        {
+            UtilisateurDAO dao = new();
+            return dao.GetAllWithDetailsById(id);
+
+        }
     }
 }

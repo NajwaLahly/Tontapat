@@ -265,6 +265,39 @@ input[type=range]::-moz-range-track {
     background-color: rgb(112,173,71);
 }
 
+
+                /* Utilisateur détails*/
+.box-profil {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.img-profil {
+    max-width: 8rem;
+    border-radius: 50%;
+    outline-offset: -.1rem;
+}
+.info-utilisateur {
+    padding: 10px;
+    margin-left: 15px;
+}
+.box-presentation {
+    margin: 20px 0 20px 0;
+}
+.box-description {
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.liste-detail-eleveur {
+    list-style-type: none;
+}
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

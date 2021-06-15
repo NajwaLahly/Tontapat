@@ -45,7 +45,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Connection.Open();
             cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
-            Console.WriteLine("requete executée");
             cmd.Connection.Close();
         }
 
@@ -125,7 +124,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-
         public List<OffreDetail> GetAllWithDetails()
         {
             List<OffreDetail> result = new List<OffreDetail>();
@@ -183,6 +181,64 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        public List<OffreDetail> GetAllWithDetailsByUtilisateurId(int id)
+        {
+            List<OffreDetail> result = new List<OffreDetail>();
+
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, e.id_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur  
+                                FROM offre o
+                                LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
+                                LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
+                                LEFT JOIN race r ON t.id_race = r.id_race
+                                LEFT JOIN espece e ON r.id_espece = e.id_espece
+                                LEFT JOIN ville v ON v.id_ville = t.id_ville
+                                LEFT JOIN condition_annulation c ON c.id_condition= o.id_condition
+                                LEFT JOIN utilisateur u on u.id_utilisateur = t.id_utilisateur where u.id_utilisateur= @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Offre o = DataReaderToOffre(dr);
+
+                OffreDetail od = new OffreDetail();
+
+                od.Id = o.Id;
+                od.IdFrequence = o.IdFrequence;
+                od.IdTroupeau = o.IdTroupeau;
+                od.IdTypeTonte = o.IdTypeTonte;
+                od.NomOffre = o.NomOffre;
+                od.DateAjout = o.DateAjout;
+                od.DateDebut = o.DateAjout;
+                od.DateFin = o.DateFin;
+                od.DescriptionOffre = o.DescriptionOffre;
+                od.TypeInstallation = o.TypeInstallation;
+                od.PrixKm = o.PrixKm;
+                od.CoefInstallation = o.CoefInstallation;
+                od.CoefIntervention = o.CoefIntervention;
+                od.PrixBeteJour = o.PrixBeteJour;
+                od.ZoneCouverture = o.ZoneCouverture;
+                od.AdresseOffre = o.AdresseOffre;
+                od.TypeTonte = dr.GetString("nom_type");
+                od.PrenomEleveur = dr.GetString("prenom");
+                od.VilleTroupeau = dr.GetString("nom_ville");
+                od.Race = dr.GetString("nom_race");
+                od.Condition = dr.GetString("nom_condition");
+                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+                od.IdEspece = dr.GetInt32("id_espece");
+                od.Moyenne = GetAverageByOffreId(od.Id);
+                result.Add(od);
+            }
+
+            cmd.Connection.Close();
+
+            return result;
+        }
+
         public  OffreDetail GetWithDetailsById(int id)
         {
             OffreDetail od = new OffreDetail();
@@ -231,11 +287,37 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
+                od.Moyenne = GetAverageByOffreId(id);
             }
 
             cmd.Connection.Close();
 
             return od;
+        }
+
+        public double GetAverageByOffreId(int id)
+        {
+            double result = new();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT AVG(note_evaluation) 'average' FROM evaluation e
+		                        INNER JOIN prestation p ON p.id_prestation = e.id_prestation
+                                INNER JOIN offre o ON o.id_offre = p.id_offre
+                                INNER JOIN troupeau t ON t.id_troupeau = o.id_troupeau
+                                WHERE o.id_offre = 2 and e.id_utilisateur = t.id_utilisateur;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                result = dr.GetDouble("average");
+            }
+
+
+            cmd.Connection.Close();
+            return result;
         }
     }
 }
