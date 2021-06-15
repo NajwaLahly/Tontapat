@@ -24,12 +24,30 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             TerrainBU tbu = new();
             List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
             ViewBag.Terrains = terrains;
+
             EspeceBU ebu = new();
             List<Espece> especes = ebu.GetAll();
             ViewBag.Especes = especes;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> typesTonte = ttbu.GetAll();
+            ViewBag.TypesTonte = typesTonte;
+
+            FreqInterventionBU fibu = new();
+            List<FreqIntervention> freqsIntervention = fibu.GetAll();
+            ViewBag.FreqsIntervention = freqsIntervention;
+
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+
+            OffreBU bu = new();
+            OffreDetail od = bu.GetWithDetailsById(id);
+
+            return View(od);
+        }
         public IActionResult ResultatRecherche()
         {
             TerrainBU tbu = new();
