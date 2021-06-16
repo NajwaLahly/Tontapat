@@ -9,6 +9,11 @@
 <h1>Résultats de recherche (@Model.Count)</h1>
 
 <div class="Offre-container">
+    @ViewBag.Rod.IdEspece
+    @ViewBag.Rod.IdTypeTonte
+    @ViewBag.Rod.TypeInstallation
+    @ViewBag.Rod.IdTerrain
+    
     @foreach (OffreDetail od in Model)
     {
         <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
@@ -63,4 +68,5 @@
             </div>
         </a>
     }
+    
 </div>

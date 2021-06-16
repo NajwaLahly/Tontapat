@@ -76,10 +76,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                                 and ((tr.nombre_betes <= @nbreBetesMax and tr.nombre_betes >= @nbreBetesMin)
                                 or (tr.nombre_betes > @nbreBetesMax and tr.divisibilite = 1))";
 
-            if (rod.IdEspece > 0)
+            if (rod.IdEspece != null)
                 commandText += " and r.id_espece = @idEspece";
-            if (rod.IdTypeTonte > 0)
-                commandText += " and o.id_type = @idType";
+            if (rod.IdTypeTonte != 4)
+                commandText += " and (o.id_type = @idType or o.id_type = 4)";
             if(rod.TypeInstallation != null)
                 commandText += " and o.type_installation = @typeInstall";
 
@@ -265,7 +265,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.PrixBeteJour = o.PrixBeteJour;
                 od.ZoneCouverture = o.ZoneCouverture;
                 od.AdresseOffre = o.AdresseOffre;
-                od.TypeTonte = dr.GetString("nom_type");
+                if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
+                {
+                    od.TypeTonte = dr.GetString("nom_type");
+                }
+               
                 od.PrenomEleveur = dr.GetString("prenom");
                 od.VilleTroupeau = dr.GetString("nom_ville");
                 od.Race = dr.GetString("nom_race");

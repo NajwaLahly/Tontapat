@@ -41,7 +41,6 @@
 
                 <label for="tonte">Type de tonte :</label>
                 <select name="IdTypeTonte" id="tonte-select">
-                    <option value="">Toutes tontes</option>
                     @foreach (TypeTonte tt in ViewBag.TypesTonte)
                     {
                         <option value="@tt.Id">@tt.Nom</option>
@@ -52,7 +51,7 @@
             <p>
                 <label for="installation">Type d'installation :</label>
                 <select name="TypeInstallation" id="installation-select">
-                    <option value="-1">Peu importe</option>
+                    <option value="">Peu importe</option>
                     <option value="1">À la charge de l'éleveur</option>
                     <option value="0">À votre charge</option>
 

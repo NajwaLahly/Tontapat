@@ -45,6 +45,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         {
             OffreBU ob = new();
             List<OffreDetail> resultats = ob.RechercherOffre(rod);
+            ViewBag.Rod = rod;
             return View("Resultats",resultats);
         }
 
