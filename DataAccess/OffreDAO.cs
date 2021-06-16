@@ -1,4 +1,5 @@
-﻿using Fr.EQL.AI109.Tontapat.Model;
+﻿using Fr.EQL.AI109.Tontapat.Dto;
+using Fr.EQL.AI109.Tontapat.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,100 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
         }
 
+        public List<OffreDetail> GetSearchResultsWithDetailsByParams(RechercheOffreDto rod, DateTime dateFinMin, DateTime dateFinMax, int nbreBetesMin, int nbreBetesMax)
+        {
+            List<OffreDetail> result = new List<OffreDetail>();
+
+            MySqlCommand cmd = CreerCommande();
+            
+
+            string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom,
+                                v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, d.distance FROM offre o
+                                INNER JOIN troupeau tr ON o.id_troupeau = tr.id_troupeau
+                                INNER JOIN race r ON r.id_race = tr.id_race
+                                LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
+                                LEFT JOIN espece e ON r.id_espece = e.id_espece
+                                LEFT JOIN utilisateur u ON u.id_utilisateur = tr.id_utilisateur
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                LEFT JOIN condition_annulation c ON c.id_condition = o.id_condition
+                                INNER JOIN terrain te ON te.id_terrain = @idTerrain
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = id_terrain AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = id_terrain)
+
+                                WHERE d.distance <= o.zone_couverture                 
+                                and o.date_debut <= @dateDebut
+                                and (o.date_fin >= @dateFinMin or o.date_fin <= @dateFinMax)
+                                and ((tr.nombre_betes <= @nbreBetesMax and tr.nombre_betes >= @nbreBetesMin)
+                                or (tr.nombre_betes > @nbreBetesMax and tr.divisibilite = 1))";
+
+            if (rod.IdEspece != null)
+                commandText += " and r.id_espece = @idEspece";
+            if (rod.IdTypeTonte != 4)
+                commandText += " and (o.id_type = @idType or o.id_type = 4)";
+            if(rod.TypeInstallation != null)
+                commandText += " and o.type_installation = @typeInstall";
+
+            cmd.CommandText = commandText;
+
+            cmd.Parameters.Add(new MySqlParameter("@idTerrain", rod.IdTerrain));
+            cmd.Parameters.Add(new MySqlParameter("@dateDebut", rod.DateDebut));
+            cmd.Parameters.Add(new MySqlParameter("@dateFinMin", dateFinMin));
+            cmd.Parameters.Add(new MySqlParameter("@dateFinMax", dateFinMax));
+            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMin", nbreBetesMin));
+            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMax", nbreBetesMax));
+            cmd.Parameters.Add(new MySqlParameter("@idEspece", rod.IdEspece));
+            cmd.Parameters.Add(new MySqlParameter("@idType", rod.IdTypeTonte));
+            cmd.Parameters.Add(new MySqlParameter("@typeInstall", rod.TypeInstallation));
+
+
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Offre o = DataReaderToOffre(dr);
+
+                OffreDetail od = new OffreDetail();
+
+                od.Id = o.Id;
+                od.IdFrequence = o.IdFrequence;
+                od.IdTroupeau = o.IdTroupeau;
+                
+                od.IdTypeTonte = o.IdTypeTonte;
+                od.NomOffre = o.NomOffre;
+                od.DateAjout = o.DateAjout;
+                od.DateDebut = o.DateAjout;
+                od.DateFin = o.DateFin;
+                od.DescriptionOffre = o.DescriptionOffre;
+                od.TypeInstallation = o.TypeInstallation;
+                od.PrixKm = o.PrixKm;
+                od.CoefInstallation = o.CoefInstallation;
+                od.CoefIntervention = o.CoefIntervention;
+                od.PrixBeteJour = o.PrixBeteJour;
+                od.ZoneCouverture = o.ZoneCouverture;
+                od.AdresseOffre = o.AdresseOffre;
+
+                if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
+                {
+                    od.TypeTonte = dr.GetString("nom_type");
+                }
+                
+                od.PrenomEleveur = dr.GetString("prenom");
+                od.VilleTroupeau = dr.GetString("nom_ville");
+                od.Race = dr.GetString("nom_race");
+                od.Condition = dr.GetString("nom_condition");
+                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+                od.IdEspece = dr.GetInt32("id_espece");
+                od.Moyenne = GetAverageByOffreId(od.Id);
+                result.Add(od);
+            }
+
+            cmd.Connection.Close();
+
+            return result;
+        }
+    
         public List<Offre> GetAll()
         {
             List<Offre> result = new();
@@ -77,7 +172,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.Id = dr.GetInt32("id_offre");
             result.IdFrequence = dr.GetInt32("id_frequence");
             result.IdTroupeau = dr.GetInt32("id_troupeau");
-            result.IdTypeTonte = dr.GetInt32("id_type");
+            
             result.IdCondition = dr.GetInt32("id_condition");
             result.NomOffre = dr.GetString("nom_offre");
             result.DateAjout = dr.GetDateTime("date_ajout");
@@ -95,6 +190,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             if (!dr.IsDBNull(dr.GetOrdinal("date_annulation_offre")))
             {
                 result.DateAnnulationOffre = dr.GetDateTime("date_annulation_offre");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("id_type")))
+            {
+                result.IdTypeTonte = dr.GetInt32("id_type");
             }
 
             return result;
@@ -166,7 +265,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.PrixBeteJour = o.PrixBeteJour;
                 od.ZoneCouverture = o.ZoneCouverture;
                 od.AdresseOffre = o.AdresseOffre;
-                od.TypeTonte = dr.GetString("nom_type");
+                if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
+                {
+                    od.TypeTonte = dr.GetString("nom_type");
+                }
+               
                 od.PrenomEleveur = dr.GetString("prenom");
                 od.VilleTroupeau = dr.GetString("nom_ville");
                 od.Race = dr.GetString("nom_race");
@@ -327,5 +430,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
             return result;
         }
+
+        
+
+
     }
 }

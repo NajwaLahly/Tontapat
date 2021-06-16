@@ -7,13 +7,13 @@
 @model OffreDetail
 @{
     string InstallationString = null;
-    if (Model.TypeInstallation == true)
+    if (Model.TypeInstallation)
     {
-        InstallationString = "du client";
+        InstallationString = "de l'éleveur";
     }
     else
     {
-        InstallationString = "de l'éleveur";
+        InstallationString = "du client";
     }
 
 }

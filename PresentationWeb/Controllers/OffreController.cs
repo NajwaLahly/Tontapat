@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fr.EQL.AI109.Tontapat.Business;
 using Fr.EQL.AI109.Tontapat.Model;
+using Fr.EQL.AI109.Tontapat.Dto;
 
 namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
@@ -17,7 +18,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             List<OffreDetail> od = bu.GetAllWithDetails();           
             return View(od);
         }
-
+        [HttpGet]
         public IActionResult Recherche()
         {
             // Model : List of offres
@@ -38,6 +39,14 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.FreqsIntervention = freqsIntervention;
 
             return View();
+        }
+        [HttpPost]
+        public IActionResult Recherche(RechercheOffreDto rod)
+        {
+            OffreBU ob = new();
+            List<OffreDetail> resultats = ob.RechercherOffre(rod);
+            ViewBag.Rod = rod;
+            return View("Resultats",resultats);
         }
 
         public IActionResult Details(int id)
