@@ -173,6 +173,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
+                od.Moyenne = GetAverageByOffreId(od.Id);
                 result.Add(od);
             }
 
