@@ -8,28 +8,21 @@
     -->
 <h1>Rechercher une prestation</h1>
 
-<form method="get" id="recherche">
+<form method="post" id="recherche">
     <div class="box-offre">
         <div class="info-offre">
             <h3>Sélectionnez le lieu de la prestation</h3>
 
 
             <label for="terrain">Votre terrain :</label>
-            <select name="terrain" id="terrain-select">
+            <select name="IdTerrain" id="terrain-select">
                 @foreach (Terrain t in ViewBag.Terrains)
                 {
                     <option value="@t.Id">@t.Nom</option>
                 }
 
             </select>
-            <label for="aire-recherche">Aire de recherche :</label>
-            <input type="range" min="5" max="200" step="1" list="aire-recherche-list" name="aire-recherche" />
-            <datalist id="aire-recherche-list">
-                <option value="5" label="5km"></option>
-                <option value="200" label="200km"></option>
-            </datalist>
-            <i class="far fa-question-circle" title="Ce critère permet de définir à quelle distance maximale de votre terrain vous souhaitez rechercher une prestation."></i>
-        </div>
+            </div>
     </div>
 
     <div class="box-offre">
@@ -38,7 +31,7 @@
 
             <p>
                 <label for="espece">Type de bétail :</label>
-                <select name="espece" id="espece-select">
+                <select name="IdEspece" id="espece-select">
                     <option value="">Tous</option>
                     @foreach (Espece e in ViewBag.Especes)
                     {
@@ -47,36 +40,24 @@
                 </select>
 
                 <label for="tonte">Type de tonte :</label>
-                <select name="tonte" id="tonte-select">
+                <select name="IdTypeTonte" id="tonte-select">
                     <option value="">Toutes tontes</option>
                     @foreach (TypeTonte tt in ViewBag.TypesTonte)
                     {
-                        <option value="@tt.CoefRapidite">@tt.Nom</option>
+                        <option value="@tt.Id">@tt.Nom</option>
                     }
                 </select>
                 <i class="far fa-question-circle" title="Le type de tonte concerne la vitesse à laquelle votre terrain sera tondu. Il influe sur le nombre de bêtes présent sur votre terrain et la date de fin de la prestation."></i>
             </p>
             <p>
                 <label for="installation">Type d'installation :</label>
-                <select name="installation" id="installation-select">
+                <select name="TypeInstallation" id="installation-select">
                     <option value="-1">Peu importe</option>
-                    <option value="">À la charge de l'éleveur</option>
-                    <option value="">À votre charge</option>
+                    <option value="1">À la charge de l'éleveur</option>
+                    <option value="0">À votre charge</option>
 
                 </select>
                 <i class="far fa-question-circle" title="Le type d'installation définit à qui revient la charge d'installer les infrastructures nécessaires à la prestation (clôtures, abris, abreuvoirs...)"></i>
-
-                <label for="freqintervention">Fréquence d'intervention :</label>
-                <select name="freqintervention" id="freqintervention-select">
-                    <option value="0">Peu importe</option>
-                    @foreach (FreqIntervention fi in ViewBag.FreqsIntervention)
-                    {
-                        <option value="1">Tous les jours</option>
-                    }
-
-                    })
-                </select>
-                <i class="far fa-question-circle" title="La fréquence d'intervention définit l'intervalle de temps entre laquelle l'éleveur se rendra sur votre terrain pour effectuer ses vérifications."></i>
 
             </p>
 
@@ -87,7 +68,7 @@
         <div class="info-offre">
             <h3>Choisissez votre date de début</h3>
             <label for="datedebut">Date de début :</label>
-            <input type="date" id="datedebut" name="datedebut"
+            <input type="date" id="datedebut" name="DateDebut"
                    value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
                    min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
 

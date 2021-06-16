@@ -1,4 +1,5 @@
 ﻿using Fr.EQL.AI109.Tontapat.Business;
+using Fr.EQL.AI109.Tontapat.Dto;
 using Fr.EQL.AI109.Tontapat.Model;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,26 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
              }*/
 
             /*   GestionUtilisateur gu = new();
-               gu.AddOffre();*/
+               gu.AddOffre();
 
             GestionUtilisateur gu = new();
             EvaluationBU bu = new();
             Console.WriteLine(bu.GetAllWithDetailByOffreAndUtilisateurId(1,2)); 
             
+            OffreBU obu = new();
+            RechercheOffreDto dto = new();
+            dto.IdTerrain = 1;
+            dto.DateDebut = new DateTime(2021,10,12,00,00,00);
+            dto.IdEspece = null;
+            dto.IdTypeTonte = null;
+            dto.TypeInstallation = null;
+            DateTime dateFin = new DateTime(2021, 11, 30, 00, 00, 00);
+            List<OffreDetail> result = obu.RechercherOffre(dto, dateFin, 10, 30);
+            foreach(OffreDetail od in result)
+            {
+                Console.WriteLine(od.DescriptionOffre);
+            }
+*/
         }
     }
 }
