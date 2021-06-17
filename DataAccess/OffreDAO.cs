@@ -135,7 +135,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.NbBetes = dr.GetInt32("nombre_betes");
-
+                EvaluationDAO edao = new();
+                od.NbEvaluations = edao.GetAllWithDetailByOffreId(od.Id).Count;
                 od.Moyenne = GetAverageByOffreId(od.Id);
                 result.Add(od);
             }
@@ -286,6 +287,13 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
 
             return result;
+        }
+
+        private OffreDetail DataReadertoOffreDetail(MySqlDataReader dr)
+        {
+            Offre o = DataReaderToOffre(dr);
+            OffreDetail od = new();
+            return od;
         }
 
         public List<OffreDetail> GetAllWithDetailsByUtilisateurId(int id)

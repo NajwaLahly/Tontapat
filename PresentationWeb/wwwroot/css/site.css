@@ -242,8 +242,9 @@ div.description p {
     font-size: .9rem;
 }
 /*module de recherche*/
-select {
+select, input {
     min-width: 100px;
+    max-width: 300px;
     border: 1px solid rgb(183, 183, 183);
     border-radius: 5px;
 }
@@ -260,11 +261,6 @@ button {
     border-radius: 5px;
     padding: 5px 20px 5px 20px;
 }
-
-input[type=range]::-moz-range-track {
-    background-color: rgb(112,173,71);
-}
-
 
                 /* Utilisateur détails*/
 .box-profil {
@@ -295,7 +291,6 @@ input[type=range]::-moz-range-track {
 }
 .liste-detail-eleveur {
     list-style-type: none;
-}
 }
 
 .modal {
@@ -415,6 +410,13 @@ table.offre-features > img,i {
 .search-bar{
     display: flex;
     flex-direction: row;
+}
+
+.info-offre input {
+    margin-bottom: 1em;
+}
+input[type=date] {
+    max-width: 10rem;
 }
 
 /*ESSAI DES STARS */
