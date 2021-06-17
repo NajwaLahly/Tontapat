@@ -20,6 +20,8 @@
 
 <h1>@Model.NomOffre</h1>
 
+
+
 <div class="box-offre-details-header">
     <div>
 
@@ -39,6 +41,74 @@
         @Model.Moyenne (@Model.NbEvaluations évaluations)
     </div>
 </div>
+<div class="search-button-bar">
+    <div class="div-search">
+        <div class="icon-search-button">
+            <img src="~/img/icons/terrain.png">
+        </div>
+        <div>
+        <select class="terrain-select-search">
+            @foreach (Terrain t in ViewBag.Terrains)
+            {
+                <option value="@t.Id">
+                    @t.Nom
+                </option>
+            }
+        </select>
+        </div>
+    </div>
+    <div class="div-search">
+        <div class="icon-search-button">
+            <i class="fas fa-tachometer-alt"></i>
+        </div>
+        <div>
+            <select class="terrain-select-search">
+                @foreach (TypeTonte tt in ViewBag.TypesTonte)
+                {
+                    <option value="@tt.Id">
+                        @tt.Nom
+                    </option>
+                }
+            </select>
+        </div>
+        </div>
+        <div class="div-search">
+            <img src="~/img/icons/terrain.png">
+            <select class="terrain-select-search">
+                @foreach (Espece e in ViewBag.Especes)
+                {
+                    <option value="@e.Id">
+                        @e.Nom
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="div-search">
+            <div class="icon-search-button">
+                <img src="~/img/icons/install.png">
+            </div>
+            <div>
+                <select class="terrain-select-search">
+                    <option value=1>
+                        eleveur
+                    </option>
+                    <option value=2>
+                        client
+                    </option>
+                </select>
+            </div>
+            </div>
+        <div class="div-search">
+            <div class="icon-search-button">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+                <div>
+                    <input type="date" id="datedebut" name="datedebut"
+                           value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
+                           min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+        </div>
 
 <div class="box-offre-details">
 

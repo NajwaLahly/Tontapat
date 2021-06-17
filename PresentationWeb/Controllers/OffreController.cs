@@ -46,21 +46,6 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             OffreBU ob = new();
             List<OffreDetail> resultats = ob.RechercherOffre(rod);
             ViewBag.Rod = rod;
-            return View("Resultats",resultats);
-        }
-
-        public IActionResult Details(int id)
-        {
-
-            OffreBU bu = new();
-            OffreDetail od = bu.GetWithDetailsById(id);
-            EvaluationBU ebu = new();
-            ViewBag.Evaluations = ebu.GetAllWithDetailsByOffreId(id);
-
-            return View(od);
-        }
-        public IActionResult ResultatRecherche()
-        {
             TerrainBU tbu = new();
             List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
             ViewBag.Terrains = terrains;
@@ -70,8 +55,33 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             TypeTonteBU ttbu = new();
             List<TypeTonte> tontes = ttbu.GetAll();
             ViewBag.Tontes = tontes;
-            return View();
+            DistanceVillesBU dvbu = new();
+            ViewBag.Dvbu = dvbu;
+            return View("Resultats",resultats);
         }
+
+        public IActionResult Details(int id)
+        {
+            EspeceBU esbu = new();
+            List<Espece> especes = esbu.GetAll();
+            ViewBag.Especes = especes;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> typesTonte = ttbu.GetAll();
+            ViewBag.TypesTonte = typesTonte;
+
+            TerrainBU t = new();
+            List<Terrain> terrains = t.GetAllByUtilisateurId(1); ;
+            ViewBag.Terrains = terrains;
+
+            OffreBU bu = new();
+            OffreDetail od = bu.GetWithDetailsById(id);
+            EvaluationBU ebu = new();
+            ViewBag.Evaluations = ebu.GetAllWithDetailsByOffreId(id);
+
+            return View(od);
+        }
+        
 
     }
 }

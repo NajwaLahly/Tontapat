@@ -16,8 +16,6 @@
     <div class="box-offre">
         <div class="info-offre">
             <h3>Sélectionnez le lieu de la prestation</h3>
-
-
             <label for="terrain">Votre terrain :</label>
             <select name="idTerrain" id="terrain-superficie" onchange="getDateFinMinMax()">
                 @foreach (Terrain t in ViewBag.Terrains)
@@ -83,7 +81,7 @@
                     onchange="getDateFinMinMax()" />
 
             <label for="datefin" id="label-fin">Date de fin :</label>
-            <input type="date" id="datefin" name="datefin"
+            <input type="date" id="datefin" name="DateFin"
                    value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")"
                    disabled />
             <i class="far fa-question-circle" title="La fenêtre de dates de fin est calculée à partir de la superficie de votre terrain et le type de tonte que vous sélectionnez."></i>

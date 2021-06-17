@@ -67,15 +67,18 @@ namespace Fr.EQL.AI109.Tontapat.Business
             OffreDAO odao = new();
 
             TerrainDAO tdao = new();
-            double terrainSuperficie = tdao.GetById(rod.IdTerrain).Superficie;
+            Terrain t = tdao.GetById(rod.IdTerrain);
+            double terrainSuperficie = t.Superficie;
+            rod.IdVilleTerrain = t.IdVille;
             int[] duration = GetOffreSearchDuration(rod.IdTypeTonte, terrainSuperficie);
-            int[] nbreBetes = GetOffreSearchNbreBetes(rod, terrainSuperficie);
+            int nbreBetes = GetOffreSearchNbreBetes(rod, terrainSuperficie);
+            rod.NbBetes = nbreBetes;
+            //rod.DateFinMin = rod.DateDebut.AddDays(duration[0]);
+            //rod.DateFinMax = rod.DateDebut.AddDays(duration[1]);
+            
 
-            rod.DateFinMin = rod.DateDebut.AddDays(duration[0]);
-            rod.DateFinMax = rod.DateDebut.AddDays(duration[1]);
-
-            rod.NbBetesMin = nbreBetes[0];
-            rod.NbBetesMax = nbreBetes[1];
+            //rod.NbBetesMin = nbreBetes[0];
+            //rod.NbBetesMax = nbreBetes[1];
 
             return odao.GetSearchResultsWithDetailsByParams(rod);
         }
@@ -123,7 +126,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return durees;
         }
 
-        public int[] GetOffreSearchNbreBetes(RechercheOffreDto rod, double superficie)
+       /* public int[] GetOffreSearchNbreBetes(RechercheOffreDto rod, double superficie)
         {
             OffreBU obu = new();
             int[] minMaxDuree = obu.GetOffreSearchDuration(rod.IdTypeTonte, superficie);
@@ -137,7 +140,23 @@ namespace Fr.EQL.AI109.Tontapat.Business
                 minMaxBetes[0] = 1;
             }
             return minMaxBetes;
+        }*/
+
+        public int GetOffreSearchNbreBetes(RechercheOffreDto rod, double superficie)
+        {
+            OffreBU obu = new();
+            int[] minMaxDuree = obu.GetOffreSearchDuration(rod.IdTypeTonte, superficie);
+
+            int nbreBetes = (int)(superficie * HECTARE_TO_M2 / ((rod.DateFin - rod.DateDebut).TotalDays * SURFACE_ANIMAL_JOUR));
+
+
+            if (nbreBetes == 0)
+            {
+                nbreBetes = 1;
+            }
+            return nbreBetes;
         }
-        
+
+
     }
 }

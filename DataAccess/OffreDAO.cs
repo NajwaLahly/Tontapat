@@ -54,9 +54,29 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             List<OffreDetail> result = new List<OffreDetail>();
 
             MySqlCommand cmd = CreerCommande();
-            
 
-            string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom,
+
+            /* string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom,
+                                 v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, d.distance, tr.nombre_betes FROM offre o
+                                 INNER JOIN troupeau tr ON o.id_troupeau = tr.id_troupeau
+                                 INNER JOIN race r ON r.id_race = tr.id_race
+                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
+                                 LEFT JOIN espece e ON r.id_espece = e.id_espece
+                                 LEFT JOIN utilisateur u ON u.id_utilisateur = tr.id_utilisateur
+                                 LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                 LEFT JOIN condition_annulation c ON c.id_condition = o.id_condition
+                                 INNER JOIN terrain te ON te.id_terrain = @idTerrain
+                                 INNER JOIN distance_villes d ON 
+                                 (d.id_ville = id_terrain AND d.vil_id_ville = tr.id_ville)
+                                 OR (d.id_ville = tr.id_ville AND d.vil_id_ville = id_terrain)
+
+                                 WHERE d.distance <= o.zone_couverture
+                                 and o.date_debut <= @dateDebut
+                                 and (o.date_fin >= @dateFinMin or o.date_fin <= @dateFinMax)
+                                 and ((tr.nombre_betes <= @nbreBetesMax and tr.nombre_betes >= @nbreBetesMin)
+                                 or (tr.nombre_betes > @nbreBetesMax and tr.divisibilite = true))";*/
+
+            string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, tr.divisibilite, tr.id_ville,
                                 v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, d.distance, tr.nombre_betes FROM offre o
                                 INNER JOIN troupeau tr ON o.id_troupeau = tr.id_troupeau
                                 INNER JOIN race r ON r.id_race = tr.id_race
@@ -72,9 +92,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
                                 WHERE d.distance <= o.zone_couverture
                                 and o.date_debut <= @dateDebut
-                                and (o.date_fin >= @dateFinMin or o.date_fin <= @dateFinMax)
-                                and ((tr.nombre_betes <= @nbreBetesMax and tr.nombre_betes >= @nbreBetesMin)
-                                or (tr.nombre_betes > @nbreBetesMax and tr.divisibilite = true))";
+                                and (o.date_fin >= @dateFin)
+                                and ((tr.nombre_betes <= @nbBetes + 5 and tr.nombre_betes >= @nbBetes - 5)
+                                or (tr.nombre_betes > @nbBetes and tr.divisibilite = true))";
 
             if (rod.IdEspece != null)
                 commandText += " and r.id_espece = @idEspece";
@@ -87,10 +107,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Parameters.Add(new MySqlParameter("@idTerrain", rod.IdTerrain));
             cmd.Parameters.Add(new MySqlParameter("@dateDebut", rod.DateDebut));
-            cmd.Parameters.Add(new MySqlParameter("@dateFinMin", rod.DateFinMin));
-            cmd.Parameters.Add(new MySqlParameter("@dateFinMax", rod.DateFinMax));
-            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMin", rod.NbBetesMin));
-            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMax", rod.NbBetesMax));
+            cmd.Parameters.Add(new MySqlParameter("@dateFin", rod.DateFin));
+            /*cmd.Parameters.Add(new MySqlParameter("@dateFinMax", rod.DateFinMax));
+            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMin", rod.NbBetesMin));*/
+            cmd.Parameters.Add(new MySqlParameter("@nbBetes", rod.NbBetes));
             cmd.Parameters.Add(new MySqlParameter("@idEspece", rod.IdEspece));
             cmd.Parameters.Add(new MySqlParameter("@idType", rod.IdTypeTonte));
             cmd.Parameters.Add(new MySqlParameter("@typeInstall", rod.TypeInstallation));
@@ -135,6 +155,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.NbBetes = dr.GetInt32("nombre_betes");
+                od.Divisibilite = dr.GetBoolean("divisibilite");
+                od.IdVilleTroupeau = dr.GetInt32("id_ville");
+
                 EvaluationDAO edao = new();
                 od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
                 od.Moyenne = GetAverageByOffreId(od.Id);
@@ -232,7 +255,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, t.nombre_betes
+            cmd.CommandText = @"SELECT o.*,r.nom_race, t.id_ville, t.divisibilite, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, t.nombre_betes
                                 FROM offre o
                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
                                 LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
@@ -275,6 +298,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                
                 od.PrenomEleveur = dr.GetString("prenom");
                 od.VilleTroupeau = dr.GetString("nom_ville");
+                od.Divisibilite = dr.GetBoolean("divisibilite");
+                od.IdVilleTroupeau = dr.GetInt32("id_ville");
+
                 od.Race = dr.GetString("nom_race");
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
@@ -302,7 +328,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, e.id_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, t.nombre_betes 
+            cmd.CommandText = @"SELECT o.*,r.nom_race, t.id_ville, t.divisibilite, e.nom_espece, e.id_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, t.nombre_betes 
                                 FROM offre o
                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
                                 LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
@@ -344,6 +370,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Race = dr.GetString("nom_race");
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+                od.Divisibilite = dr.GetBoolean("divisibilite");
+                od.IdVilleTroupeau = dr.GetInt32("id_ville");
+
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.Moyenne = GetAverageByOffreId(od.Id);
                 od.NbBetes = dr.GetInt32("nombre_betes");
@@ -360,7 +389,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             OffreDetail od = new OffreDetail();
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, t.nombre_betes
+            cmd.CommandText = @"SELECT o.*,r.nom_race, t.id_ville, t.divisibilite, e.nom_espece, tt.nom_type, u.nom, u.prenom, v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, t.nombre_betes
                                 FROM offre o
                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
                                 LEFT JOIN troupeau t ON o.id_troupeau = t.id_troupeau
@@ -407,6 +436,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.NbBetes = dr.GetInt32("nombre_betes");
                 EvaluationDAO edao = new();
                 od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
+                od.Divisibilite = dr.GetBoolean("divisibilite");
+                od.IdVilleTroupeau = dr.GetInt32("id_ville");
+
             }
 
             cmd.Connection.Close();
