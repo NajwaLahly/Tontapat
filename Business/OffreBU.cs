@@ -12,15 +12,25 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class OffreBU
     {
-        private const int SURFACE_ANIMAL_JOUR = 5;
-        private const int MAX_DUREE_TONTE_LENTE = 30;
-        private const int MIN_DUREE_TONTE_LENTE = 10;
-        private const int MIN_DUREE_TONTE_MOYENNE = 6;
-        private const int MAX_DUREE_TONTE_MOYENNE = 9;
-        private const int MIN_DUREE_TONTE_RAPIDE = 2;
-        private const int MAX_DUREE_TONTE_RAPIDE = 5;
         private const int HECTARE_TO_M2 = 10000;
         private const int POWER = 3;
+
+        private const int MIN_SURFACE_ANIMAL_LENTE = 50;
+        private const int MAX_SURFACE_ANIMAL_LENTE = 1000;
+        private const int MIN_SURFACE_ANIMAL_MOYEN = 30;
+        private const int MAX_SURFACE_ANIMAL_MOYEN = 49;
+        private const int MIN_SURFACE_ANIMAL_RAPIDE = 10;
+        private const int MAX_SURFACE_ANIMAL_RAPIDE = 29;
+
+        private const int SURFACE_ANIMAL_JOUR = 5;
+
+        private const int MIN_DUREE_TONTE_LENTE = MIN_SURFACE_ANIMAL_LENTE / SURFACE_ANIMAL_JOUR;
+        private const int MAX_DUREE_TONTE_LENTE = MAX_SURFACE_ANIMAL_LENTE / SURFACE_ANIMAL_JOUR;
+        private const int MIN_DUREE_TONTE_MOYENNE = MIN_SURFACE_ANIMAL_MOYEN / SURFACE_ANIMAL_JOUR;
+        private const int MAX_DUREE_TONTE_MOYENNE = MAX_SURFACE_ANIMAL_MOYEN / SURFACE_ANIMAL_JOUR;
+        private const int MIN_DUREE_TONTE_RAPIDE = MIN_SURFACE_ANIMAL_RAPIDE / SURFACE_ANIMAL_JOUR;
+        private const int MAX_DUREE_TONTE_RAPIDE = MAX_SURFACE_ANIMAL_RAPIDE / SURFACE_ANIMAL_JOUR;
+
 
         public void InsertOffre(Offre o)
         {
@@ -55,11 +65,19 @@ namespace Fr.EQL.AI109.Tontapat.Business
         public List<OffreDetail> RechercherOffre(RechercheOffreDto rod)
         {
             OffreDAO odao = new();
-            TerrainBU tbu = new();
-            Terrain terrain = tbu.GetById(rod.IdTerrain);
-            int[] duration = GetOffreSearchDuration(rod.IdTypeTonte, terrain.Superficie);
-            int[] nbreBetes = GetOffreSearchNbreBetes(rod.IdTypeTonte, terrain.Superficie);
-            return (odao.GetSearchResultsWithDetailsByParams(rod, rod.DateDebut.AddDays(duration[0]), rod.DateDebut.AddDays(duration[1]), nbreBetes[0], nbreBetes[1]));
+
+            TerrainDAO tdao = new();
+            double terrainSuperficie = tdao.GetById(rod.IdTerrain).Superficie;
+            int[] duration = GetOffreSearchDuration(rod.IdTypeTonte, terrainSuperficie);
+            int[] nbreBetes = GetOffreSearchNbreBetes(rod, terrainSuperficie);
+
+            rod.DateFinMin = rod.DateDebut.AddDays(duration[0]);
+            rod.DateFinMax = rod.DateDebut.AddDays(duration[1]);
+
+            rod.NbBetesMin = nbreBetes[0];
+            rod.NbBetesMax = nbreBetes[1];
+
+            return odao.GetSearchResultsWithDetailsByParams(rod);
         }
 
         public List<OffreDetail> GetAllWithDetails()
@@ -95,21 +113,29 @@ namespace Fr.EQL.AI109.Tontapat.Business
                     durees[0] = MIN_DUREE_TONTE_RAPIDE;
                     durees[1] = MAX_DUREE_TONTE_RAPIDE;
                     break;
+                case 4:
+                    durees[0] = MIN_DUREE_TONTE_LENTE;
+                    durees[1] = MAX_DUREE_TONTE_LENTE;
+                    break;
             }
             durees[0] += (int)Math.Log10(Math.Pow(surface * HECTARE_TO_M2, (double)POWER))/2;
             durees[1] += (int)Math.Log10(Math.Pow(surface * HECTARE_TO_M2, (double)POWER)) / 2;
             return durees;
         }
 
-        public int[] GetOffreSearchNbreBetes(int? idTypeTonte, double surface)
+        public int[] GetOffreSearchNbreBetes(RechercheOffreDto rod, double superficie)
         {
             OffreBU obu = new();
-            int[] minMaxDuree = obu.GetOffreSearchDuration(idTypeTonte, surface);
+            int[] minMaxDuree = obu.GetOffreSearchDuration(rod.IdTypeTonte, superficie);
             
             int[] minMaxBetes = { 0, 0 };
-            minMaxBetes[1] = (int)(surface * HECTARE_TO_M2 / (minMaxDuree[0] * SURFACE_ANIMAL_JOUR));
-            minMaxBetes[0] = (int)(surface * HECTARE_TO_M2 / (minMaxDuree[1] * SURFACE_ANIMAL_JOUR));
+            minMaxBetes[1] = (int)(superficie * HECTARE_TO_M2 / (minMaxDuree[0] * SURFACE_ANIMAL_JOUR));
+            minMaxBetes[0] = (int)(superficie * HECTARE_TO_M2 / (minMaxDuree[1] * SURFACE_ANIMAL_JOUR));
 
+            if (minMaxBetes[0] == 0)
+            {
+                minMaxBetes[0] = 1;
+            }
             return minMaxBetes;
         }
         
