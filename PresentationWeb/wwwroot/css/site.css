@@ -452,3 +452,7 @@ input[type=date] {
     font-weight: 900;
     color: #f8ce0b;
 }
+
+.box-evaluation i {
+    color: orange;
+}

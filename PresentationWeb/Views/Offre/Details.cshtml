@@ -26,16 +26,19 @@
     <div>
 
         <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(Model.IdUtilisateur).png" />
-        Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> | <i class="fas fa-star"></i>
-        @for (int i = 1; i <= 5; i++)
+        Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> | 
+        @for (int i = 0; i < Model.Moyenne; i++)
         {
+            if (Model.Moyenne - i < 1)
+            {
+                <i class="fas fa-star-half"></i>
+                break;
+            }
             <i class="fas fa-star"></i>
         }
 
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star-half"></i>
-        4,5 (XX évaluations)
+
+        @Model.Moyenne (@Model.NbEvaluations évaluations)
     </div>
 </div>
 <div class="search-button-bar">
@@ -161,7 +164,7 @@
                             <td><i class="fa fa-times fa-lg"></i>
                             </td>
                             <td>
-                                Conditions d'annulation @Model.Condition
+                                Conditions d'annulation : @Model.Condition
                                 <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
                             </td>
                         </tr>
@@ -182,6 +185,28 @@
                         <img src="~/img/photos/troupeaux/1_1.jpg" />
                         <img src="~/img/photos/troupeaux/1_1.jpg" />
                     </div>
+                </div>
+
+                <div>
+                    <h3>Evaluations (@Model.NbEvaluations)</h3>
+                    @foreach(EvaluationDetail ed in ViewBag.Evaluations)
+            {
+                <div class="box-evaluation">
+                    @ed.PrenomTiers
+                    <br />
+                    @for (int i = 0; i < Model.Moyenne; i++)
+                    {
+                        if (Model.Moyenne - i < 1)
+                        {
+                            <i class="fas fa-star-half"></i>
+                            break;
+                        }
+                        <i class="fas fa-star"></i>
+                    }
+                     @ed.Note
+                    <br />@ed.Commentaire
+                </div>
+            }
                 </div>
             </div>
         </div>

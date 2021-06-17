@@ -101,7 +101,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return evaluations;
         }
 
-        public List<EvaluationDetail> GetAllWithDetailByOffreId(int idOffre)
+        public List<EvaluationDetail> GetAllWithDetailsByOffreId(int idOffre)
         {
             List<EvaluationDetail> evaluations = new();
 
@@ -133,7 +133,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 ed.PrenomCible = dr.GetString("prenom");
                 ed.IdTiers = dr.GetInt32("id_tier");
                 ed.PrenomTiers = dr.GetString("prenom_tier");
-
+                
                 evaluations.Add(ed);
             }
 
