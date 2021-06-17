@@ -7,7 +7,7 @@
 
 // Get the modal
 /*var modal = document.getElementById("Search-modal");
-/*// Get the modal
+/*
 var modal = document.getElementById("Search-modal");
 
 // Get the button that opens the modal
@@ -72,6 +72,7 @@ function getDateFinMinMax() {
 
     var durees = [];
 
+    console.log(dateDebut);
     switch (idTypeTonte) {
         case "1":
 
@@ -91,9 +92,14 @@ function getDateFinMinMax() {
             durees[1] = MAX_DUREE_TONTE_LENTE;
             break;
     }
+    console.log(durees[1]);
     var terrainSuperficie = document.getElementById(document.getElementById("terrain-superficie").value).value;
+    console.log(terrainSuperficie);
     durees[0] += Math.ceil(Math.log(Math.pow(terrainSuperficie * HECTARE_TO_M2, POWER)) / 2);
     durees[1] += Math.ceil(Math.log(Math.pow(terrainSuperficie * HECTARE_TO_M2, POWER)) / 2);
+  
+    console.log(dateDebut);
+   
 
     var dateFin1 = getYYYYMMDD(addDays(dateDebut, durees[0]));
     var dateFin2 = getYYYYMMDD(addDays(dateDebut, durees[1]));
@@ -113,19 +119,19 @@ function addDays(date, days) {
 }
 
 function getYYYYMMDD(d0) {
+    
     const d = new Date(d0);
     return new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0];
 
 }
 
 //export { getDateFinMinMax }
-} 
-*/
+
 
 // Stars rating
 
 
-const starsTotal = 5;
+/*const starsTotal = 5;
 
 
 
@@ -142,7 +148,7 @@ function getRating(rating) {
     document.querySelector(`.rating .stars-inner`).style.width = starPercentageRounded;
 
 
-   /* document.querySelector(`.rating .number-rating`).innerHTML = rating;*/
+    document.querySelector(`.rating .number-rating`).innerHTML = rating;
 }
 
-export { getRating }
+export { getRating, getDateFinMinMax }*/
