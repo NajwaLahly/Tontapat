@@ -89,31 +89,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             if (dr.Read())
             {
-                Utilisateur u = DataReaderToUtilisateur(dr);
-
-                result.Id = u.Id;
-                result.IdVille = u.IdVille;
-                result.IdTypeClient = u.IdTypeClient;
-                result.Email = u.Email;
-                result.MotDePasse = u.MotDePasse;
-                result.DateNaissance = u.DateNaissance;
-                result.DateInscription = u.DateInscription;
-                result.PhotoProfil = u.PhotoProfil;
-                result.Nom = u.Nom;
-                result.Prenom = u.Prenom;
-                result.RaisonSociale = u.RaisonSociale;
-                result.AdresseVoie = u.AdresseVoie;
-                result.AdresseLong = u.AdresseLong;
-                result.AdresseLat = u.AdresseLat;
-                result.CarteNumero = u.CarteNumero;
-                result.CarteExpiration = u.CarteExpiration;
-                result.CarteCVC = u.CarteCVC;
-                result.VirementIBAN = u.VirementIBAN;
-                result.BIC = u.BIC;
-                result.PayPalEmail = u.PayPalEmail;
-                result.Presentation = u.Presentation;
-                result.NomVille = dr.GetString("nom_ville");
-                result.Moyenne = GetAverageByUtilisateurId(id);
+                result = DataReaderToUtilisateurDetail(dr);
             }
 
             cmd.Connection.Close();
@@ -172,6 +148,58 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        public int GetNbEvaluationByUtilisateurId(int id)
+        {
+            int result = 0;
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT COUNT(note_evaluation) 'average' FROM evaluation e
+	                            WHERE id_utilisateur = @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                 result = dr.GetInt32("average");
+            }
+    
+            cmd.Connection.Close();
+            return result;
+        }
+        public UtilisateurDetail DataReaderToUtilisateurDetail(MySqlDataReader dr)
+        {
+            Utilisateur u = DataReaderToUtilisateur(dr);
+            UtilisateurDetail result = new();
+
+            result.Id = u.Id;
+            result.IdVille = u.IdVille;
+            result.IdTypeClient = u.IdTypeClient;
+            result.Email = u.Email;
+            result.MotDePasse = u.MotDePasse;
+            result.DateNaissance = u.DateNaissance;
+            result.DateInscription = u.DateInscription;
+            result.PhotoProfil = u.PhotoProfil;
+            result.Nom = u.Nom;
+            result.Prenom = u.Prenom;
+            result.RaisonSociale = u.RaisonSociale;
+            result.AdresseVoie = u.AdresseVoie;
+            result.AdresseLong = u.AdresseLong;
+            result.AdresseLat = u.AdresseLat;
+            result.CarteNumero = u.CarteNumero;
+            result.CarteExpiration = u.CarteExpiration;
+            result.CarteCVC = u.CarteCVC;
+            result.VirementIBAN = u.VirementIBAN;
+            result.BIC = u.BIC;
+            result.PayPalEmail = u.PayPalEmail;
+            result.Presentation = u.Presentation;
+            result.NomVille = dr.GetString("nom_ville");
+            result.Moyenne = GetAverageByUtilisateurId(u.Id);
+            result.NbEvaluation = GetNbEvaluationByUtilisateurId(u.Id);
+
+            return result;
+        }
         public Utilisateur DataReaderToUtilisateur(MySqlDataReader dr)
         {
             Utilisateur result = new Utilisateur();

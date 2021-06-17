@@ -98,44 +98,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Offre o = DataReaderToOffre(dr);
-
-                OffreDetail od = new OffreDetail();
-
-                od.Id = o.Id;
-                od.FrequenceIntervention = o.FrequenceIntervention;
-                od.IdTroupeau = o.IdTroupeau;
-                
-                od.IdTypeTonte = o.IdTypeTonte;
-                od.NomOffre = o.NomOffre;
-                od.DateAjout = o.DateAjout;
-                od.DateDebut = o.DateAjout;
-                od.DateFin = o.DateFin;
-                od.DescriptionOffre = o.DescriptionOffre;
-                od.TypeInstallation = o.TypeInstallation;
-                od.PrixKm = o.PrixKm;
-                od.CoefInstallation = o.CoefInstallation;
-                od.CoefIntervention = o.CoefIntervention;
-                od.PrixBeteJour = o.PrixBeteJour;
-                od.ZoneCouverture = o.ZoneCouverture;
-                od.AdresseOffre = o.AdresseOffre;
-
-                if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
-                {
-                    od.TypeTonte = dr.GetString("nom_type");
-                }
-                od.PrenomEleveur = dr.GetString("prenom");
-                od.VilleTroupeau = dr.GetString("nom_ville");
-                od.Race = dr.GetString("nom_race");
-                od.Condition = dr.GetString("nom_condition");
-                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
-                od.IdEspece = dr.GetInt32("id_espece");
-                od.NbBetes = dr.GetInt32("nombre_betes");
-                od.Divisibilite = dr.GetBoolean("divisibilite");
-                od.IdVilleTroupeau = dr.GetInt32("id_ville");
-                od.Moyenne = GetAverageByOffreId(od.Id);
-                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
-
+                OffreDetail od = DataReadertoOffreDetail(dr);
                 result.Add(od);
             }
 
@@ -166,27 +129,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-
-        private Offre DataReaderToOffre(MySqlDataReader dr)
-        {
-            Offre result = new Offre();
-            result.Id = dr.GetInt32("id_offre");
-            result.FrequenceIntervention = dr.GetInt32("frequence_intervention");
-            result.IdTroupeau = dr.GetInt32("id_troupeau");
-            
-            result.IdCondition = dr.GetInt32("id_condition");
-            result.NomOffre = dr.GetString("nom_offre");
-            result.DateAjout = dr.GetDateTime("date_ajout");
-            result.DateDebut = dr.GetDateTime("date_debut");
-            result.DateFin = dr.GetDateTime("date_fin");
-            result.DescriptionOffre = dr.GetString("description_offre");
-            result.TypeInstallation = dr.GetBoolean("type_installation");
-            result.PrixKm = dr.GetFloat("prix_km");
-            result.CoefInstallation = dr.GetFloat("coef_installation");
-            result.CoefIntervention = dr.GetFloat("coef_intervention");
-            result.PrixBeteJour = dr.GetFloat("prix_bete_jour");
-            result.ZoneCouverture = dr.GetInt32("zone_couverture");
-            result.AdresseOffre = dr.GetString("adresse_offre");
 
         public Offre GetById(int id)
         {
@@ -234,42 +176,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Offre o = DataReaderToOffre(dr);
-
-                OffreDetail od = new OffreDetail();
-
-                od.Id = o.Id;
-                od.FrequenceIntervention = o.FrequenceIntervention;
-                od.IdTroupeau = o.IdTroupeau;
-                od.IdTypeTonte = o.IdTypeTonte;
-                od.NomOffre = o.NomOffre;
-                od.DateAjout = o.DateAjout;
-                od.DateDebut = o.DateAjout;
-                od.DateFin = o.DateFin;
-                od.DescriptionOffre = o.DescriptionOffre;
-                od.TypeInstallation = o.TypeInstallation;
-                od.PrixKm = o.PrixKm;
-                od.CoefInstallation = o.CoefInstallation;
-                od.CoefIntervention = o.CoefIntervention;
-                od.PrixBeteJour = o.PrixBeteJour;
-                od.ZoneCouverture = o.ZoneCouverture;
-                od.AdresseOffre = o.AdresseOffre;
-                if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
-                {
-                    od.TypeTonte = dr.GetString("nom_type");
-                }
-                od.PrenomEleveur = dr.GetString("prenom");
-                od.VilleTroupeau = dr.GetString("nom_ville");
-                od.Divisibilite = dr.GetBoolean("divisibilite");
-                od.IdVilleTroupeau = dr.GetInt32("id_ville");
-                od.Race = dr.GetString("nom_race");
-                od.Condition = dr.GetString("nom_condition");
-                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
-                od.IdEspece = dr.GetInt32("id_espece");
-                od.NbBetes = dr.GetInt32("nombre_betes");
-                od.Moyenne = GetAverageByOffreId(od.Id);
-                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
-
+                OffreDetail od = DataReadertoOffreDetail(dr);
                 result.Add(od);
             }
 
@@ -277,8 +184,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-
-      
 
         public List<OffreDetail> GetAllWithDetailsByUtilisateurId(int id)
         {
@@ -302,39 +207,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Offre o = DataReaderToOffre(dr);
-
-                OffreDetail od = new OffreDetail();
-
-                od.Id = o.Id;
-                od.FrequenceIntervention = o.FrequenceIntervention;
-                od.IdTroupeau = o.IdTroupeau;
-                od.IdTypeTonte = o.IdTypeTonte;
-                od.NomOffre = o.NomOffre;
-                od.DateAjout = o.DateAjout;
-                od.DateDebut = o.DateAjout;
-                od.DateFin = o.DateFin;
-                od.DescriptionOffre = o.DescriptionOffre;
-                od.TypeInstallation = o.TypeInstallation;
-                od.PrixKm = o.PrixKm;
-                od.CoefInstallation = o.CoefInstallation;
-                od.CoefIntervention = o.CoefIntervention;
-                od.PrixBeteJour = o.PrixBeteJour;
-                od.ZoneCouverture = o.ZoneCouverture;
-                od.AdresseOffre = o.AdresseOffre;
-                od.TypeTonte = dr.GetString("nom_type");
-                od.PrenomEleveur = dr.GetString("prenom");
-                od.VilleTroupeau = dr.GetString("nom_ville");
-                od.Race = dr.GetString("nom_race");
-                od.Condition = dr.GetString("nom_condition");
-                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
-                od.Divisibilite = dr.GetBoolean("divisibilite");
-                od.IdVilleTroupeau = dr.GetInt32("id_ville");
-                od.IdEspece = dr.GetInt32("id_espece");
-                od.NbBetes = dr.GetInt32("nombre_betes");
-                od.Moyenne = GetAverageByOffreId(od.Id);
-                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
-
+                OffreDetail od = DataReadertoOffreDetail(dr);
                 result.Add(od);
             }
 
@@ -365,37 +238,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             if (dr.Read())
             {
-                Offre o = DataReaderToOffre(dr);
-
-                od.Id = o.Id;
-                od.FrequenceIntervention = o.FrequenceIntervention;
-                od.IdTroupeau = o.IdTroupeau;
-                od.IdTypeTonte = o.IdTypeTonte;
-                od.NomOffre = o.NomOffre;
-                od.DateAjout = o.DateAjout;
-                od.DateDebut = o.DateAjout;
-                od.DateFin = o.DateFin;
-                od.DescriptionOffre = o.DescriptionOffre;
-                od.TypeInstallation = o.TypeInstallation;
-                od.PrixKm = o.PrixKm;
-                od.CoefInstallation = o.CoefInstallation;
-                od.CoefIntervention = o.CoefIntervention;
-                od.PrixBeteJour = o.PrixBeteJour;
-                od.ZoneCouverture = o.ZoneCouverture;
-                od.AdresseOffre = o.AdresseOffre;
-                od.TypeTonte = dr.GetString("nom_type");
-                od.PrenomEleveur = dr.GetString("prenom");
-                od.VilleTroupeau = dr.GetString("nom_ville");
-                od.Race = dr.GetString("nom_race");
-                od.Espece = dr.GetString("nom_espece");
-                od.Condition = dr.GetString("nom_condition");
-                od.IdUtilisateur = dr.GetInt32("id_utilisateur");
-                od.IdEspece = dr.GetInt32("id_espece");
-                od.NbBetes = dr.GetInt32("nombre_betes");
-                od.Divisibilite = dr.GetBoolean("divisibilite");
-                od.IdVilleTroupeau = dr.GetInt32("id_ville");
-                od.Moyenne = GetAverageByOffreId(od.Id);
-                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
+                od = DataReadertoOffreDetail(dr);
             }
 
             cmd.Connection.Close();
@@ -471,9 +314,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Offre result = new Offre();
             result.Id = dr.GetInt32("id_offre");
-            result.IdFrequence = dr.GetInt32("id_frequence");
+            result.FrequenceIntervention = dr.GetInt32("frequence_intervention");
             result.IdTroupeau = dr.GetInt32("id_troupeau");
-
             result.IdCondition = dr.GetInt32("id_condition");
             result.NomOffre = dr.GetString("nom_offre");
             result.DateAjout = dr.GetDateTime("date_ajout");
@@ -503,6 +345,38 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Offre o = DataReaderToOffre(dr);
             OffreDetail od = new();
+            od.Id = o.Id;
+            od.FrequenceIntervention = o.FrequenceIntervention;
+            od.IdTroupeau = o.IdTroupeau;
+            od.IdTypeTonte = o.IdTypeTonte;
+            od.NomOffre = o.NomOffre;
+            od.DateAjout = o.DateAjout;
+            od.DateDebut = o.DateAjout;
+            od.DateFin = o.DateFin;
+            od.DescriptionOffre = o.DescriptionOffre;
+            od.TypeInstallation = o.TypeInstallation;
+            od.PrixKm = o.PrixKm;
+            od.CoefInstallation = o.CoefInstallation;
+            od.CoefIntervention = o.CoefIntervention;
+            od.PrixBeteJour = o.PrixBeteJour;
+            od.ZoneCouverture = o.ZoneCouverture;
+            od.AdresseOffre = o.AdresseOffre;
+            if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
+            {
+                od.TypeTonte = dr.GetString("nom_type");
+            }
+            od.PrenomEleveur = dr.GetString("prenom");
+            od.VilleTroupeau = dr.GetString("nom_ville");
+            od.Race = dr.GetString("nom_race");
+            od.Condition = dr.GetString("nom_condition");
+            od.IdUtilisateur = dr.GetInt32("id_utilisateur");
+            od.IdEspece = dr.GetInt32("id_espece");
+            od.NbBetes = dr.GetInt32("nombre_betes");
+            od.Divisibilite = dr.GetBoolean("divisibilite");
+            od.IdVilleTroupeau = dr.GetInt32("id_ville");
+            od.Moyenne = GetAverageByOffreId(od.Id);
+            od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
+
             return od;
         }
     }
