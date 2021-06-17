@@ -280,6 +280,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.NbBetes = dr.GetInt32("nombre_betes");
+                od.Moyenne = GetAverageByOffreId(od.Id);
                 result.Add(od);
             }
 
