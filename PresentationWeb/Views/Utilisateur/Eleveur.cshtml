@@ -1,10 +1,20 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-    @using Fr.EQL.AI109.Tontapat.Model;
-    @model UtilisateurDetail
+@using Fr.EQL.AI109.Tontapat.Model;
+@model UtilisateurDetail
 @{
-    double? averg = Model.Moyenne;
+    double averg = new double();
+    if (Model.Moyenne == null)
+    {
+        averg = 0;
+    }
+            else
+            {
+            averg = (double) Model.Moyenne;
+            }
+   double average = Math.Round(averg, 1);
+       
 }
 
 
@@ -21,7 +31,7 @@
             <div class="stars-outer">
                 <div class="stars-inner"></div>
             </div>
-            <span class="number-rating"></span>
+            <span class="number-rating">@average</span>
         </div>
     </div>
 
@@ -61,31 +71,12 @@
 </div>
 
 
+<script type="module">
 
-<script type="text/javascript">
-    // Initial Ratings
-
-    var rating = 3.5; 
-
-    const starsTotal = 5;
-
-
+    import { getRating } from "/js/site.js";
     document.addEventListener('DOMContentLoaded', getRating);
+    const note = parseFloat((@average)) ;
+    console.log(note);
+    getRating(note);
 
-
-    function getRating() {
-              
-        
-            const starPercentage = (rating / starsTotal) * 100;
-
-     
-            const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-
-      
-            document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-
-        
-            document.querySelector(`.${rating} .number-rating`).innerHTML = rating;
-       
-    }
 </script>
