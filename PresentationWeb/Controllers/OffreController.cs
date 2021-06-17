@@ -51,6 +51,17 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
         public IActionResult Details(int id)
         {
+            EspeceBU ebu = new();
+            List<Espece> especes = ebu.GetAll();
+            ViewBag.Especes = especes;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> typesTonte = ttbu.GetAll();
+            ViewBag.TypesTonte = typesTonte;
+
+            TerrainBU t = new();
+            List<Terrain> terrains = t.GetAllByUtilisateurId(1); ;
+            ViewBag.Terrains = terrains;
 
             OffreBU bu = new();
             OffreDetail od = bu.GetWithDetailsById(id);
