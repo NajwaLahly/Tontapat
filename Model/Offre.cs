@@ -9,7 +9,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
     public class Offre
     {
         public int Id { get; set; }
-        public int IdFrequence { get; set; }
+        public int FrequenceIntervention { get; set; }
         public int IdTroupeau { get; set; }
         public int IdTypeTonte { get; set; }
         public int IdCondition { get; set; }
@@ -31,12 +31,12 @@ namespace Fr.EQL.AI109.Tontapat.Model
         {
         }
 
-        public Offre(int idFrequence, int idTroupeau, int idTypeTonte, int idCondition, string nomOffre, 
+        public Offre(int frequenceIntervention, int idTroupeau, int idTypeTonte, int idCondition, string nomOffre, 
             bool typeInstallation, DateTime dateAjout, DateTime dateDebut, DateTime dateFin, string descriptionOffre,
             float prixKm, float coefInstallation, float coefIntervention, float prixBeteJour, int zoneCouverture, string adresseOffre, DateTime? dateAnnulationOffre)
         {
-            
-            IdFrequence = idFrequence;
+
+            FrequenceIntervention = frequenceIntervention;
             IdTroupeau = idTroupeau;
             IdTypeTonte = idTypeTonte;
             IdCondition = idCondition;

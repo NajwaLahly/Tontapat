@@ -34,10 +34,6 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             List<TypeTonte> typesTonte = ttbu.GetAll();
             ViewBag.TypesTonte = typesTonte;
 
-            FreqInterventionBU fibu = new();
-            List<FreqIntervention> freqsIntervention = fibu.GetAll();
-            ViewBag.FreqsIntervention = freqsIntervention;
-
             return View();
         }
         [HttpPost]
