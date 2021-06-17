@@ -15,14 +15,19 @@
 
 
             <label for="terrain">Votre terrain :</label>
-            <select name="IdTerrain" id="terrain-select">
+            <select name="idTerrain" id="terrain-superficie" onchange="getDateFinMinMax()">
                 @foreach (Terrain t in ViewBag.Terrains)
                 {
                     <option value="@t.Id">@t.Nom</option>
                 }
 
             </select>
-            </div>
+            @foreach (Terrain t in ViewBag.Terrains)
+            {
+                <input type="hidden" id="@t.Id" value="@t.Superficie" />
+            }
+
+        </div>
     </div>
 
     <div class="box-offre">
@@ -40,7 +45,7 @@
                 </select>
 
                 <label for="tonte">Type de tonte :</label>
-                <select name="IdTypeTonte" id="tonte-select">
+                <select name="IdTypeTonte" id="tonte-select" onchange="getDateFinMinMax()">
                     @foreach (TypeTonte tt in ViewBag.TypesTonte)
                     {
                         <option value="@tt.Id">@tt.Nom</option>
@@ -69,11 +74,13 @@
             <label for="datedebut">Date de début :</label>
             <input type="date" id="datedebut" name="DateDebut"
                    value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
-                   min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
+                   min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")"
+                    onchange="getDateFinMinMax()" />
 
-            <label for="datefin">Date de fin :</label>
+            <label for="datefin" id="label-fin">Date de fin :</label>
             <input type="date" id="datefin" name="datefin"
-                   value="2021-12-31" disabled />
+                   value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")"
+                   disabled />
             <i class="far fa-question-circle" title="La date de fin est calculée à partir de la superficie de votre terrain et le type de tonte que vous sélectionnez."></i>
 
         </div>
@@ -84,6 +91,16 @@
     </div>
 
 </form>
+
+@*@section Scripts {
+    <script type="module">
+
+        import { getDateFinMinMax } from "/js/site.js";
+        document.addEventListener('DOMContentLoaded', getDateFinMinMax);
+
+
+    </script>
+}*@
 
 <!-- FIN DIVS DE MODAL
     </div>

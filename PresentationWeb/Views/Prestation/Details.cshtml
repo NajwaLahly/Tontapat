@@ -166,13 +166,12 @@
 <div class="box-offre">
     <div class="info-offre">
         <h3>Historique</h3>
-
         <table>
             <tr>
                 <td>
                     <i class="fas fa-arrow-up"></i>
                 </td>
-                <td>Demande envoyée le @Model.DateDemande.ToString("dd/MM/yy") à partir de l'offre // de PRENOM</td>
+                <td>Demande envoyée le @Model.DateDemande.ToString("dd/MM/yy") à partir de l'offre <a asp-controller="Offre" asp-action="Details" asp-route-id="">Offre</a> de PRENOM</td>
             </tr>
             @if (Model.DateValidation == DateTime.MinValue)
             {
@@ -189,11 +188,61 @@
                     <td>
                         <i class="fas fa-times fa-lg"></i>
                     </td>
-                    <td>Demande refusée par PRENOM le @Model.DateValidation.ToString("dd/MM/yy") (Motif: @Model.DescriptionRefus</td>
+                    <td>Demande refusée par PRENOM le @Model.DateValidation.ToString("dd/MM/yy") (Motif: @Model.DescriptionRefus)</td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <i class="fas fa-comment-dollar"></i>
+                </td>
+                <td>
+                    Négociation ouverte le xx/xx/xx
+                </td>
+            <tr>
+                <td></td>
+                <td>
+                    <ul>
+                        <li><i class="far fa-file-alt"></i> Proposition faite par <strong>vous</strong> le xx/xx/xx</li>
+                        <li><i class="far fa-file-alt"></i> Proposition faite par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> le xx/xx/xx</li>
+                        <li><i class="far fa-file-alt"></i> <strong>Contre-proposition</strong> envoyée par <strong>vous</strong> le xx/xx/xx</li>
+                        <li><i class="far fa-file-alt"></i> <strong>Contre-proposition</strong> envoyée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> le xx/xx/xx</li>
+                        <li><i class="far fa-file-alt"></i> Vous avez <strong>accepté</strong> la contre-proposition de <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> le xx/xx/xx</li>
+                        <li><i class="fas fa-handshake"></i> <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> a <strong>accepté</strong> votre contre-proposition le xx/xx/xx</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fas fa-hourglass-start"></i>
+                </td>
+                <td>
+                    La prestation a <strong>commencé</strong> le xx/xx/xx
+                </td>
+            <tr>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>
+                            <strong>Intervention programmée</strong> de <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> le xx/xx/xx
+                        </li>
+                        <li>
+                            <strong>Intervention demandée</strong> par <strong>vous</strong> le xx/xx/xx
+                        </li>
+                        <li>
+                            Demande d'intervention <strong>acceptée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="">Nom</a> le xx/xx/xx
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fas fa-hourglass-end"></i>
+                </td>
+                <td>
+                    La prestation s'est <strong>terminée</strong> le xx/xx/xx
+                </td>
+            </tr>
         </table>
-Demande 
     </div>
 </div>
 

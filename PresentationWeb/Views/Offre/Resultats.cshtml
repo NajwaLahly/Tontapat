@@ -30,9 +30,9 @@
                         @od.PrenomEleveur,
 
                         <i>@od.VilleTroupeau</i>
-                        (et @(od.ZoneCouverture)km autour)
+                        (et @(od.ZoneCouverture)km autour) | @ViewBag.Rod.DateFinMin - @ViewBag.Rod.DateFinMax (@ViewBag.Rod.NbBetesMin - @(@ViewBag.Rod.NbBetesMax < od.NbBetes ? @ViewBag.Rod.NbBetesMax : od.NbBetes))
                     </div>
-
+                    @ViewBag.Rod.NbBetesMax
                     <div class="description">
                         <p>
                             <i>
