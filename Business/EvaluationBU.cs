@@ -22,10 +22,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetAllWithDetailsByEleveurId(id);
         }
 
-        public List<EvaluationDetail> GetAllWithDetailByOffreAndUtilisateurId(int idOffre, int idUtilisateur)
+        public List<EvaluationDetail> GetAllWithDetailsByOffreId(int idOffre)
         {
             EvaluationDAO dao = new();
-            return dao.GetAllWithDetailByOffreId(idOffre);
+            return dao.GetAllWithDetailsByOffreId(idOffre);
         }
 
     }

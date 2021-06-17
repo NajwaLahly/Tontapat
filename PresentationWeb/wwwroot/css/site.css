@@ -418,3 +418,7 @@ table.offre-features > img,i {
 input[type=date] {
     max-width: 10rem;
 }
+
+.box-evaluation i {
+color: orange;
+}

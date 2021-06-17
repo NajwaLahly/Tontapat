@@ -136,7 +136,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.NbBetes = dr.GetInt32("nombre_betes");
                 EvaluationDAO edao = new();
-                od.NbEvaluations = edao.GetAllWithDetailByOffreId(od.Id).Count;
+                od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
                 od.Moyenne = GetAverageByOffreId(od.Id);
                 result.Add(od);
             }
@@ -402,8 +402,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
-                od.Moyenne = GetAverageByOffreId(id);
+                od.Moyenne = GetAverageByOffreId(od.Id);
                 od.NbBetes = dr.GetInt32("nombre_betes");
+                EvaluationDAO edao = new();
+                od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
             }
 
             cmd.Connection.Close();

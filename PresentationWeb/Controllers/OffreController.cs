@@ -54,6 +54,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
             OffreBU bu = new();
             OffreDetail od = bu.GetWithDetailsById(id);
+            EvaluationBU ebu = new();
+            ViewBag.Evaluations = ebu.GetAllWithDetailsByOffreId(id);
 
             return View(od);
         }
