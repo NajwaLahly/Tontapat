@@ -83,6 +83,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return odao.GetSearchResultsWithDetailsByParams(rod);
         }
 
+        public List<OffreToPrestation> SearchOffresToPrestations(RechercheOffreDto rod)
+        {
+
+        }
+
         public List<OffreDetail> GetAllWithDetails()
         {
             return new OffreDAO().GetAllWithDetails();

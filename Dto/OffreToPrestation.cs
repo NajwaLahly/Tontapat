@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Dto
 {
-    class OffreToPrestation
+    public class OffreToPrestation
     {
-        public OffreDetail IdOffre { get; set; }
+        public OffreDetail OffreRef { get; set; }
+        public Terrain TerrainRef { get; set; }
+        public TypeTonte TypeTonteRef { get; set; }
         public double Distance { get; set; }
         public int NbBetes { get; set; }
+        public bool? TypeInstallation { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
-
         public double PrixInstallationBetail { get; set; }
         public double PrixInstallationCloture { get; set; }
         public double PrixBetail { get; set; }
