@@ -100,7 +100,7 @@ function getDateFinMinMax() {
 
     datesFin.removeAttribute("disabled");
     labelFin.innerHTML = "Date de fin (entre le " + dateFin1 + " et le " + dateFin2 + ") : ";
-    
+    document.getElementById("send").removeAttribute("disabled");
 }
 
 function addDays(date, days) {
@@ -110,8 +110,8 @@ function addDays(date, days) {
 }
 
 function getYYYYMMDD(d0) {
-    const d = new Date(d0)
-    return new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
+    const d = new Date(d0);
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0];
 
 }
 
