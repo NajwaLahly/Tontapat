@@ -11,6 +11,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string TypeTonte { get; set; }
         public string PrenomEleveur { get; set; }
         public string VilleTroupeau { get; set; }
+        public int IdVilleTroupeau { get; set; }
         public int NbBetes { get; set; }
         public string Race { get; set; }
         public string Espece { get; set; }
@@ -19,5 +20,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int IdEspece { get; set; }
         public double? Moyenne { get; set; }
         public int NbEvaluations { get; set; }
+
+        public bool Divisibilite { get; set; }
     }
 }
