@@ -1,11 +1,21 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-
-}
 @using Fr.EQL.AI109.Tontapat.Model;
 @model UtilisateurDetail
+@{
+    double averg = new double();
+    if (Model.Moyenne == null)
+    {
+        averg = 0;
+    }
+            else
+            {
+            averg = (double) Model.Moyenne;
+            }
+   double average = Math.Round(averg, 1);
+       
+}
 
 
 
@@ -16,7 +26,15 @@
     <div class="info-utilisateur">
         <h2>@Model.Prenom</h2>
         <p>@Model.NomVille</p>
+        @*  star essai*@
+        <div class="rating">
+            <div class="stars-outer">
+                <div class="stars-inner"></div>
+            </div>
+            <span class="number-rating">@average</span>
+        </div>
     </div>
+
 </div>
 <div class="box-presentation">
     <h3>Présentation</h3>
@@ -53,3 +71,12 @@
 </div>
 
 
+<script type="module">
+
+    import { getRating } from "/js/site.js";
+    document.addEventListener('DOMContentLoaded', getRating);
+    const note = parseFloat((@average)) ;
+    console.log(note);
+    getRating(note);
+
+</script>

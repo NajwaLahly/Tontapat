@@ -2,6 +2,7 @@
 
 @{ 
     string selected = "selected";
+    string superficie;
 }
 <!-- DEBUT DIVS DE MODAL
 <div id="Search-modal" class="modal">
@@ -27,7 +28,8 @@
             </select>
             @foreach (Terrain t in ViewBag.Terrains)
             {
-                <input type="hidden" id="@t.Id" value="@t.Superficie" />
+                
+                <input type="hidden" id="@t.Id" value="@t.Superficie.ToString().Replace(',', '.')" />
             }
 
         </div>

@@ -1,11 +1,14 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+
 // Write your JavaScript code.
 
 
 // Get the modal
 /*var modal = document.getElementById("Search-modal");
+/*
+var modal = document.getElementById("Search-modal");
 
 // Get the button that opens the modal
 var btn = document.getElementById("Search-modal-button");
@@ -69,6 +72,7 @@ function getDateFinMinMax() {
 
     var durees = [];
 
+    console.log(dateDebut);
     switch (idTypeTonte) {
         case "1":
 
@@ -88,9 +92,14 @@ function getDateFinMinMax() {
             durees[1] = MAX_DUREE_TONTE_LENTE;
             break;
     }
+    console.log(durees[1]);
     var terrainSuperficie = document.getElementById(document.getElementById("terrain-superficie").value).value;
+    console.log(terrainSuperficie);
     durees[0] += Math.ceil(Math.log(Math.pow(terrainSuperficie * HECTARE_TO_M2, POWER)) / 2);
     durees[1] += Math.ceil(Math.log(Math.pow(terrainSuperficie * HECTARE_TO_M2, POWER)) / 2);
+  
+    console.log(dateDebut);
+   
 
     var dateFin1 = getYYYYMMDD(addDays(dateDebut, durees[0]));
     var dateFin2 = getYYYYMMDD(addDays(dateDebut, durees[1]));
@@ -110,9 +119,36 @@ function addDays(date, days) {
 }
 
 function getYYYYMMDD(d0) {
+    
     const d = new Date(d0);
     return new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0];
 
 }
 
 //export { getDateFinMinMax }
+
+
+// Stars rating
+
+
+/*const starsTotal = 5;
+
+
+
+
+function getRating(rating) {
+
+
+    const starPercentage = (rating / starsTotal) * 100;
+
+
+    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+
+    document.querySelector(`.rating .stars-inner`).style.width = starPercentageRounded;
+
+
+    document.querySelector(`.rating .number-rating`).innerHTML = rating;
+}
+
+export { getRating, getDateFinMinMax }*/
