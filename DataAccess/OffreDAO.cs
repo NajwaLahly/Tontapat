@@ -55,27 +55,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             MySqlCommand cmd = CreerCommande();
 
-
-            /* string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom,
-                                 v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, d.distance, tr.nombre_betes FROM offre o
-                                 INNER JOIN troupeau tr ON o.id_troupeau = tr.id_troupeau
-                                 INNER JOIN race r ON r.id_race = tr.id_race
-                                 LEFT JOIN type_tonte tt ON tt.id_type = o.id_type
-                                 LEFT JOIN espece e ON r.id_espece = e.id_espece
-                                 LEFT JOIN utilisateur u ON u.id_utilisateur = tr.id_utilisateur
-                                 LEFT JOIN ville v ON v.id_ville = tr.id_ville
-                                 LEFT JOIN condition_annulation c ON c.id_condition = o.id_condition
-                                 INNER JOIN terrain te ON te.id_terrain = @idTerrain
-                                 INNER JOIN distance_villes d ON 
-                                 (d.id_ville = id_terrain AND d.vil_id_ville = tr.id_ville)
-                                 OR (d.id_ville = tr.id_ville AND d.vil_id_ville = id_terrain)
-
-                                 WHERE d.distance <= o.zone_couverture
-                                 and o.date_debut <= @dateDebut
-                                 and (o.date_fin >= @dateFinMin or o.date_fin <= @dateFinMax)
-                                 and ((tr.nombre_betes <= @nbreBetesMax and tr.nombre_betes >= @nbreBetesMin)
-                                 or (tr.nombre_betes > @nbreBetesMax and tr.divisibilite = true))";*/
-
             string commandText = @"SELECT o.*,r.nom_race, e.nom_espece, tt.nom_type, u.nom, u.prenom, tr.divisibilite, tr.id_ville,
                                 v.nom_ville, c.nom_condition, u.id_utilisateur, e.id_espece, d.distance, tr.nombre_betes FROM offre o
                                 INNER JOIN troupeau tr ON o.id_troupeau = tr.id_troupeau
@@ -108,8 +87,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Parameters.Add(new MySqlParameter("@idTerrain", rod.IdTerrain));
             cmd.Parameters.Add(new MySqlParameter("@dateDebut", rod.DateDebut));
             cmd.Parameters.Add(new MySqlParameter("@dateFin", rod.DateFin));
-            /*cmd.Parameters.Add(new MySqlParameter("@dateFinMax", rod.DateFinMax));
-            cmd.Parameters.Add(new MySqlParameter("@nbreBetesMin", rod.NbBetesMin));*/
             cmd.Parameters.Add(new MySqlParameter("@nbBetes", rod.NbBetes));
             cmd.Parameters.Add(new MySqlParameter("@idEspece", rod.IdEspece));
             cmd.Parameters.Add(new MySqlParameter("@idType", rod.IdTypeTonte));
@@ -147,7 +124,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 {
                     od.TypeTonte = dr.GetString("nom_type");
                 }
-                
                 od.PrenomEleveur = dr.GetString("prenom");
                 od.VilleTroupeau = dr.GetString("nom_ville");
                 od.Race = dr.GetString("nom_race");
@@ -157,10 +133,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.NbBetes = dr.GetInt32("nombre_betes");
                 od.Divisibilite = dr.GetBoolean("divisibilite");
                 od.IdVilleTroupeau = dr.GetInt32("id_ville");
-
-                EvaluationDAO edao = new();
-                od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
                 od.Moyenne = GetAverageByOffreId(od.Id);
+                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
+
                 result.Add(od);
             }
 
@@ -192,38 +167,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        private Offre DataReaderToOffre(MySqlDataReader dr)
-        {
-            Offre result = new Offre();
-            result.Id = dr.GetInt32("id_offre");
-            result.IdFrequence = dr.GetInt32("id_frequence");
-            result.IdTroupeau = dr.GetInt32("id_troupeau");
-            
-            result.IdCondition = dr.GetInt32("id_condition");
-            result.NomOffre = dr.GetString("nom_offre");
-            result.DateAjout = dr.GetDateTime("date_ajout");
-            result.DateDebut = dr.GetDateTime("date_debut");
-            result.DateFin = dr.GetDateTime("date_fin");
-            result.DescriptionOffre = dr.GetString("description_offre");
-            result.TypeInstallation = dr.GetBoolean("type_installation");
-            result.PrixKm = dr.GetFloat("prix_km");
-            result.CoefInstallation = dr.GetFloat("coef_installation");
-            result.CoefIntervention = dr.GetFloat("coef_intervention");
-            result.PrixBeteJour = dr.GetFloat("prix_bete_jour");
-            result.ZoneCouverture = dr.GetInt32("zone_couverture");
-            result.AdresseOffre = dr.GetString("adresse_offre");
 
-            if (!dr.IsDBNull(dr.GetOrdinal("date_annulation_offre")))
-            {
-                result.DateAnnulationOffre = dr.GetDateTime("date_annulation_offre");
-            }
-            if (!dr.IsDBNull(dr.GetOrdinal("id_type")))
-            {
-                result.IdTypeTonte = dr.GetInt32("id_type");
-            }
-
-            return result;
-        }
 
         public Offre GetById(int id)
         {
@@ -295,18 +239,18 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 {
                     od.TypeTonte = dr.GetString("nom_type");
                 }
-               
                 od.PrenomEleveur = dr.GetString("prenom");
                 od.VilleTroupeau = dr.GetString("nom_ville");
                 od.Divisibilite = dr.GetBoolean("divisibilite");
                 od.IdVilleTroupeau = dr.GetInt32("id_ville");
-
                 od.Race = dr.GetString("nom_race");
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
                 od.NbBetes = dr.GetInt32("nombre_betes");
                 od.Moyenne = GetAverageByOffreId(od.Id);
+                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
+
                 result.Add(od);
             }
 
@@ -315,12 +259,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        private OffreDetail DataReadertoOffreDetail(MySqlDataReader dr)
-        {
-            Offre o = DataReaderToOffre(dr);
-            OffreDetail od = new();
-            return od;
-        }
+      
 
         public List<OffreDetail> GetAllWithDetailsByUtilisateurId(int id)
         {
@@ -372,10 +311,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.Divisibilite = dr.GetBoolean("divisibilite");
                 od.IdVilleTroupeau = dr.GetInt32("id_ville");
-
                 od.IdEspece = dr.GetInt32("id_espece");
-                od.Moyenne = GetAverageByOffreId(od.Id);
                 od.NbBetes = dr.GetInt32("nombre_betes");
+                od.Moyenne = GetAverageByOffreId(od.Id);
+                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
+
                 result.Add(od);
             }
 
@@ -432,13 +372,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.Condition = dr.GetString("nom_condition");
                 od.IdUtilisateur = dr.GetInt32("id_utilisateur");
                 od.IdEspece = dr.GetInt32("id_espece");
-                od.Moyenne = GetAverageByOffreId(od.Id);
                 od.NbBetes = dr.GetInt32("nombre_betes");
-                EvaluationDAO edao = new();
-                od.NbEvaluations = edao.GetAllWithDetailsByOffreId(od.Id).Count;
                 od.Divisibilite = dr.GetBoolean("divisibilite");
                 od.IdVilleTroupeau = dr.GetInt32("id_ville");
-
+                od.Moyenne = GetAverageByOffreId(od.Id);
+                od.NbEvaluations = GetNbEvaluationByOffreId(od.Id);
             }
 
             cmd.Connection.Close();
@@ -455,7 +393,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 		                        INNER JOIN prestation p ON p.id_prestation = e.id_prestation
                                 INNER JOIN offre o ON o.id_offre = p.id_offre
                                 INNER JOIN troupeau t ON t.id_troupeau = o.id_troupeau
-                                WHERE o.id_offre = 2 and e.id_utilisateur = t.id_utilisateur;";
+                                WHERE o.id_offre = @id and e.id_utilisateur = t.id_utilisateur;";
 
             cmd.Parameters.Add(new MySqlParameter("@id", id));
             cmd.Connection.Open();
@@ -478,8 +416,78 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        
+        public int GetNbEvaluationByOffreId(int id)
+        {
+            int result = new();
+            MySqlCommand cmd = CreerCommande();
 
+            cmd.CommandText = @"SELECT COUNT(note_evaluation) 'average' FROM evaluation e
+		                        INNER JOIN prestation p ON p.id_prestation = e.id_prestation
+                                INNER JOIN offre o ON o.id_offre = p.id_offre
+                                INNER JOIN troupeau t ON t.id_troupeau = o.id_troupeau
+                                WHERE o.id_offre = @id and e.id_utilisateur = t.id_utilisateur;";
 
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                if (!dr.IsDBNull(dr.GetOrdinal("average")))
+                {
+                    result = dr.GetInt32("average");
+                }
+
+            }
+            else
+            {
+                result = -1;
+            }
+
+            cmd.Connection.Close();
+            return result;
+        }
+
+        private Offre DataReaderToOffre(MySqlDataReader dr)
+        {
+            Offre result = new Offre();
+            result.Id = dr.GetInt32("id_offre");
+            result.IdFrequence = dr.GetInt32("id_frequence");
+            result.IdTroupeau = dr.GetInt32("id_troupeau");
+
+            result.IdCondition = dr.GetInt32("id_condition");
+            result.NomOffre = dr.GetString("nom_offre");
+            result.DateAjout = dr.GetDateTime("date_ajout");
+            result.DateDebut = dr.GetDateTime("date_debut");
+            result.DateFin = dr.GetDateTime("date_fin");
+            result.DescriptionOffre = dr.GetString("description_offre");
+            result.TypeInstallation = dr.GetBoolean("type_installation");
+            result.PrixKm = dr.GetFloat("prix_km");
+            result.CoefInstallation = dr.GetFloat("coef_installation");
+            result.CoefIntervention = dr.GetFloat("coef_intervention");
+            result.PrixBeteJour = dr.GetFloat("prix_bete_jour");
+            result.ZoneCouverture = dr.GetInt32("zone_couverture");
+            result.AdresseOffre = dr.GetString("adresse_offre");
+
+            if (!dr.IsDBNull(dr.GetOrdinal("date_annulation_offre")))
+            {
+                result.DateAnnulationOffre = dr.GetDateTime("date_annulation_offre");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("id_type")))
+            {
+                result.IdTypeTonte = dr.GetInt32("id_type");
+            }
+
+            return result;
+        }
+        private OffreDetail DataReadertoOffreDetail(MySqlDataReader dr)
+        {
+            Offre o = DataReaderToOffre(dr);
+            OffreDetail od = new();
+            return od;
+        }
     }
+
+
+    
 }
