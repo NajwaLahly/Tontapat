@@ -16,7 +16,19 @@
         InstallationString = "du client";
     }
 
-}
+    @if (ViewBag.Rod != null)
+        {
+            double distance = Math.Round(ViewBag.dvbu.GetDistanceBetweenIds(ViewBag.Rod.IdVilleTerrain, Model.IdVilleTroupeau), 1);
+            double nbBetes = Model.Divisibilite ? ViewBag.Rod.NbBetes : Model.NbBetes;
+            double duree = (ViewBag.Rod.DateFin - ViewBag.Rod.DateDebut).TotalDays;
+            double prixInstallBetail = Math.Round(distance * Model.PrixKm * nbBetes * Model.CoefInstallation * 2, 2);
+            double prixInstallCloture = Math.Round(Model.PrixKm * distance * Model.CoefInstallation * (double)ViewBag.Rod.TerrainSuperficie * 2 * 100, 2);
+            double prixBetail = Math.Round(Model.PrixBeteJour * duree * nbBetes, 2);
+            double prixIntervention = Math.Round(Model.CoefIntervention * distance * Model.PrixKm * (int)(duree / Model.FrequenceIntervention), 2);
+            double prixTotal = Math.Round(prixInstallBetail + prixInstallCloture + prixBetail + prixIntervention, 2);
+        }
+
+    }
 
 <h1>@Model.NomOffre</h1>
 
@@ -26,7 +38,7 @@
     <div>
 
         <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(Model.IdUtilisateur).png" />
-        Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> | 
+        Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> |
         @for (int i = 0; i < Model.Moyenne; i++)
         {
             if (Model.Moyenne - i < 1)
@@ -41,28 +53,41 @@
         @Model.Moyenne (@Model.NbEvaluations évaluations)
     </div>
 </div>
+
+
 <div class="search-button-bar">
     <div class="div-search">
         <div class="icon-search-button">
             <img src="~/img/icons/terrain.png">
         </div>
         <div>
-        <select class="terrain-select-search">
-            @foreach (Terrain t in ViewBag.Terrains)
-            {
+            <select class="terrain-select-search"
+                    name="idTerrain"
+                    id="terrain-superficie"
+                    onchange="ChangeOffreDetails()"
+                    disabled>
+
+                @foreach (Terrain t in ViewBag.Terrains)
+                {
                 <option value="@t.Id">
                     @t.Nom
                 </option>
-            }
-        </select>
+                }
+            </select>
         </div>
     </div>
+
     <div class="div-search">
         <div class="icon-search-button">
             <i class="fas fa-tachometer-alt"></i>
         </div>
         <div>
-            <select class="terrain-select-search">
+            <select class="terrain-select-search"
+                    name="IdTypeTonte"
+                    id="tonte-select"
+                    onchange="ChangeOffreDetails()"
+                    disabled>
+
                 @foreach (TypeTonte tt in ViewBag.TypesTonte)
                 {
                     <option value="@tt.Id">
@@ -71,45 +96,60 @@
                 }
             </select>
         </div>
+    </div>
+
+    <div class="div-search">
+        <div class="icon-search-button">
+            <img src="~/img/icons/install.png"
+                 name="TypeInstallation"
+                 id="installation-select"
+                 onchange="ChangeOffreDetails()"
+                 disabled>
         </div>
-        <div class="div-search">
-            <img src="~/img/icons/terrain.png">
+        <div>
             <select class="terrain-select-search">
-                @foreach (Espece e in ViewBag.Especes)
-                {
-                    <option value="@e.Id">
-                        @e.Nom
-                    </option>
-                }
+                <option value=1>
+                    eleveur
+                </option>
+                <option value=2>
+                    client
+                </option>
             </select>
         </div>
-        <div class="div-search">
-            <div class="icon-search-button">
-                <img src="~/img/icons/install.png">
-            </div>
-            <div>
-                <select class="terrain-select-search">
-                    <option value=1>
-                        eleveur
-                    </option>
-                    <option value=2>
-                        client
-                    </option>
-                </select>
-            </div>
-            </div>
-        <div class="div-search">
-            <div class="icon-search-button">
-                <i class="fas fa-calendar-alt"></i>
-            </div>
-                <div>
-                    <input type="date" id="datedebut" name="datedebut"
-                           value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
-                           min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")" />
-                </div>
-            </div>
-        </div>
+    </div>
 
+    <div class="div-search">
+        <div class="icon-search-button">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div>
+            <input class="terrain-select-search"
+                   type="date"
+                   id="datedebut"
+                   name="datedebut"
+                   value="@ViewBag.Rod.DateDebut"
+                   onchange="ChangeOffreDetails()"
+                   disabled/>
+        </div>
+    </div>
+
+    <div class="div-search">
+        <div class="icon-search-button">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div>
+            <input class="terrain-select-search"
+                   type="date"
+                   id="datefin"
+                   name="DateFin"
+                   value="@ViewBag.Rod.DateFin"
+                   min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")"
+                   onchange="ChangeOffreDetails()"
+                   disabled/>
+        </div>
+    </div>
+</div>
+ 
 <div class="box-offre-details">
 
     <div class="offre-details-main">
@@ -117,59 +157,66 @@
             <div class="info-offre">
                 <h3>Caractéristiques de l'offre</h3>
 
-                    <table class="offre-features">
-                        <tr>
-                            <td><i class="fas fa-location-arrow"></i>
-                            </td>
-                            <td>
-                                @Model.VilleTroupeau (et @(Model.ZoneCouverture)km autour)
-                                                    </td>
-                        </tr>
-                        <tr>
-                            <td><img class="icon-list" src="~/img/icons/espece/1.png" />
-                            </td>
-                            <td>
-                                @Model.Race
-                                                    </td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-calendar-alt"></i>
-</td>
-                            <td>
-                                Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-tachometer-alt"></i>
-                            </td>
-                            <td>
-                                @Model.TypeTonte
-                                                    </td>
-                        </tr>
-                        <tr>
-                            <td><img class="icon-list" src="~/img/icons/install.png" />
-                            </td>
-                            <td>
-                                Installation à la charge @InstallationString
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-binoculars"></i>
-                            </td>
-                            <td>
-                                Fréquence d'intervention : tous les @Model.FrequenceIntervention jours
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-times fa-lg"></i>
-                            </td>
-                            <td>
-                                Conditions d'annulation : @Model.Condition
-                                <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
-                            </td>
-                        </tr>
+                <table class="offre-features">
+                    <tr>
+                        <td>
+                            <i class="fas fa-location-arrow"></i>
+                        </td>
+                        <td>
+                            @Model.VilleTroupeau (à km)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/espece/1.png" />
+                        </td>
+                        <td>
+                            @Model.Race
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-calendar-alt"></i>
+                        </td>
+                        <td>
+                            Du @Model.DateDebut.ToString("dd/MM/yy") au @Model.DateFin.ToString("dd/MM/yy")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </td>
+                        <td>
+                            @Model.TypeTonte
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/install.png" />
+                        </td>
+                        <td>
+                            Installation à la charge @InstallationString
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-binoculars"></i>
+                        </td>
+                        <td>
+                            Fréquence d'intervention : tous les @Model.FrequenceIntervention jours
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-times fa-lg"></i>
+                        </td>
+                        <td>
+                            Conditions d'annulation : @Model.Condition
+                            <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                        </td>
+                    </tr>
 
-                    </table>
+                </table>
 
                 <div>
                     <h3>Description</h3>
@@ -189,24 +236,24 @@
 
                 <div>
                     <h3>Evaluations (@Model.NbEvaluations)</h3>
-                    @foreach(EvaluationDetail ed in ViewBag.Evaluations)
-            {
-                <div class="box-evaluation">
-                    @ed.PrenomTiers
-                    <br />
-                    @for (int i = 0; i < Model.Moyenne; i++)
+                    @foreach (EvaluationDetail ed in ViewBag.Evaluations)
                     {
-                        if (Model.Moyenne - i < 1)
-                        {
-                            <i class="fas fa-star-half"></i>
-                            break;
-                        }
-                        <i class="fas fa-star"></i>
+                        <div class="box-evaluation">
+                            <h4>@ed.PrenomTiers</h4>
+                            <br />
+                            @for (int i = 0; i < Model.Moyenne; i++)
+                            {
+                                if (Model.Moyenne - i < 1)
+                                {
+                                    <i class="fas fa-star-half"></i>
+                                    break;
+                                }
+                                <i class="fas fa-star"></i>
+                            }
+                            @ed.Note
+                            <br />@ed.Commentaire
+                        </div>
                     }
-                     @ed.Note
-                    <br />@ed.Commentaire
-                </div>
-            }
                 </div>
             </div>
         </div>
@@ -225,7 +272,8 @@
                         <td>
                             Installation
                         </td>
-                        <td class="prix">
+                        <td class="prix"
+                            id="prix_installation">
                             -€
                         </td>
                     </tr>
@@ -233,15 +281,17 @@
                         <td>
                             Frais de bétail
                         </td>
-                        <td class="prix">
+                        <td class="prix"
+                            id="prix_betail">
                             -€
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Interventions
+                            Frais d'intervention
                         </td>
-                        <td class="prix">
+                        <td class="prix"
+                            id="prix_intervention">
                             -€
                         </td>
                     </tr>
@@ -249,7 +299,8 @@
                         <td>
                             Frais de service
                         </td>
-                        <td class="prix">
+                        <td class="prix"
+                            id="prix_service">
                             -€
                         </td>
                     </tr>
@@ -257,17 +308,18 @@
                         <td>
                             TVA (20%)
                         </td>
-                        <td class="prix">
+                        <td class="prix"
+                            id="prix_tva">
                             -€
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <h4>Total</h4>
-                            </td>
+                        </td>
                         </td>
                         <td class="prix">
-                            <h4>-€</h4>
+                            <h4 id="prix_total">-€</h4>
                         </td>
                     </tr>
                 </table>

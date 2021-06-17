@@ -14,7 +14,11 @@
     @foreach (OffreDetail od in Model)
     {
 
-    <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
+    <a class="box-offre-link"
+       asp-controller="Offre"
+       asp-action="Details"
+       asp-route-id="@od.Id">
+
         @{
             double distance = Math.Round(ViewBag.dvbu.GetDistanceBetweenIds(ViewBag.Rod.IdVilleTerrain, od.IdVilleTroupeau), 1);
             double nbBetes = od.Divisibilite ? ViewBag.Rod.NbBetes : od.NbBetes;

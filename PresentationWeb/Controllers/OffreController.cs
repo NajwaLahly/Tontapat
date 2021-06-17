@@ -55,6 +55,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.Dvbu = dvbu;
             return View("Resultats",resultats);
         }
+        
 
         public IActionResult Details(int id)
         {
@@ -77,7 +78,34 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
             return View(od);
         }
-        
+
+        [HttpPost]
+        public IActionResult Details(RechercheOffreDto rod, int id)
+        {
+            EspeceBU esbu = new();
+            List<Espece> especes = esbu.GetAll();
+            ViewBag.Especes = especes;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> typesTonte = ttbu.GetAll();
+            ViewBag.TypesTonte = typesTonte;
+
+            TerrainBU t = new();
+            List<Terrain> terrains = t.GetAllByUtilisateurId(1); ;
+            ViewBag.Terrains = terrains;
+
+            OffreBU bu = new();
+            OffreDetail od = bu.GetWithDetailsById(id);
+            EvaluationBU ebu = new();
+            ViewBag.Evaluations = ebu.GetAllWithDetailsByOffreId(id);
+
+            DistanceVillesBU dvbu = new();
+            ViewBag.Dvbu = dvbu;
+
+            ViewBag.Rod = rod;
+            Console.WriteLine(rod.IdTerrain + " : " + rod.TerrainSuperficie + "m2");
+            return View(od);
+        }
 
     }
 }
