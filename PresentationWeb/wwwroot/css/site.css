@@ -423,8 +423,36 @@ input[type=date] {
     max-width: 10rem;
 }
 
-/*ESSAI DES STARS */
+.resultat-prix {
+    flex: auto;
+    text-align: right;
+    padding: 1rem;
+    font-size: 2rem;
+    justify-content: right;
+    display: flex;
+    flex-direction: column;
+}
 
+.description > p {
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+
+.evaluation-offre > i {
+    color: orange;
+    font-size: 1rem;
+}
+
+.evaluation-offre > p {
+    font-size: 1rem;
+}
+
+.evaluation-offre {
+    align-items: center;
+    display: flex;
+}
+
+/*ESSAI DES STARS */
 .stars-outer {
     position: relative;
     display: inline-block;
@@ -455,4 +483,9 @@ input[type=date] {
 
 .box-evaluation i {
     color: orange;
+}
+
+.info-prix-bulle {
+    color: rgb(180 180 180);
+    font-size: 1rem;
 }

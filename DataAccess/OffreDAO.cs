@@ -16,16 +16,16 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             MySqlCommand cmd = CreerCommande();
             #region config command
             cmd.CommandText = @"INSERT INTO offre 
-                                (id_frequence, id_troupeau, id_type, 
+                                (frequence_intervention, id_troupeau, id_type, 
                                 id_condition, nom_offre, date_ajout, date_debut, date_fin, description_offre,
                                 type_installation, prix_km, coef_installation, coef_intervention, prix_bete_jour,
                                 zone_couverture, adresse_offre, date_annulation_offre) 
-                                VALUES (@id_frequence, @id_troupeau, @id_type, 
+                                VALUES (@frequence_intervention, @id_troupeau, @id_type, 
                                 @id_condition, @nom_offre, @date_ajout, @date_debut, @date_fin, @description_offre,
                                 @type_installation, @prix_km, @coef_installation, @coef_intervention, @prix_bete_jour,
                                 @zone_couverture, @adresse_offre, @date_annulation_offre)";
 
-            cmd.Parameters.Add(new MySqlParameter("@id_frequence", o.IdFrequence));
+            cmd.Parameters.Add(new MySqlParameter("@frequence_intervention", o.FrequenceIntervention));
             cmd.Parameters.Add(new MySqlParameter("@id_troupeau", o.IdTroupeau));
             cmd.Parameters.Add(new MySqlParameter("@id_type", o.IdTypeTonte));
             cmd.Parameters.Add(new MySqlParameter("@id_condition", o.IdCondition));
@@ -126,7 +126,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 OffreDetail od = new OffreDetail();
 
                 od.Id = o.Id;
-                od.IdFrequence = o.IdFrequence;
+                od.FrequenceIntervention = o.FrequenceIntervention;
                 od.IdTroupeau = o.IdTroupeau;
                 
                 od.IdTypeTonte = o.IdTypeTonte;
@@ -196,7 +196,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Offre result = new Offre();
             result.Id = dr.GetInt32("id_offre");
-            result.IdFrequence = dr.GetInt32("id_frequence");
+            result.FrequenceIntervention = dr.GetInt32("frequence_intervention");
             result.IdTroupeau = dr.GetInt32("id_troupeau");
             
             result.IdCondition = dr.GetInt32("id_condition");
@@ -276,7 +276,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 OffreDetail od = new OffreDetail();
 
                 od.Id = o.Id;
-                od.IdFrequence = o.IdFrequence;
+                od.FrequenceIntervention = o.FrequenceIntervention;
                 od.IdTroupeau = o.IdTroupeau;
                 od.IdTypeTonte = o.IdTypeTonte;
                 od.NomOffre = o.NomOffre;
@@ -349,7 +349,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 OffreDetail od = new OffreDetail();
 
                 od.Id = o.Id;
-                od.IdFrequence = o.IdFrequence;
+                od.FrequenceIntervention = o.FrequenceIntervention;
                 od.IdTroupeau = o.IdTroupeau;
                 od.IdTypeTonte = o.IdTypeTonte;
                 od.NomOffre = o.NomOffre;
@@ -409,7 +409,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 Offre o = DataReaderToOffre(dr);
 
                 od.Id = o.Id;
-                od.IdFrequence = o.IdFrequence;
+                od.FrequenceIntervention = o.FrequenceIntervention;
                 od.IdTroupeau = o.IdTroupeau;
                 od.IdTypeTonte = o.IdTypeTonte;
                 od.NomOffre = o.NomOffre;

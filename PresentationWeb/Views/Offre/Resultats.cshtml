@@ -4,6 +4,7 @@
 @model List<OffreDetail>
 @{
     string description = "...";
+    
 }
 
 <h1>Résultats de recherche (@Model.Count)</h1>
@@ -12,58 +13,91 @@
 
     @foreach (OffreDetail od in Model)
     {
-        <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
-            <div class="box-offre box-clickable">
-                <div class="img-offre">
-                    <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
-                </div>
-                <div class="info-offre">
-                    <div class="en-tete-offre">
-                        <h3>
-                            @od.NomOffre
-                        </h3>
-                        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
-                        @od.PrenomEleveur,
 
-                        <i>@od.VilleTroupeau</i>
-                        
-                        (@Math.Round(@ViewBag.dvbu.GetDistanceBetweenIds(@ViewBag.Rod.IdVilleTerrain, od.IdVilleTroupeau), 1) km)
-
-                    </div>
-                    <div class="description">
-                        <p>
-                            <i>
-                                @if (od.DescriptionOffre.Length > 100)
-                                {
-                                    @(od.DescriptionOffre.Substring(0, 100) + description)
-                                }
-
-                                else
-                                {
-                                    @od.DescriptionOffre
-                                }
-                            </i>
-                        </p>
-                    </div>
-
-                    <div class="info-footer">
-                        <div>
-                            <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race (@(od.Divisibilite? ViewBag.Rod.NbBetes : od.NbBetes))
-                        </div>
-                        <div>
-                            <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
-                        </div>
-                        <div>
-                            <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
-                        </div>
-                        <div>
-                            <i class="fa fa-times"></i>@od.Condition
-                        </div>
-                    </div>
-                </div>
-
+    <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
+        @{
+            double distance = Math.Round(ViewBag.dvbu.GetDistanceBetweenIds(ViewBag.Rod.IdVilleTerrain, od.IdVilleTroupeau), 1);
+            double nbBetes = od.Divisibilite ? ViewBag.Rod.NbBetes : od.NbBetes;
+            double duree = (ViewBag.Rod.DateFin - ViewBag.Rod.DateDebut).TotalDays;
+            double prixInstallBetail = Math.Round(distance * od.PrixKm * nbBetes * od.CoefInstallation * 2, 2);
+            double prixInstallCloture = Math.Round(od.PrixKm * distance * od.CoefInstallation * (double)ViewBag.Rod.TerrainSuperficie * 2 * 100, 2);
+            double prixBetail = Math.Round(od.PrixBeteJour * duree * nbBetes, 2);
+            double prixIntervention = Math.Round(od.CoefIntervention * distance * od.PrixKm * (int)(duree / od.FrequenceIntervention), 2);
+            double prixTotal = Math.Round(prixInstallBetail + prixInstallCloture + prixBetail + prixIntervention, 2);
+        }
+        <div class="box-offre box-clickable">
+            <div class="img-offre">
+                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
             </div>
-        </a>
+            <div class="info-offre">
+                <div class="en-tete-offre">
+                    <h3>
+                        @od.NomOffre
+                    </h3>
+
+                    <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
+                    @od.PrenomEleveur,
+
+                    <i>@od.VilleTroupeau</i> (à @(distance + "km"))
+
+
+
+                </div>
+                <div class="description">
+                    <p>
+                        <i>
+                            @if (od.DescriptionOffre.Length > 100)
+                            {
+                                @(od.DescriptionOffre.Substring(0, 100) + description)
+                            }
+
+                            else
+                            {
+                                @od.DescriptionOffre
+                            }
+                        </i>
+                    </p>
+                </div>
+
+                <div class="info-footer">
+                    <div>
+                        <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race (@nbBetes)
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
+                    </div>
+                    <div>
+                        <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                    </div>
+                    <div>
+                        <i class="fa fa-times"></i>@od.Condition
+                    </div>
+                </div>
+            </div>
+            <div class="resultat-prix">
+                <div class="prix">
+                    @prixTotal€
+
+                    <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @prixInstallCloture€\nPrix d'installation du bétail : @prixInstallBetail€
+                   \nFrais de bétail : @prixBetail€\nPrix d'intervention : @prixIntervention€"></i>
+                </div>
+                <div class="evaluation-offre">
+                   
+                    @for (int i = 0; i < od.Moyenne; i++)
+                    {
+                        if (od.Moyenne - i < 1)
+                        {
+                            <i class="fas fa-star-half"></i>
+                            break;
+                        }
+                        <i class="fas fa-star"></i>
+                    }
+                <p>(@od.NbEvaluations)</p>
+                </div>
+            </div>
+
+        </div>
+    </a>
     }
     
 </div>

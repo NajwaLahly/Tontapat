@@ -26,8 +26,10 @@
             </select>
             @foreach (Terrain t in ViewBag.Terrains)
             {
-                
+
                 <input type="hidden" id="@t.Id" value="@t.Superficie.ToString().Replace(',', '.')" />
+                <input type="hidden" name="TerrainSuperficie" value="@t.Superficie" />
+
             }
 
         </div>
