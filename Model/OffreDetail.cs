@@ -18,5 +18,6 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string Condition { get; set; }
         public int IdEspece { get; set; }
         public double? Moyenne { get; set; }
+        public int NbEvaluations { get; set; }
     }
 }

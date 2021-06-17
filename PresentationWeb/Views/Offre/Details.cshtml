@@ -24,9 +24,14 @@
 
 <div class="box-offre-details-header">
     <div>
+
         <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(Model.IdUtilisateur).png" />
         Proposée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdUtilisateur">@Model.PrenomEleveur</a> | <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
+        @for (int i = 1; i <= 5; i++)
+        {
+            <i class="fas fa-star"></i>
+        }
+
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half"></i>

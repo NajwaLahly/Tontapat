@@ -1,5 +1,8 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 
+@{ 
+    string selected = "selected";
+}
 <!-- DEBUT DIVS DE MODAL
 <div id="Search-modal" class="modal">
 
@@ -70,7 +73,7 @@
 
     <div class="box-offre">
         <div class="info-offre">
-            <h3>Choisissez votre date de début</h3>
+            <h3>Choisissez les dates de la prestation</h3>
             <label for="datedebut">Date de début :</label>
             <input type="date" id="datedebut" name="DateDebut"
                    value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
@@ -81,12 +84,12 @@
             <input type="date" id="datefin" name="datefin"
                    value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")"
                    disabled />
-            <i class="far fa-question-circle" title="La date de fin est calculée à partir de la superficie de votre terrain et le type de tonte que vous sélectionnez."></i>
+            <i class="far fa-question-circle" title="La fenêtre de dates de fin est calculée à partir de la superficie de votre terrain et le type de tonte que vous sélectionnez."></i>
 
         </div>
     </div>
     <div class="box-boutons">
-        <button class="btn-success" type="submit" form="recherche" value="submit">Rechercher des prestations</button>
+        <button class="btn-success" id="send" type="submit" form="recherche" value="submit" disabled>Rechercher des prestations</button>
         <button class="btn-danger" type="reset" form="recherche" value="reset">Réinitialiser la recherche</button>
     </div>
 
