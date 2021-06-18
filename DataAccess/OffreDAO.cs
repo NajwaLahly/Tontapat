@@ -106,7 +106,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-    
+
         public List<Offre> GetAll()
         {
             List<Offre> result = new();
@@ -216,7 +216,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        public  OffreDetail GetWithDetailsById(int id)
+        public OffreDetail GetWithDetailsById(int id)
         {
             OffreDetail od = new OffreDetail();
             MySqlCommand cmd = CreerCommande();
