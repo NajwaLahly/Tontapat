@@ -13,7 +13,7 @@
 
     @foreach (OffreToPrestationDto otpdto in Model)
     {
-
+ 
     <a class="box-offre-link"
        asp-controller="Offre"
        asp-action="DetailsPrestation"
@@ -34,24 +34,7 @@
        asp-route-prixTVA="@otpdto.PrixTVA"
        asp-route-prixTotal="@otpdto.PrixTotal">
 
-        <form id="@otpdto.OffreRef.Id">
-            <input type="hidden" name="IdOffre" value="@otpdto.IdOffre" />
-            <input type="hidden" name="IdTerrain" value="@otpdto.IdTerrain" />
-            <input type="hidden" name="IdTypeTonte" value="@otpdto.IdTypeTonte" />
-            <input type="hidden" name="Distance" value="@otpdto.Distance" />
-            <input type="hidden" name="NbBetes" value="@otpdto.NbBetes" />
-            <input type="hidden" name="TypeInstallation" value="@otpdto.TypeInstallation" />
-            <input type="hidden" name="DateDebut" value="@otpdto.DateDebut" />
-            <input type="hidden" name="DateFin" value="@otpdto.DateFin" />
-            <input type="hidden" name="Duree" value="@otpdto.Duree" />
-            <input type="hidden" name="PrixInstallationBetail" value="@otpdto.PrixInstallationBetail" />
-            <input type="hidden" name="PrixInstallationCloture" value="@otpdto.PrixInstallationCloture" />
-            <input type="hidden" name="PrixBetail" value="@otpdto.PrixBetail" />
-            <input type="hidden" name="PrixIntervention" value="@otpdto.PrixIntervention" />
-            <input type="hidden" name="PrixService" value="@otpdto.PrixService" />
-            <input type="hidden" name="PrixTVA" value="@otpdto.PrixTVA" />
-            <input type="hidden" name="PrixTotal" value="@otpdto.PrixTotal" />
-        </form>
+        
 
         <div class="box-offre box-clickable">
             <div class="img-offre">

@@ -1,0 +1,119 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+@using Fr.EQL.AI109.Tontapat.Dto
+
+
+@model OffreToPrestationDto
+
+<div class="recap">
+    <div class="en-tete-recap">
+        <div class="titre-recap">
+            <h2>Récapitulatif de la réservation de votre prestation</h2>
+        </div>
+        <div class="ref-recap">
+            <h5>Numéro de réservation</h5>
+        </div>
+    </div>
+    <div class="corps-recap">
+        <div class="info-client">
+            <h6>Détails client</h6>
+            <ul>
+                <li>
+                    Nom client: @Model.TerrainRef.IdUtilisateur
+                </li>
+                <li>
+                    Prénom client:
+                </li>
+                <li>
+                    Nom Terrain: @Model.TerrainRef.Nom
+                </li>
+                <li>
+                    Adresse Terrain: @Model.TerrainRef.AdresseVoie - @Model.TerrainRef.IdVille
+                </li>
+            </ul>
+
+        </div>
+        <div class="info-eleveur">
+            <h6>Détails Eleveur</h6>
+            <ul>
+                <li>
+                    Nom Eleveur: 
+                </li>
+                <li>
+                    Prénom Eleveur: @Model.OffreRef.PrenomEleveur
+                </li>
+                <li>
+                    Nom Offre : @Model.OffreRef.NomOffre
+                </li>
+                <li>
+                    Adresse offre: @Model.OffreRef.AdresseOffre
+                </li>
+            </ul>
+        </div>
+        <div class="info-prestation">
+            <h6>Détails Prestation</h6>
+            <ul>
+                <li>
+                    Date de début: @Model.DateDebut
+                </li>
+                <li>
+                    Date de fin: @Model.DateFin
+                </li>
+                <li>
+                    Nombre de bêtes: @Model.NbBetes
+                </li>
+                <li>
+                    Fréquence d'intervention: @Model.OffreRef.FrequenceIntervention
+                </li>
+                <li>
+                    Prix Total : @Model.PrixTotal
+                    <ul>
+                        <li>
+                            Prix d'installation de clôture : @Model.PrixInstallationCloture
+                        </li>
+                        <li>
+                            Prix d'installation du bétail : @Model.PrixInstallationBetail
+                        </li>
+                        <li>
+                            Frais de bétail : @Model.PrixBetail
+                        </li>
+                        <li>
+                            Frais d'intervention : @Model.PrixIntervention
+                        </li>
+                        <li>
+                            Frais de service (10%) : @Model.PrixService
+                        </li>
+                        <li>
+                            TVA (20%) : @Model.PrixTVA
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="recap-validation box-boutons">
+    <form id="offre" method="get" asp-controller="Offre" asp-action="Paiement">
+        <input type="hidden" name="IdOffre" value="@Model.IdOffre" />
+        <input type="hidden" name="IdTerrain" value="@Model.IdTerrain" />
+        <input type="hidden" name="IdTypeTonte" value="@Model.IdTypeTonte" />
+        <input type="hidden" name="Distance" value="@Model.Distance" />
+        <input type="hidden" name="NbBetes" value="@Model.NbBetes" />
+        <input type="hidden" name="TypeInstallation" value="@Model.TypeInstallation" />
+        <input type="hidden" name="DateDebut" value="@Model.DateDebut" />
+        <input type="hidden" name="DateFin" value="@Model.DateFin" />
+        <input type="hidden" name="Duree" value="@Model.Duree" />
+        <input type="hidden" name="PrixInstallationBetail" value="@Model.PrixInstallationBetail" />
+        <input type="hidden" name="PrixInstallationCloture" value="@Model.PrixInstallationCloture" />
+        <input type="hidden" name="PrixBetail" value="@Model.PrixBetail" />
+        <input type="hidden" name="PrixIntervention" value="@Model.PrixIntervention" />
+        <input type="hidden" name="PrixService" value="@Model.PrixService" />
+        <input type="hidden" name="PrixTVA" value="@Model.PrixTVA" />
+        <input type="hidden" name="PrixTotal" value="@Model.PrixTotal" />
+        <button class="btn-success" type="submit" form="offre" value="submit">Réserver</button>
+        <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+    </form>
+    
+</div>
+
