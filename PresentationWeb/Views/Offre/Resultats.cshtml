@@ -81,17 +81,17 @@
                     <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @prixInstallCloture€&#10;Prix d'installation du bétail : @prixInstallBetail€&#10;Frais de bétail : @prixBetail€&#10;Prix d'intervention : @prixIntervention€"></i>
                 </div>
                 <div class="evaluation-offre">
-                   
-                    @for (int i = 0; i < od.Moyenne; i++)
-                    {
-                        if (od.Moyenne - i < 1)
+
+                    @{  
+                        if (od.Moyenne == 0)
+                            od.Moyenne = 3.5;
+                        for (int i = 0; i < od.Moyenne; i++)
                         {
-                            <i class="fas fa-star-half"></i>
-                            break;
+                            <i class="fas fa-star"></i>
                         }
-                        <i class="fas fa-star"></i>
                     }
-                <p>(@od.NbEvaluations)</p>
+
+                    <p>(@od.NbEvaluations)</p>
                 </div>
             </div>
 

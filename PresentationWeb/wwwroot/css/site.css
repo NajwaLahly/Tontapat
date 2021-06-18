@@ -520,3 +520,12 @@ input[type=date] {
 #rate-number-profil{
     padding-left:5px
 }
+.barre-menu {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    margin: 0 auto;
+}
+
+.barre-menu p{
+    padding: 25px 50px;
+}
