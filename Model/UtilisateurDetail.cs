@@ -12,6 +12,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string NomVille { get; set; }
         public double? Moyenne { get; set; }
         public int NbEvaluation { get; set; }
+        public List<EvaluationDetail> MesEvals { get; set; }
         public List<OffreDetail> MesOffres { get; set; }
         public List<PrestationDetail> MesPresta { get; set; }
         public List<Troupeau> MesTroupeaux { get; set; }

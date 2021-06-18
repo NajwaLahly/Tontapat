@@ -496,40 +496,7 @@ input[type=date] {
     color: rgb(180 180 180);
     font-size: 1rem;
 }
-      /*   Mon Profil*/
-.profil-container {
-    text-align:center;
-    display: flex;
-    flex-direction: column;
-}
-.img-container-form {
-    text-align:center;
-    max-width: 8rem;
-    border-radius: 50%;
-    outline: .2rem solid rgb(200, 200, 200);
-    outline-offset: -.1rem;
-}
 
-.rate-profil{
-    display:flex;
-    padding-right: 5px;
-    flex-direction:row;
-    margin: 0 auto;
-    width: 100px;
-}
-#rate-number-profil{
-    padding-left:5px
-}
-.barre-menu {
-    display: inline-flex !important;
-    flex-direction: row !important;
-    margin: 0 auto;
-}
-
-.barre-menu p{
-    padding: 25px 50px;
-}
-}
 
 /*Page Recap*/
 .recap {
@@ -581,19 +548,35 @@ input[type=date] {
 div.corps-recap h6 {
     padding-left: 10px;
 }
-}
 
-.container-details-profil {
+                /*MON PROFIL*/
+
+.identite-profil {
     display: flex;
-    text-align:center;
+    text-align: center;
     margin: 10px;
     border: 1px solid rgb(230,230,230);
     box-shadow: 0px 0px 3px 2px rgb(240,240,240);
     border-radius: 6px;
-    flex-direction: column;
+    flex-direction: row;
 }
-.tab-content #menu {
-    margin-left:50px
+.identite {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 10px;
+}
+.adresse {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 10px;
+}
+
+.btn-change-profil{
+    display: flex;
+    flex-direction:row;
+    text-align:center;
 }
 
 .nav-tabs > li > a {
@@ -604,4 +587,51 @@ div.corps-recap h6 {
 }
 .principal-profil{
     margin-top:18px !important;
+}
+.button-update {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profil-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.img-container-form {
+    text-align: center;
+    max-width: 8rem;
+    border-radius: 50%;
+    outline: .2rem solid rgb(200, 200, 200);
+    outline-offset: -.1rem;
+}
+
+.rate-profil {
+    display: flex;
+    padding-right: 5px;
+    flex-direction: row;
+    margin: 0 auto;
+    width: 100px;
+}
+
+#rate-number-profil {
+    padding-left: 5px
+}
+
+.courriel-password {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 15px;
+}
+.logo-paiement{
+    width:150px;
+    height:150px;
+}
+.img-paiement{
+    padding: 15px;
 }

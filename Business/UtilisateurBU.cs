@@ -35,8 +35,12 @@ namespace Fr.EQL.AI109.Tontapat.Business
         public UtilisateurDetail GetAllWithDetailById(int id)
         {
             UtilisateurDAO dao = new();
-            return dao.GetAllWithDetailsById(id);
 
+            UtilisateurDetail ud= dao.GetAllWithDetailsById(id);
+            EvaluationBU ebu= new();
+            ud.MesEvals = ebu.GetAllWithDetailsByUtilisateurId(id);
+
+            return ud;
         }
     }
 }

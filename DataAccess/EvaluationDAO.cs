@@ -24,6 +24,34 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
         }
+
+        public List<EvaluationDetail> GetAllWithDetailsByUtilisateurId(int id)
+        {
+            List<EvaluationDetail> evaluations = new();
+
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT e.*, util.prenom 'prenom', u.id_utilisateur 'id_tier' ,u.prenom 'prenom_tier' FROM evaluation e
+	                            INNER JOIN prestation p ON p.id_prestation = e.id_prestation
+                                INNER JOIN utilisateur util ON util.id_utilisateur = e.id_utilisateur
+	                            LEFT JOIN terrain te ON te.id_terrain = p.id_terrain
+	                            LEFT JOIN troupeau tr ON tr.id_troupeau = p.id_troupeau
+	                            INNER JOIN utilisateur u ON u.id_utilisateur = tr.id_utilisateur
+	                            WHERE e.id_utilisateur = @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                EvaluationDetail ed = DataReaderToEvaluationDetail(dr);
+                evaluations.Add(ed);
+            }
+
+            cmd.Connection.Close();
+            return evaluations;
+        }
         public List<EvaluationDetail> GetAllWithDetailsByClientId(int id)
         {
             List<EvaluationDetail> evaluations = new();
@@ -44,19 +72,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Evaluation e = DataReaderToEvaluation(dr);
-                EvaluationDetail ed = new EvaluationDetail();
-                ed.Id = e.Id;
-                ed.IdPrestation = e.IdPrestation;
-                ed.IdUtilisateurCible = e.IdUtilisateurCible;
-                ed.Note = e.Note;
-                ed.Commentaire = e.Commentaire;
-                ed.IdTiers = dr.GetInt32("id_tier");
-                ed.PrenomCible = dr.GetString("prenom");
-                ed.PrenomTiers = dr.GetString("prenom_tier");
-    
+                EvaluationDetail ed = DataReaderToEvaluationDetail(dr);
                 evaluations.Add(ed);
-                
             }
 
             cmd.Connection.Close();
@@ -83,17 +100,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Evaluation e = DataReaderToEvaluation(dr);
-                EvaluationDetail ed = new EvaluationDetail();
-                ed.Id = e.Id;
-                ed.IdPrestation = e.IdPrestation;
-                ed.IdUtilisateurCible = e.IdUtilisateurCible;
-                ed.Note = e.Note;
-                ed.Commentaire = e.Commentaire;
-                ed.IdTiers = dr.GetInt32("id_tier");
-                ed.PrenomCible = dr.GetString("prenom");
-                ed.PrenomTiers = dr.GetString("prenom_tier");
-
+                EvaluationDetail ed = DataReaderToEvaluationDetail(dr);
                 evaluations.Add(ed);
             }
 
@@ -122,18 +129,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while (dr.Read())
             {
-                Evaluation e = DataReaderToEvaluation(dr);
-                EvaluationDetail ed = new EvaluationDetail();
-                ed.Id = e.Id;
-                ed.IdPrestation = e.IdPrestation;
-                ed.IdUtilisateurCible = e.IdUtilisateurCible;
-                ed.Note = e.Note;
-                ed.Commentaire = e.Commentaire;
+
+                EvaluationDetail ed = DataReaderToEvaluationDetail(dr);
                 ed.IdOffre = dr.GetInt32("id_offre");
-                ed.PrenomCible = dr.GetString("prenom");
-                ed.IdTiers = dr.GetInt32("id_tier");
-                ed.PrenomTiers = dr.GetString("prenom_tier");
-                
+
                 evaluations.Add(ed);
             }
 
@@ -141,6 +140,21 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return evaluations;
         }
         
+        private EvaluationDetail DataReaderToEvaluationDetail(MySqlDataReader dr)
+        {
+            Evaluation e = DataReaderToEvaluation(dr);
+            EvaluationDetail ed = new();
+            ed.Id = e.Id;
+            ed.IdPrestation = e.IdPrestation;
+            ed.IdUtilisateurCible = e.IdUtilisateurCible;
+            ed.Note = e.Note;
+            ed.Commentaire = e.Commentaire;
+            ed.PrenomCible = dr.GetString("prenom");
+            ed.IdTiers = dr.GetInt32("id_tier");
+            ed.PrenomTiers = dr.GetString("prenom_tier");
+
+            return ed;
+        }
         private Evaluation DataReaderToEvaluation(MySqlDataReader dr)
         {
             Evaluation result = new Evaluation();
