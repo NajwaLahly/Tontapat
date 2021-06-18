@@ -92,6 +92,37 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        private PrestationDetail DataReaderToPrestationDetail(MySqlDataReader dr)
+        {
+            Prestation p = DataReaderToPrestation(dr);
+            PrestationDetail pd = new();
+            pd = (PrestationDetail)p;
+            pd.Id = p.Id;
+            pd.IdMotifAnnulation = p.IdMotifAnnulation;
+            pd.IdTerrain = p.IdTerrain;
+            pd.IdTroupeau = p.IdTroupeau;
+            pd.IdOffre = p.IdOffre;
+            pd.NombreBetes = p.NombreBetes;
+            pd.IdMotifRefus = p.IdMotifRefus;
+            pd.DateDemande = p.DateDemande;
+            pd.DateValidation = p.DateValidation;
+            pd.DateRefus = p.DateRefus;
+            pd.DescriptionRefus = p.DescriptionRefus;
+            pd.DateAnnulation = p.DateAnnulation;
+            pd.DescriptionAnnulation = p.DescriptionAnnulation;
+            pd.PrixConvenu = p.PrixConvenu;
+            pd.DateDebut = p.DateDebut;
+            pd.DateFin = p.DateFin;
+            pd.TypeInstallationFinal = p.TypeInstallationFinal;
+
+            pd.NomTerrain = dr.GetString("nom_terrain");
+            pd.PrenomEleveur = dr.GetString("prenom_eleveur");
+            pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
+            pd.NomRaceTroupeau = dr.GetString("nom_race");
+
+            return pd;
+        }
+
         public Prestation GetById(int id)
         {
             Prestation result = null;
