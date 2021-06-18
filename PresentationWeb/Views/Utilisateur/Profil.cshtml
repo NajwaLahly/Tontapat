@@ -13,25 +13,96 @@
             <img class="img-container-form" src="~/img/photos/profile/@(Model.Id).png" />
         </div>
 
-          <h1>@Model.Prenom</h1>
+        <h1>@Model.Prenom</h1>
 
-          <div class="rate-profil">
-              @for (int i = 0; i < Model.Moyenne; i++)
-              {
-                  if (Model.Moyenne - i < 1)
-                  {
-                      <i class="fas fa-star-half"></i>
-                      break;
-                  }
-                  <i class="fas fa-star"></i>
-              }
-              <span id="rate-number-profil"> (@Model.NbEvaluation) </span>
-          </div>
+        <div class="rate-profil">
+            @for (int i = 0; i < Model.Moyenne; i++)
+            {
+                if (Model.Moyenne - i < 1)
+                {
+                    <i class="fas fa-star-half"></i>
+                    break;
+                }
+                <i class="fas fa-star"></i>
+            }
+            <span id="rate-number-profil"> (@Model.NbEvaluation) </span>
+        </div>
     </header>
-    <div class="barre-menu">
-        <div class="all-profil"><p>Mon profil</p></div>
-        <div class="all-profil"><p>Mon profil</p></div>
-        <div class="all-profil"><p>Mon profil</p></div>
-        <div class="all-profil"><p>Mon profil</p></div>
+</div>
+<div class="principal-profil">
+    <div class="container">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Mon profil</a></li>
+            <li><a data-toggle="tab" href="#menu1">Courriel et mot de passe</a></li>
+            <li><a data-toggle="tab" href="#menu2">Mes modes de paiement</a></li>
+            <li><a data-toggle="tab" href="#menu3">Mes évaluations</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div class="container mt-3">
+                    <form>
+                        <h3>Identité</h3>
+                        <label for="get">Nom:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.Nom" id="demo" name="email">
+
+                        </div>
+                        <label for="get">Prenom:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.Prenom" id="demo" name="email">
+                        </div>
+                        <label for="get">Date de naissance:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.DateNaissance" id="demo" name="email">
+                        </div>
+                        <h3>Adresse</h3>
+                        <label for="get">N* de voie et complément:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.AdresseVoie" id="demo" name="email">
+                        </div>
+                        <label for="get">Code postal:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="code postal" id="demo" name="email">
+                        </div>
+                           <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.NomVille" id="demo" name="email">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <div class="container mt-3">
+                    <form>
+                        <label for="get">Courriel:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.Email" id="demo" name="email">
+
+                        </div>
+                        <label for="get">Mot de passe:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="@Model.MotDePasse" id="demo" name="email">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+        </div>
     </div>
 </div>
+@*    <div class="container-details-profil">
+        <div class="courriel-profil">
+            <h2>Courriel</h2>
+            <p>Adresse courriel : hello@wanadoo.fr</p>
+        </div>*@
+
+
+    
