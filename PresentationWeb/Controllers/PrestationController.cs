@@ -1,4 +1,5 @@
 ﻿using Fr.EQL.AI109.Tontapat.Business;
+using Fr.EQL.AI109.Tontapat.DataAccess;
 using Fr.EQL.AI109.Tontapat.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,12 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
     public class PrestationController : Controller
     {
+        public ActionResult Recapitulatif()
+        {
+            
+            return View();
+        }
+
         // GET: PrestationController
         public ActionResult Index()
         {
