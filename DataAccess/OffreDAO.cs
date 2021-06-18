@@ -142,6 +142,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                 od.PrixBeteJour = o.PrixBeteJour;
                 od.ZoneCouverture = o.ZoneCouverture;
                 od.AdresseOffre = o.AdresseOffre;
+              
 
                 if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
                 {
@@ -168,7 +169,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-    
+
         public List<Offre> GetAll()
         {
             List<Offre> result = new();
@@ -384,7 +385,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        public  OffreDetail GetWithDetailsById(int id)
+        public OffreDetail GetWithDetailsById(int id)
         {
             OffreDetail od = new OffreDetail();
             MySqlCommand cmd = CreerCommande();

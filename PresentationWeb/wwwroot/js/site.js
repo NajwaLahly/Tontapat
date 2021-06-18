@@ -43,6 +43,11 @@ var datesFin = document.getElementById("datefin");
 
 var labelFin = document.getElementById("label-fin");
 
+function changeOffreDetails() {
+    getDateFinMinMax();
+    getOffrePrix();
+}
+
 function getDateFinMinMax() {
 
     const HECTARE_TO_M2 = 10000;
@@ -122,6 +127,10 @@ function getYYYYMMDD(d0) {
     
     const d = new Date(d0);
     return new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0];
+
+}
+
+function getOffrePrix() {
 
 }
 
