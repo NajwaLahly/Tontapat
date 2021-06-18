@@ -489,3 +489,27 @@ input[type=date] {
     color: rgb(180 180 180);
     font-size: 1rem;
 }
+
+.profil-container {
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+}
+.img-container-form {
+    text-align:center;
+    max-width: 8rem;
+    border-radius: 50%;
+    outline: .2rem solid rgb(200, 200, 200);
+    outline-offset: -.1rem;
+}
+
+.rate-profil{
+    display:flex;
+    padding-right: 5px;
+    flex-direction:row;
+    margin: 0 auto;
+    width: 100px;
+}
+#rate-number-profil{
+    padding-left:5px
+}

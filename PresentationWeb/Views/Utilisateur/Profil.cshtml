@@ -1,8 +1,32 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+    @using Fr.EQL.AI109.Tontapat.Model;
+    @model UtilisateurDetail
 @{
 }
-<div class="utilisateurprofil">
-    <img src=""
+<div class="profil-container">
+
+    <header>
+
+        <div class="img-container">
+            <img class="img-container-form" src="~/img/photos/profile/@(Model.Id).png" />
+        </div>
+
+          <h1>@Model.Prenom</h1>
+
+          <div class="rate-profil">
+              @for (int i = 0; i < Model.Moyenne; i++)
+              {
+                  if (Model.Moyenne - i < 1)
+                  {
+                      <i class="fas fa-star-half"></i>
+                      break;
+                  }
+                  <i class="fas fa-star"></i>
+              }
+              <span id="rate-number-profil"> (@Model.NbEvaluation) </span>
+          </div>
+    </header>
+
 </div>
