@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
-    [Route("utilisateur/details/{id:int}")]
+    
     public class UtilisateurController : Controller
     {
+        [Route("utilisateur/details/{id:int}")]
         public IActionResult Eleveur(int id)
         {
             UtilisateurBU bu = new();
@@ -24,7 +25,14 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             List<EvaluationDetail> evaluationsDetails = ebu.GetAllWithDetailsByEleveurId(id);
             ViewBag.EvaluationsDetails = evaluationsDetails;
 
+            return View(ud);
+        }
 
+        [Route("Utilisateur/Profil/{id:int}")]
+        public IActionResult Profil(int id)
+        {
+            UtilisateurBU bu = new();
+            UtilisateurDetail ud = bu.GetAllWithDetailById(id);
 
             return View(ud);
         }
