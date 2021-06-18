@@ -17,6 +17,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         // GET: PrestationController
         public ActionResult Index()
         {
+            PrestationBU.
             return View();
         }
 

@@ -5,4 +5,61 @@
 }
 @using Fr.EQL.AI109.Tontapat.Model
 
-@model Prestation
+@model List<PrestationDetail>
+
+<h1>Mes prestations</h1>
+
+<table>
+    <tr>
+        <th>
+            Terrain
+        </th>
+        <th>
+            Début
+        </th>
+        <th>
+           Fin
+        </th>
+        <th>
+            Tonte
+        </th>
+        <th>
+            Prestataire
+        </th>
+        <th>
+            Prix payé
+        </th>
+        <th>
+            DL
+        </th>
+
+    </tr>
+
+    @foreach (PrestationDetail pd in Model)
+    {
+<tr>
+    <td>
+        @pd.NomTerrain
+    </td>
+    <td>
+        @pd.DateDebut
+    </td>
+    <td>
+        @pd.DateFin
+    </td>
+    <td>
+        @pd.NomTypeTonte
+    </td>
+    <td>
+        @pd.PrenomEleveur
+    </td>
+    <td>
+        @pd.PrixConvenu
+    </td>
+    <td>
+        <i class="fas fa-download"></i>
+    </td>
+
+</tr>
+    }
+</table>

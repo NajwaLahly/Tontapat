@@ -41,17 +41,6 @@ namespace Fr.EQL.AI109.Tontapat.Business
             Console.WriteLine("Create Prestation exécuté");
         }
 
-        public Prestation GetById(int id)
-        {
-            //Id should be > 0
-            if (id <= 0)
-            {
-                throw new Exception("Id de prestation invalide");
-            }
-            PrestationDAO dao = new();
-            return dao.GetById(id);
-        }
-
         public void ConvertAndInsert(OffreToPrestationDto otpdto)
         {
 
@@ -73,5 +62,22 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
             return p;
         }
+
+        public Prestation GetById(int id)
+        {
+            //Id should be > 0
+            if (id <= 0)
+            {
+                throw new Exception("Id de prestation invalide");
+            }
+            PrestationDAO dao = new();
+            return dao.GetById(id);
+        }
+
+        public List<PrestationDetail> GetAllByUtilisateurId(int id)
+        {
+
+        }
+
     }
 }

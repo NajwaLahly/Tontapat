@@ -147,9 +147,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        public List<Prestation> GetAllByUtilisateurId(int id)
+        public List<PrestationDetail> GetAllByUtilisateurId(int id)
         {
-            List<Prestation> result = null;
+            List<PrestationDetail> result = null;
 
             MySqlCommand cmd = CreerCommande();
 
@@ -164,7 +164,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             while(dr.Read())
             {
-                result.Add(DataReaderToPrestation(dr));
+                result.Add(DataReaderToPrestationDetail(dr));
             }
             cmd.Connection.Close();
 

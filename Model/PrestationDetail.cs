@@ -15,5 +15,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int IdEspeceTroupeau { get; set; }
 
         public string NomRaceTroupeau { get; set; }
+
+        public string NomTypeTonte { get; set; }
     }
 }
