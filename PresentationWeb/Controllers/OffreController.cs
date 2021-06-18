@@ -113,8 +113,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             [FromQuery] double distance,
             [FromQuery] int nbBetes,
             [FromQuery] bool? typeInstallation,
-            [FromQuery] DateTime dateDebut,
-            [FromQuery] DateTime dateFin,
+            [FromQuery] string dateDebut,
+            [FromQuery] string dateFin,
             [FromQuery] int duree,
             [FromQuery] double PrixInstallationBetail,
             [FromQuery] double prixInstallationCloture,
@@ -132,8 +132,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             otpdto.Distance = distance;
             otpdto.NbBetes = nbBetes;
             otpdto.TypeInstallation = typeInstallation;
-            otpdto.DateDebut = dateDebut;
-            otpdto.DateFin = dateFin;
+            otpdto.DateDebut = DateTime.ParseExact(dateDebut, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            otpdto.DateFin = DateTime.ParseExact(dateFin, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             otpdto.Duree = duree;
             otpdto.PrixInstallationBetail = PrixInstallationBetail;
             otpdto.PrixInstallationCloture = prixInstallationCloture;
@@ -186,8 +186,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             [FromQuery] double distance,
             [FromQuery] int nbBetes,
             [FromQuery] bool? typeInstallation,
-            [FromQuery] DateTime dateDebut,
-            [FromQuery] DateTime dateFin,
+            [FromQuery] string dateDebut,
+            [FromQuery] string dateFin,
             [FromQuery] int duree,
             [FromQuery] double PrixInstallationBetail,
             [FromQuery] double prixInstallationCloture,
@@ -205,8 +205,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             otpdto.Distance = distance;
             otpdto.NbBetes = nbBetes;
             otpdto.TypeInstallation = typeInstallation;
-            otpdto.DateDebut = dateDebut;
-            otpdto.DateFin = dateFin;
+            otpdto.DateDebut = DateTime.ParseExact(dateDebut, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            otpdto.DateFin = DateTime.ParseExact(dateFin, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             otpdto.Duree = duree;
             otpdto.PrixInstallationBetail = PrixInstallationBetail;
             otpdto.PrixInstallationCloture = prixInstallationCloture;
@@ -231,8 +231,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             [FromQuery] double distance,
             [FromQuery] int nbBetes,
             [FromQuery] bool? typeInstallation,
-            [FromQuery] DateTime dateDebut,
-            [FromQuery] DateTime dateFin,
+            [FromQuery] string dateDebut,
+            [FromQuery] string dateFin,
             [FromQuery] int duree,
             [FromQuery] double PrixInstallationBetail,
             [FromQuery] double prixInstallationCloture,
@@ -250,8 +250,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             otpdto.Distance = distance;
             otpdto.NbBetes = nbBetes;
             otpdto.TypeInstallation = typeInstallation;
-            otpdto.DateDebut = dateDebut;
-            otpdto.DateFin = dateFin;
+            otpdto.DateDebut = DateTime.ParseExact(dateDebut, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            otpdto.DateFin = DateTime.ParseExact(dateFin, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             otpdto.Duree = duree;
             otpdto.PrixInstallationBetail = PrixInstallationBetail;
             otpdto.PrixInstallationCloture = prixInstallationCloture;
