@@ -1,7 +1,7 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 @using Fr.EQL.AI109.Tontapat.Dto
 
-@model List<OffreDetail>
+@model List<OffreToPrestationDto>
 @{
     string description = "...";
     
@@ -11,38 +11,62 @@
 
 <div class="Offre-container">
 
-    @foreach (OffreDetail od in Model)
+    @foreach (OffreToPrestationDto otpdto in Model)
     {
 
     <a class="box-offre-link"
        asp-controller="Offre"
-       asp-action="Details"
-       asp-route-id="@od.Id">
+       asp-action="DetailsPrestation"
+       asp-route-idOffre="@otpdto.IdOffre"
+       asp-route-idTerrain="@otpdto.IdTerrain"
+       asp-route-idTypeTonte="@otpdto.IdTypeTonte"
+       asp-route-distance="@otpdto.Distance"
+       asp-route-nbBetes="@otpdto.NbBetes"
+       asp-route-typeInstallation="@otpdto.TypeInstallation"
+       asp-route-dateDebut="@otpdto.DateDebut"
+       asp-route-dateFin="@otpdto.DateFin"
+       asp-route-duree="@otpdto.Duree"
+       asp-route-prixInstallationBetail="@otpdto.PrixInstallationBetail"
+       asp-route-prixInstallationCloture="@otpdto.PrixInstallationCloture"
+       asp-route-prixBetail="@otpdto.PrixBetail"
+       asp-route-prixIntervention="@otpdto.PrixIntervention"
+       asp-route-prixService="@otpdto.PrixService"
+       asp-route-prixTVA="@otpdto.PrixTVA"
+       asp-route-prixTotal="@otpdto.PrixTotal">
 
-        @{
-            double distance = Math.Round(ViewBag.dvbu.GetDistanceBetweenIds(ViewBag.Rod.IdVilleTerrain, od.IdVilleTroupeau), 1);
-            double nbBetes = od.Divisibilite ? ViewBag.Rod.NbBetes : od.NbBetes;
-            double duree = (ViewBag.Rod.DateFin - ViewBag.Rod.DateDebut).TotalDays;
-            double prixInstallBetail = Math.Round(distance * od.PrixKm * nbBetes * od.CoefInstallation * 2, 2);
-            double prixInstallCloture = Math.Round(od.PrixKm * distance * od.CoefInstallation * (double)ViewBag.Rod.TerrainSuperficie * 2 * 100, 2);
-            double prixBetail = Math.Round(od.PrixBeteJour * duree * nbBetes, 2);
-            double prixIntervention = Math.Round(od.CoefIntervention * distance * od.PrixKm * (int)(duree / od.FrequenceIntervention), 2);
-            double prixTotal = Math.Round(prixInstallBetail + prixInstallCloture + prixBetail + prixIntervention, 2);
-        }
+        <form id="@otpdto.OffreRef.Id">
+            <input type="hidden" name="IdOffre" value="@otpdto.IdOffre" />
+            <input type="hidden" name="IdTerrain" value="@otpdto.IdTerrain" />
+            <input type="hidden" name="IdTypeTonte" value="@otpdto.IdTypeTonte" />
+            <input type="hidden" name="Distance" value="@otpdto.Distance" />
+            <input type="hidden" name="NbBetes" value="@otpdto.NbBetes" />
+            <input type="hidden" name="TypeInstallation" value="@otpdto.TypeInstallation" />
+            <input type="hidden" name="DateDebut" value="@otpdto.DateDebut" />
+            <input type="hidden" name="DateFin" value="@otpdto.DateFin" />
+            <input type="hidden" name="Duree" value="@otpdto.Duree" />
+            <input type="hidden" name="PrixInstallationBetail" value="@otpdto.PrixInstallationBetail" />
+            <input type="hidden" name="PrixInstallationCloture" value="@otpdto.PrixInstallationCloture" />
+            <input type="hidden" name="PrixBetail" value="@otpdto.PrixBetail" />
+            <input type="hidden" name="PrixIntervention" value="@otpdto.PrixIntervention" />
+            <input type="hidden" name="PrixService" value="@otpdto.PrixService" />
+            <input type="hidden" name="PrixTVA" value="@otpdto.PrixTVA" />
+            <input type="hidden" name="PrixTotal" value="@otpdto.PrixTotal" />
+        </form>
+
         <div class="box-offre box-clickable">
             <div class="img-offre">
-                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
+                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(otpdto.OffreRef.IdTroupeau)_1.jpg" />
             </div>
             <div class="info-offre">
                 <div class="en-tete-offre">
                     <h3>
-                        @od.NomOffre
+                        @otpdto.OffreRef.NomOffre
                     </h3>
 
-                    <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
-                    @od.PrenomEleveur,
+                    <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(otpdto.OffreRef.IdUtilisateur).png" />
+                    @otpdto.OffreRef.PrenomEleveur,
 
-                    <i>@od.VilleTroupeau</i> (à @(distance + "km"))
+                    <i>@otpdto.OffreRef.VilleTroupeau</i> (à @(otpdto.Distance + "km"))
 
 
 
@@ -50,14 +74,14 @@
                 <div class="description">
                     <p>
                         <i>
-                            @if (od.DescriptionOffre.Length > 100)
+                            @if (otpdto.OffreRef.DescriptionOffre.Length > 100)
                             {
-                                @(od.DescriptionOffre.Substring(0, 100) + description)
+                                @(otpdto.OffreRef.DescriptionOffre.Substring(0, 100) + description)
                             }
 
                             else
                             {
-                                @od.DescriptionOffre
+                                @otpdto.OffreRef.DescriptionOffre
                             }
                         </i>
                     </p>
@@ -65,38 +89,38 @@
 
                 <div class="info-footer">
                     <div>
-                        <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race (@nbBetes)
+                        <img class="icon" src="~/img/icons/espece/@(otpdto.OffreRef.IdEspece).png" />@otpdto.OffreRef.Race (@otpdto.NbBetes)
                     </div>
                     <div>
-                        <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
+                        <i class="fas fa-calendar-alt"></i>jusqu'au @otpdto.DateFin.ToString("dd/MM/yyyy")
                     </div>
                     <div>
-                        <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                        <i class="fas fa-tachometer-alt"></i>@otpdto.OffreRef.TypeTonte
                     </div>
                     <div>
-                        <i class="fa fa-times"></i>@od.Condition
+                        <i class="fa fa-times"></i>@otpdto.OffreRef.Condition
                     </div>
                 </div>
             </div>
             <div class="resultat-prix">
                 <div class="prix">
-                    @prixTotal€
+                    @otpdto.PrixTotal€
 
-                    <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @prixInstallCloture€\nPrix d'installation du bétail : @prixInstallBetail€
-                   \nFrais de bétail : @prixBetail€\nPrix d'intervention : @prixIntervention€"></i>
+                    <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @otpdto.PrixInstallationCloture€\nPrix d'installation du bétail : @otpdto.PrixInstallationBetail€
+                   \nFrais de bétail : @otpdto.PrixBetail€\nPrix d'intervention : @otpdto.PrixIntervention€"></i>
                 </div>
                 <div class="evaluation-offre">
-                   
-                    @for (int i = 0; i < od.Moyenne; i++)
+
+                    @for (int i = 0; i < otpdto.OffreRef.Moyenne; i++)
                     {
-                        if (od.Moyenne - i < 1)
+                        if (otpdto.OffreRef.Moyenne - i < 1)
                         {
                             <i class="fas fa-star-half"></i>
                             break;
                         }
                         <i class="fas fa-star"></i>
                     }
-                <p>(@od.NbEvaluations)</p>
+                    <p>(@otpdto.OffreRef.NbEvaluations)</p>
                 </div>
             </div>
 

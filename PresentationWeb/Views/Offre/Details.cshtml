@@ -15,20 +15,7 @@
     {
         InstallationString = "du client";
     }
-
-    @if (ViewBag.Rod != null)
-        {
-            double distance = Math.Round(ViewBag.dvbu.GetDistanceBetweenIds(ViewBag.Rod.IdVilleTerrain, Model.IdVilleTroupeau), 1);
-            double nbBetes = Model.Divisibilite ? ViewBag.Rod.NbBetes : Model.NbBetes;
-            double duree = (ViewBag.Rod.DateFin - ViewBag.Rod.DateDebut).TotalDays;
-            double prixInstallBetail = Math.Round(distance * Model.PrixKm * nbBetes * Model.CoefInstallation * 2, 2);
-            double prixInstallCloture = Math.Round(Model.PrixKm * distance * Model.CoefInstallation * (double)ViewBag.Rod.TerrainSuperficie * 2 * 100, 2);
-            double prixBetail = Math.Round(Model.PrixBeteJour * duree * nbBetes, 2);
-            double prixIntervention = Math.Round(Model.CoefIntervention * distance * Model.PrixKm * (int)(duree / Model.FrequenceIntervention), 2);
-            double prixTotal = Math.Round(prixInstallBetail + prixInstallCloture + prixBetail + prixIntervention, 2);
-        }
-
-    }
+}
 
 <h1>@Model.NomOffre</h1>
 
@@ -100,26 +87,6 @@
 
     <div class="div-search">
         <div class="icon-search-button">
-            <img src="~/img/icons/install.png"
-                 name="TypeInstallation"
-                 id="installation-select"
-                 onchange="ChangeOffreDetails()"
-                 disabled>
-        </div>
-        <div>
-            <select class="terrain-select-search">
-                <option value=1>
-                    eleveur
-                </option>
-                <option value=2>
-                    client
-                </option>
-            </select>
-        </div>
-    </div>
-
-    <div class="div-search">
-        <div class="icon-search-button">
             <i class="fas fa-calendar-alt"></i>
         </div>
         <div>
@@ -127,7 +94,7 @@
                    type="date"
                    id="datedebut"
                    name="datedebut"
-                   value="@ViewBag.Rod.DateDebut"
+                   value=""
                    onchange="ChangeOffreDetails()"
                    disabled/>
         </div>
@@ -142,7 +109,7 @@
                    type="date"
                    id="datefin"
                    name="DateFin"
-                   value="@ViewBag.Rod.DateFin"
+                   value=""
                    min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")"
                    onchange="ChangeOffreDetails()"
                    disabled/>
