@@ -1,65 +1,83 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@using Fr.EQL.AI109.Tontapat.Model
+﻿@using Fr.EQL.AI109.Tontapat.Model
 
 @model List<PrestationDetail>
 
 <h1>Mes prestations</h1>
 
-<table>
-    <tr>
-        <th>
-            Terrain
-        </th>
-        <th>
-            Début
-        </th>
-        <th>
-           Fin
-        </th>
-        <th>
-            Tonte
-        </th>
-        <th>
-            Prestataire
-        </th>
-        <th>
-            Prix payé
-        </th>
-        <th>
-            DL
-        </th>
+<div class="box-offre">
+        <table class="prestations-list">
+            <tr>
+                <th scope="col">
+                    Référence
+                </th>
+                <th scope="col">
+                    Terrain
+                </th>
+                <th scope="col">
+                    Début
+                </th>
+                <th>
+                    Fin
+                </th>
+                <th scope="col">
+                    Tonte
+                </th>
+                <th scope="col">
+                    Prestataire
+                </th>
+                <th scope="col">
+                    Prix payé
+                </th>
+                <th scope="col">
+                    <i class="fas fa-download"></i>
+                </th>
 
-    </tr>
+            </tr>
 
-    @foreach (PrestationDetail pd in Model)
-    {
-<tr>
-    <td>
-        @pd.NomTerrain
-    </td>
-    <td>
-        @pd.DateDebut
-    </td>
-    <td>
-        @pd.DateFin
-    </td>
-    <td>
-        @pd.NomTypeTonte
-    </td>
-    <td>
-        @pd.PrenomEleveur
-    </td>
-    <td>
-        @pd.PrixConvenu
-    </td>
-    <td>
-        <i class="fas fa-download"></i>
-    </td>
 
-</tr>
-    }
-</table>
+            @foreach (PrestationDetail pd in Model)
+            {
+                @*
+                    <div>
+                        <table>*@
+                            <tr>
+                                <td>
+                                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
+                                        #@(pd.DateDemande.ToString("yyMMdd") + pd.Id)
+                                        </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
+                                        @pd.NomTerrain
+                                    </a>
+                                </td>
+                                <td>
+                                    @pd.DateDebut.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @pd.DateFin.ToString("dd/MM/yyyy")  
+                                </td>
+                                <td>
+                                    @pd.NomTypeTonte
+                                </td>
+                                <td>
+                                    <a asp-controller="Utilisateur" asp-action="Eleveur" asp-route-id="@pd.IdEleveur">
+                                        @pd.PrenomEleveur
+                                    </a>
+                                </td>
+                                <td>
+                                    @pd.PrixConvenu
+                                </td>
+                                <td>
+                                    <i class="fas fa-download"></i>
+                                </td>
+
+                            </tr>
+@*                        </table>
+                    </div>
+                    </a>*@
+
+                    }
+            </table>
+
+    </div>

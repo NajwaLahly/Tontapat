@@ -96,7 +96,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Prestation p = DataReaderToPrestation(dr);
             PrestationDetail pd = new();
-            pd = (PrestationDetail)p;
             pd.Id = p.Id;
             pd.IdMotifAnnulation = p.IdMotifAnnulation;
             pd.IdTerrain = p.IdTerrain;
@@ -116,9 +115,12 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             pd.TypeInstallationFinal = p.TypeInstallationFinal;
 
             pd.NomTerrain = dr.GetString("nom_terrain");
-            pd.PrenomEleveur = dr.GetString("prenom_eleveur");
+            pd.PrenomEleveur = dr.GetString("prenom");
             pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
             pd.NomRaceTroupeau = dr.GetString("nom_race");
+            pd.NomTypeTonte = dr.GetString("nom_type");
+            pd.IdEleveur = dr.GetInt32("id_utilisateur");
+
 
             return pd;
         }
@@ -149,15 +151,20 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
         public List<PrestationDetail> GetAllByUtilisateurId(int id)
         {
-            List<PrestationDetail> result = null;
+            List<PrestationDetail> result = new();
 
             MySqlCommand cmd = CreerCommande();
 
             //Inner Join ?
-            cmd.CommandText = @"SELECT *
-                                FROM prestation
-                                WHERE id_offre = @id";
-            cmd.Parameters.Add(new MySqlParameter("id", id));
+            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom,u2.id_utilisateur,tr.id_troupeau,r.nom_race,tt.nom_type FROM prestation p
+                                LEFT JOIN terrain t on p.id_terrain = t.id_terrain
+                                LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
+                                LEFT JOIN race r on tr.id_race = r.id_race
+                                LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
+                                WHERE u.id_utilisateur = @id";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
 
             cmd.Connection.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
@@ -165,6 +172,35 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             while(dr.Read())
             {
                 result.Add(DataReaderToPrestationDetail(dr));
+            }
+            cmd.Connection.Close();
+
+            return result;
+        }
+    
+    public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDetail result = new();
+
+            MySqlCommand cmd = CreerCommande();
+
+            //Inner Join ?
+            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom,u2.id_utilisateur,tr.id_troupeau,r.nom_race,tt.nom_type FROM prestation p
+                                LEFT JOIN terrain t on p.id_terrain = t.id_terrain
+                                LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
+                                LEFT JOIN race r on tr.id_race = r.id_race
+                                LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
+                                WHERE p.id_prestation = @id;";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                result = DataReaderToPrestationDetail(dr);
             }
             cmd.Connection.Close();
 

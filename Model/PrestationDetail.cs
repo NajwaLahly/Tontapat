@@ -10,6 +10,8 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
         public string NomTerrain { get; set; }
 
+        public int IdEleveur { get; set; }
+
         public string PrenomEleveur { get; set; }
 
         public int IdEspeceTroupeau { get; set; }

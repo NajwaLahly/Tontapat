@@ -76,8 +76,17 @@ namespace Fr.EQL.AI109.Tontapat.Business
 
         public List<PrestationDetail> GetAllByUtilisateurId(int id)
         {
+            PrestationDAO pdao = new();
+            List<PrestationDetail> pds = pdao.GetAllByUtilisateurId(id);
 
+            return pds;
         }
 
+        public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDAO pdao = new();
+            PrestationDetail pd = pdao.GetWithDetailsById(id);
+            return pd;
+        }
     }
 }

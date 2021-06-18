@@ -17,16 +17,17 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         // GET: PrestationController
         public ActionResult Index()
         {
-            PrestationBU.
-            return View();
+            PrestationBU pbu = new();
+            List<PrestationDetail> pds = pbu.GetAllByUtilisateurId(1);
+            return View(pds);
         }
 
         // GET: PrestationController/Details/5
         public ActionResult Details(int id)
         {
             PrestationBU bu = new();
-            Prestation p = bu.GetById(id);
-            return View(p);
+            PrestationDetail pd = bu.GetWithDetailsById(id);
+            return View(pd);
         }
 
         // GET: PrestationController/Create
