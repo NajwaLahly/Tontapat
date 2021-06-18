@@ -496,7 +496,7 @@ input[type=date] {
     color: rgb(180 180 180);
     font-size: 1rem;
 }
-
+      /*   Mon Profil*/
 .profil-container {
     text-align:center;
     display: flex;
@@ -528,4 +528,27 @@ input[type=date] {
 
 .barre-menu p{
     padding: 25px 50px;
+}
+
+.container-details-profil {
+    display: flex;
+    text-align:center;
+    margin: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+    flex-direction: column;
+}
+.tab-content #menu {
+    margin-left:50px
+}
+
+.nav-tabs > li > a {
+    margin-left: 100px !important;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.principal-profil{
+    margin-top:18px !important;
 }
