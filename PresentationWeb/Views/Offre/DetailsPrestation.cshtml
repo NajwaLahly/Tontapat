@@ -232,8 +232,8 @@
                     <input type="hidden" name="Distance" value="@Model.Distance" />
                     <input type="hidden" name="NbBetes" value="@Model.NbBetes" />
                     <input type="hidden" name="TypeInstallation" value="@Model.TypeInstallation" />
-                    <input type="hidden" name="DateDebut" value="@Model.DateDebut" />
-                    <input type="hidden" name="DateFin" value="@Model.DateFin" />
+                    <input type="hidden" name="DateDebut" value="@Model.DateDebut.ToString("dd-MM-yyyy")" />
+                    <input type="hidden" name="DateFin" value="@Model.DateFin.ToString("dd-MM-yyyy")" />
                     <input type="hidden" name="Duree" value="@Model.Duree" />
                     <input type="hidden" name="PrixInstallationBetail" value="@Model.PrixInstallationBetail" />
                     <input type="hidden" name="PrixInstallationCloture" value="@Model.PrixInstallationCloture" />
