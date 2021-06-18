@@ -111,9 +111,9 @@
                 <div class="evaluation-offre">
 
                     @{  
-                        if (otpdto.Moyenne == 0)
-                            otpdto.Moyenne = 3.5;
-                        for (int i = 0; i < odotpdto.Moyenne; i++)
+                        if (otpdto.OffreRef.Moyenne == 0)
+                            otpdto.OffreRef.Moyenne = 3.5;
+                        for (int i = 0; i < otpdto.OffreRef.Moyenne; i++)
                         {
                             <i class="fas fa-star"></i>
                         }
