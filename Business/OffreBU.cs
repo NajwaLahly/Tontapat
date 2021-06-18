@@ -92,7 +92,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
                 otp.TerrainRef = t;
                 otp.IdTerrain = t.Id;
                 otp.IdTypeTonte = rod.IdTypeTonte;
-                otp.NbBetes = otp.OffreRef.Divisibilite ? otp.OffreRef.NbBetes : rod.NbBetes;
+                otp.NbBetes = otp.OffreRef.Divisibilite ? rod.NbBetes : otp.OffreRef.NbBetes;
                 otp.TypeInstallation = rod.TypeInstallation;
                 otp.DateDebut = rod.DateDebut;
                 otp.DateFin = rod.DateFin;

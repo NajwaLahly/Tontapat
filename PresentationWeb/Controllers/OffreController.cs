@@ -106,7 +106,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
         [HttpGet]
         //[HttpGet("{idOffre}/{idTerrain}/{idTypeTonte}/{distance}/{nbBetes}/{typeInstallation}/{dateDebut}/{dateFin}/{duree}/{prixInstallationBetail}/{prixInstallationCloture}/{prixBetail}/{prixIntervention}/{prixService}/{prixTVA}/{prixTotal}")]
-        public async Task<IActionResult> DetailsPrestation(
+        public IActionResult DetailsPrestation(
             [FromQuery] int idOffre,
             [FromQuery] int idTerrain,
             [FromQuery] int idTypeTonte,
@@ -162,6 +162,126 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.Evaluations = ebu.GetAllWithDetailsByOffreId(otpdto.IdOffre);
 
             return View(otpdto);
+        }
+        [HttpPost]
+        public IActionResult DetailsPrestation(OffreToPrestationDto otpdto)
+        {
+            OffreBU obu = new();
+            otpdto = obu.GetOffreToPrestation(otpdto);
+            return View("Recapitulatif", otpdto);
+        }
+
+        [HttpPost]
+        public IActionResult Recapitulatif(OffreToPrestationDto otpdto)
+        {
+            OffreBU obu = new();
+            otpdto = obu.GetOffreToPrestation(otpdto);
+            return View("Paiement", otpdto);
+        }
+        [HttpGet]
+        public IActionResult Paiement(
+            [FromQuery] int idOffre,
+            [FromQuery] int idTerrain,
+            [FromQuery] int idTypeTonte,
+            [FromQuery] double distance,
+            [FromQuery] int nbBetes,
+            [FromQuery] bool? typeInstallation,
+            [FromQuery] DateTime dateDebut,
+            [FromQuery] DateTime dateFin,
+            [FromQuery] int duree,
+            [FromQuery] double PrixInstallationBetail,
+            [FromQuery] double prixInstallationCloture,
+            [FromQuery] double prixBetail,
+            [FromQuery] double prixIntervention,
+            [FromQuery] double prixService,
+            [FromQuery] double prixTVA,
+            [FromQuery] double prixTotal)
+        {
+            OffreToPrestationDto otpdto = new();
+            otpdto.IdOffre = idOffre;
+            Console.WriteLine("===============================" + otpdto.IdOffre);
+            otpdto.IdTerrain = idTerrain;
+            otpdto.IdTypeTonte = idTypeTonte;
+            otpdto.Distance = distance;
+            otpdto.NbBetes = nbBetes;
+            otpdto.TypeInstallation = typeInstallation;
+            otpdto.DateDebut = dateDebut;
+            otpdto.DateFin = dateFin;
+            otpdto.Duree = duree;
+            otpdto.PrixInstallationBetail = PrixInstallationBetail;
+            otpdto.PrixInstallationCloture = prixInstallationCloture;
+            otpdto.PrixBetail = prixBetail;
+            otpdto.PrixIntervention = prixIntervention;
+            otpdto.PrixService = prixService;
+            otpdto.PrixTVA = prixTVA;
+            otpdto.PrixTotal = prixTotal;
+            
+            OffreBU obu = new();
+            otpdto = obu.GetOffreToPrestation(otpdto);
+            PrestationBU pbu = new();
+
+            //pbu.Insert(p);
+            return View(otpdto);
+        }
+
+        public IActionResult NouvellePrestation(
+            [FromQuery] int idOffre,
+            [FromQuery] int idTerrain,
+            [FromQuery] int idTypeTonte,
+            [FromQuery] double distance,
+            [FromQuery] int nbBetes,
+            [FromQuery] bool? typeInstallation,
+            [FromQuery] DateTime dateDebut,
+            [FromQuery] DateTime dateFin,
+            [FromQuery] int duree,
+            [FromQuery] double PrixInstallationBetail,
+            [FromQuery] double prixInstallationCloture,
+            [FromQuery] double prixBetail,
+            [FromQuery] double prixIntervention,
+            [FromQuery] double prixService,
+            [FromQuery] double prixTVA,
+            [FromQuery] double prixTotal)
+        {
+            OffreToPrestationDto otpdto = new();
+            otpdto.IdOffre = idOffre;
+            Console.WriteLine("===============================" + otpdto.IdOffre);
+            otpdto.IdTerrain = idTerrain;
+            otpdto.IdTypeTonte = idTypeTonte;
+            otpdto.Distance = distance;
+            otpdto.NbBetes = nbBetes;
+            otpdto.TypeInstallation = typeInstallation;
+            otpdto.DateDebut = dateDebut;
+            otpdto.DateFin = dateFin;
+            otpdto.Duree = duree;
+            otpdto.PrixInstallationBetail = PrixInstallationBetail;
+            otpdto.PrixInstallationCloture = prixInstallationCloture;
+            otpdto.PrixBetail = prixBetail;
+            otpdto.PrixIntervention = prixIntervention;
+            otpdto.PrixService = prixService;
+            otpdto.PrixTVA = prixTVA;
+            otpdto.PrixTotal = prixTotal;
+
+            OffreBU obu = new();
+            otpdto = obu.GetOffreToPrestation(otpdto);
+            PrestationBU pbu = new();
+            pbu.ConvertAndInsert(otpdto);
+            return View("Succes");
+        }
+       /* [HttpPost]
+        public IActionResult Paiement(OffreToPrestationDto otpdto)
+        {
+            OffreBU obu = new();
+            otpdto = obu.GetOffreToPrestation(otpdto);
+            PrestationBU pbu = new();
+
+            //pbu.Insert(p);
+            return View("Succes", otpdto);
+        }*/
+
+        public ActionResult Recapitulatif()
+        {
+           
+            return View();
         }
 
     }

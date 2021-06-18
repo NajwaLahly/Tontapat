@@ -12,11 +12,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
     public class PrestationController : Controller
     {
-        public ActionResult Recapitulatif()
-        {
-            
-            return View();
-        }
+       
 
         // GET: PrestationController
         public ActionResult Index()

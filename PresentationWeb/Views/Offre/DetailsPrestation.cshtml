@@ -225,8 +225,27 @@
                 </div>
             </div>
             <div class="box-boutons">
-                <button class="btn-success" type="submit" form="offre" value="submit">Réserver</button>
-                <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+                <form id="offre" method="post">
+                    <input type="hidden" name="IdOffre" value="@Model.IdOffre" />
+                    <input type="hidden" name="IdTerrain" value="@Model.IdTerrain" />
+                    <input type="hidden" name="IdTypeTonte" value="@Model.IdTypeTonte" />
+                    <input type="hidden" name="Distance" value="@Model.Distance" />
+                    <input type="hidden" name="NbBetes" value="@Model.NbBetes" />
+                    <input type="hidden" name="TypeInstallation" value="@Model.TypeInstallation" />
+                    <input type="hidden" name="DateDebut" value="@Model.DateDebut" />
+                    <input type="hidden" name="DateFin" value="@Model.DateFin" />
+                    <input type="hidden" name="Duree" value="@Model.Duree" />
+                    <input type="hidden" name="PrixInstallationBetail" value="@Model.PrixInstallationBetail" />
+                    <input type="hidden" name="PrixInstallationCloture" value="@Model.PrixInstallationCloture" />
+                    <input type="hidden" name="PrixBetail" value="@Model.PrixBetail" />
+                    <input type="hidden" name="PrixIntervention" value="@Model.PrixIntervention" />
+                    <input type="hidden" name="PrixService" value="@Model.PrixService" />
+                    <input type="hidden" name="PrixTVA" value="@Model.PrixTVA" />
+                    <input type="hidden" name="PrixTotal" value="@Model.PrixTotal" />
+                    <button class="btn-success" type="submit" form="offre" value="submit">Réserver</button>
+                    <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+                </form>
+                
             </div>
         </div>
 
