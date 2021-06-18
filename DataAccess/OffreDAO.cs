@@ -169,7 +169,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return result;
         }
-    
+
         public List<Offre> GetAll()
         {
             List<Offre> result = new();

@@ -31,7 +31,8 @@ namespace Fr.EQL.AI109.Tontapat.Business
         private const int MIN_DUREE_TONTE_RAPIDE = MIN_SURFACE_ANIMAL_RAPIDE / SURFACE_ANIMAL_JOUR;
         private const int MAX_DUREE_TONTE_RAPIDE = MAX_SURFACE_ANIMAL_RAPIDE / SURFACE_ANIMAL_JOUR;
 
-
+        private const double FRAIS_SERVICE = 0.1;
+        private const double TVA = 0.2;
         public void InsertOffre(Offre o)
         {
             //start date of an offre should be > DataTime now + 1 day
@@ -62,7 +63,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetById(id);
         }
 
-        public List<OffreDetail> RechercherOffre(RechercheOffreDto rod)
+        public List<OffreToPrestationDto> RechercherOffre(RechercheOffreDto rod)
         {
             OffreDAO odao = new();
 
@@ -80,14 +81,56 @@ namespace Fr.EQL.AI109.Tontapat.Business
             //rod.NbBetesMin = nbreBetes[0];
             //rod.NbBetesMax = nbreBetes[1];
 
-            return odao.GetSearchResultsWithDetailsByParams(rod);
+            List<OffreDetail> ods = odao.GetSearchResultsWithDetailsByParams(rod);
+            List<OffreToPrestationDto> otps = new();
+
+            foreach(OffreDetail od in ods)
+            {
+                OffreToPrestationDto otp = new();
+                otp.OffreRef = od;
+                otp.IdOffre = otp.OffreRef.Id;
+                otp.TerrainRef = t;
+                otp.IdTerrain = t.Id;
+                otp.IdTypeTonte = rod.IdTypeTonte;
+                otp.NbBetes = otp.OffreRef.Divisibilite ? otp.OffreRef.NbBetes : rod.NbBetes;
+                otp.TypeInstallation = rod.TypeInstallation;
+                otp.DateDebut = rod.DateDebut;
+                otp.DateFin = rod.DateFin;
+
+                // ET LA VIENNENT TOUS LES CALCULS QU'ON FAISAIT DANS LA VIEW
+
+                otp.Duree = (int)(otp.DateFin - otp.DateDebut).TotalDays;
+                //Calcul distance entre terrain sélectionné et offre
+                DistanceVillesBU dvbu = new();
+
+                otp.Distance = Math.Round(dvbu.GetDistanceBetweenIds(otp.TerrainRef.IdVille, otp.OffreRef.IdVilleTroupeau), 1); ;
+                otp.PrixInstallationBetail = Math.Round(otp.Distance * otp.OffreRef.PrixKm * otp.NbBetes * od.CoefInstallation * 2, 2); ;
+                otp.PrixInstallationCloture = Math.Round(otp.OffreRef.PrixKm * otp.Distance * otp.OffreRef.CoefInstallation * (double)otp.TerrainRef.Superficie * 2 * 100, 2);
+                otp.PrixBetail = Math.Round(otp.OffreRef.PrixBeteJour * otp.Duree * otp.NbBetes, 2);
+                otp.PrixIntervention = Math.Round(od.CoefIntervention * otp.Distance * od.PrixKm * (int)(otp.Duree / otp.OffreRef.FrequenceIntervention), 2);
+                double sousTotal = Math.Round(otp.Distance + otp.PrixInstallationBetail + otp.PrixInstallationCloture + otp.PrixBetail + otp.PrixIntervention,2);
+                otp.PrixService = Math.Round(sousTotal * FRAIS_SERVICE,2);
+                otp.PrixTVA = Math.Round((sousTotal + otp.PrixService) * TVA,2);
+                otp.PrixTotal = Math.Round(sousTotal + otp.PrixService + otp.PrixTVA,2);
+
+                //On ajoute notre objet tout propre dans la liste
+                // qu'on affichera sur la view
+                otps.Add(otp);
+            }
+
+            return otps;
         }
 
-        public List<OffreToPrestation> SearchOffresToPrestations(RechercheOffreDto rod)
+        public OffreToPrestationDto GetOffreToPrestation(OffreToPrestationDto otpdto)
         {
+            OffreDAO odao = new();
+            otpdto.OffreRef = odao.GetWithDetailsById(otpdto.IdOffre);
 
+            TerrainBU tbu = new();
+            otpdto.TerrainRef = tbu.GetById(otpdto.IdTerrain);
+
+            return otpdto;
         }
-
         public List<OffreDetail> GetAllWithDetails()
         {
             return new OffreDAO().GetAllWithDetails();
