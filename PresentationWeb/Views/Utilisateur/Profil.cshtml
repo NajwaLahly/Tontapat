@@ -110,21 +110,21 @@
 
             <div id="menu2" class="tab-pane fade">
                 <div class="container mt-3">
-                    <form>
+                    <form method="post">
                         <div class="identite-profil">
                             <div class="identite">
-                                <h4>Adresse</h4>
-                                <label for="get">N* de voie et complément</label>
+                                <h4>Carte bancaire</h4>
+                                <label for="get">N* de carte</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="@Model.AdresseVoie" id="demo" name="email">
+                                    <input type="text" class="form-control" placeholder="@Model.CarteNumero" id="demo" name="email">
                                 </div>
-                                <label for="get">Code postal</label>
+                                <label for="get">Date d'expiration</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Code postal" id="demo" name="email">
+                                    <input type="text" class="form-control" placeholder="@Model.CarteExpiration" id="demo" name="email">
                                 </div>
-                                <label for="get">Ville</label>
+                                <label for="get">CVC</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="@Model.NomVille" id="demo" name="email">
+                                    <input type="text" class="form-control" placeholder="@Model.CarteCVC" id="demo" name="email">
                                 </div>
                             </div>
                             <div class="adresse">
@@ -145,37 +145,38 @@
                             </div>
                         </div>
                             <div class="button-update">
-                                <button class="btn-success" id="send" type="submit" form="recherche" value="submit" disabled>Rechercher des prestations</button>
+                                <button class="btn-success" id="send" type="submit" form="recherche" value="submit" disabled>Valider changements</button>
                             </div>
                     </form>
                 </div>
             </div>
 
             <div id="menu3" class="tab-pane fade">
-                <h3>Mes évaluations</h3>
+             
                 @{
                     if (Model.NbEvaluation != 0)
                     {
-                        foreach (Evaluation ev in Model.MesEvals)
+                        foreach (EvaluationDetail ev in Model.MesEvals)
                         {
-                            <div class="identite-profil">
-                                <h4>@ev.Note /5</h4>
-                                <br />
-                                <p>@ev.Commentaire</p>
-                            </div>
+                                <div class="tableau-notes">
+                                    <p style="font-weight: bold; padding-top: 7px;">@ev.Note/5 <span id="rate-number-profil"> par @ev.PrenomTiers </span></p>
+                                    
+                                    <br />
+                                    <p>@ev.Commentaire</p>
+                                </div>
                         }
                     }
                     else
                     {
-                        <div class="identite-profil" style="text-align: center;">
+                        <div class="tableau-notes" style="text-align: center;">
                             <p>(Aucune évaluation à ce jour.)</p>
                         </div>
                     }
 
                 }
 
-
-            </div>
+                </div>
+         </div>
     </div>
 </div>
 
