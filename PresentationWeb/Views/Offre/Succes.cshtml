@@ -3,4 +3,22 @@
 *@
 @{
 }
-<h1>Prestation crée avec succès</h1>
+<h1>Demande envoyée avec succès</h1>
+
+<div class="Offre-container">
+    <div class="box-offre">
+        <div class="info-offre">
+            <div class="succes">
+                <img src="~/img/tontapat_love.png" />
+                <p>L'éleveur a été informé de votre demande de prestation et vous répondra dans les plus brefs délais.</p>
+                <p>En attendant, vous pouvez suivre l'état de votre demande sur la page de <a asp-controller="Prestation" asp-action="Index">Mes Prestations</a></p>
+            </div>
+
+        </div>
+    </div>
+    <div class="box-boutons">
+        <form asp-controller="Prestation" asp-action="Index" method="get">
+            <button class="btn-success" type="submit">Voir mes prestations</button>
+        </form>
+    </div>
+</div>

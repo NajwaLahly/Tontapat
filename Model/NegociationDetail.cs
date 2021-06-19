@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Model
 {
-    public class PropositionDetail : Proposition
+    public class NegociationDetail : Negociation
     {
-        public Terrain TerrainRef { get; set; }
+        public List<Proposition> Propositions { get; set; }
     }
 }

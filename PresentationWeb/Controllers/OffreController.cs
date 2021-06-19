@@ -234,7 +234,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             [FromQuery] string dateDebut,
             [FromQuery] string dateFin,
             [FromQuery] int duree,
-            [FromQuery] double PrixInstallationBetail,
+            [FromQuery] double prixInstallationBetail,
             [FromQuery] double prixInstallationCloture,
             [FromQuery] double prixBetail,
             [FromQuery] double prixIntervention,
@@ -253,7 +253,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             otpdto.DateDebut = DateTime.ParseExact(dateDebut, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             otpdto.DateFin = DateTime.ParseExact(dateFin, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             otpdto.Duree = duree;
-            otpdto.PrixInstallationBetail = PrixInstallationBetail;
+            otpdto.PrixInstallationBetail = prixInstallationBetail;
             otpdto.PrixInstallationCloture = prixInstallationCloture;
             otpdto.PrixBetail = prixBetail;
             otpdto.PrixIntervention = prixIntervention;
@@ -267,22 +267,29 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             pbu.ConvertAndInsert(otpdto);
             return View("Succes");
         }
-       /* [HttpPost]
-        public IActionResult Paiement(OffreToPrestationDto otpdto)
-        {
-            OffreBU obu = new();
-            otpdto = obu.GetOffreToPrestation(otpdto);
-            PrestationBU pbu = new();
+        /* [HttpPost]
+         public IActionResult Paiement(OffreToPrestationDto otpdto)
+         {
+             OffreBU obu = new();
+             otpdto = obu.GetOffreToPrestation(otpdto);
+             PrestationBU pbu = new();
 
-            //pbu.Insert(p);
-            return View("Succes", otpdto);
-        }*/
+             //pbu.Insert(p);
+             return View("Succes", otpdto);
+         }*/
+
+        public ActionResult Succes()
+        {
+
+            return View();
+        }
 
         public ActionResult Recapitulatif()
         {
-           
+
             return View();
         }
+
 
     }
 }

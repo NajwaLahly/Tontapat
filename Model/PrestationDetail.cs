@@ -19,5 +19,12 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string NomRaceTroupeau { get; set; }
 
         public string NomTypeTonte { get; set; }
+        public string NomVille { get; set; }
+
+        public ConditionAnnulation ConditionAnnulationRef { get; set; }
+
+        public List <NegociationDetail> Negociations { get; set; }
+
+        public List<InterventionDetail> Interventions { get; set; }
     }
 }
