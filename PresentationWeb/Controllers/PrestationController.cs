@@ -1,5 +1,6 @@
 ﻿using Fr.EQL.AI109.Tontapat.Business;
 using Fr.EQL.AI109.Tontapat.DataAccess;
+using Fr.EQL.AI109.Tontapat.Dto;
 using Fr.EQL.AI109.Tontapat.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +18,17 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         // GET: PrestationController
         public ActionResult Index()
         {
-            return View();
+            PrestationBU pbu = new();
+            List<PrestationDetail> pds = pbu.GetAllByUtilisateurId(1);
+            return View(pds);
         }
 
         // GET: PrestationController/Details/5
         public ActionResult Details(int id)
         {
             PrestationBU bu = new();
-            Prestation p = bu.GetById(id);
-            return View(p);
+            PrestationDetail pd = bu.GetWithDetailsById(id);
+            return View(pd);
         }
 
         // GET: PrestationController/Create
@@ -89,6 +92,29 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             {
                 return View();
             }
+        }
+        [HttpGet]
+        public ActionResult Negociation()
+        {
+            
+            PrestationBU pbu = new();
+            PrestationDetail pd = pbu.GetWithDetailsById(1);
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(pd.IdClient);
+            ViewBag.Terrains = terrains;
+            EspeceBU ebu = new();
+            List<Espece> especes = ebu.GetAll();
+            ViewBag.Especes = especes;
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> tontes = ttbu.GetAll();
+            ViewBag.TypesTonte = tontes; 
+            return View(pd);
+        }
+
+        [HttpPost]
+        public IActionResult Negociation(Proposition pr)
+        {
+            return View("Resultats");
         }
     }
 }

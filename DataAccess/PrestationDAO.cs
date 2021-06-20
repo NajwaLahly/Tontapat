@@ -20,18 +20,30 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             #region CONFIGURATION COMMANDE
             cmd.CommandText = @"INSERT INTO prestation 
-                                (id_offre, id_terrain, id_troupeau, nb_betes, date_demande, date_validation,
-                                prix_convenu, date_debut, date_fin, type_installation_final) 
-                                VALUES (@id_offre, @id_terrain, @id_troupeau, @nb_betes, @date_demande, @date_validation,
-                                @prix_convenu, @date_debut, @date_fin, @type_installation_final)";
+                                (id_offre, id_terrain, id_troupeau, nb_betes, date_demande, id_type_tonte,
+                                prix_convenu, prix_installation_cloture, prix_installation_betail, prix_betail, prix_intervention,
+                                prix_service, prix_tva, date_debut, date_fin, type_installation_final, frequence_intervention, id_condition) 
+                                VALUES
+                                (@id_offre, @id_terrain, @id_troupeau, @nb_betes, @date_demande, @id_type_tonte,
+                                @prix_convenu, @prix_installation_cloture, @prix_installation_betail, @prix_betail, @prix_intervention,
+                                @prix_service, @prix_tva, @date_debut, @date_fin, @type_installation_final, @frequence_intervention, @id_condition)";
 
             cmd.Parameters.Add(new MySqlParameter("@id_offre", p.IdOffre));
             cmd.Parameters.Add(new MySqlParameter("@id_terrain", p.IdTerrain));
             cmd.Parameters.Add(new MySqlParameter("@id_troupeau", p.IdTroupeau));
             cmd.Parameters.Add(new MySqlParameter("@nb_betes", p.NombreBetes));
             cmd.Parameters.Add(new MySqlParameter("@date_demande", p.DateDemande));
-            cmd.Parameters.Add(new MySqlParameter("@date_validation", p.DateValidation));
             cmd.Parameters.Add(new MySqlParameter("@prix_convenu", p.PrixConvenu));
+            cmd.Parameters.Add(new MySqlParameter("@prix_installation_cloture", p.PrixInstallationCloture));
+            cmd.Parameters.Add(new MySqlParameter("@prix_installation_betail", p.PrixInstallationBetail));
+            cmd.Parameters.Add(new MySqlParameter("@prix_betail", p.PrixBetail));
+            cmd.Parameters.Add(new MySqlParameter("@prix_intervention", p.PrixIntervention));
+            cmd.Parameters.Add(new MySqlParameter("@prix_service", p.PrixService));
+            cmd.Parameters.Add(new MySqlParameter("@prix_tva", p.PrixTVA));
+            cmd.Parameters.Add(new MySqlParameter("@frequence_intervention", p.FrequenceIntervention));
+            cmd.Parameters.Add(new MySqlParameter("@id_condition", p.IdConditionsAnnulation));
+            cmd.Parameters.Add(new MySqlParameter("@id_type_tonte", p.IdTypeTonte));
+
             cmd.Parameters.Add(new MySqlParameter("@date_debut", p.DateDebut));
             cmd.Parameters.Add(new MySqlParameter("@date_fin", p.DateFin));
             cmd.Parameters.Add(new MySqlParameter("@type_installation_final", p.TypeInstallationFinal));
@@ -46,20 +58,37 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
         private Prestation DataReaderToPrestation(MySqlDataReader dr)
         {
-            Prestation result = new Prestation();
+            Prestation result = new();
             result.Id = dr.GetInt32("id_prestation");
-
             result.IdTerrain = dr.GetInt32("id_terrain");
             result.IdTroupeau = dr.GetInt32("id_troupeau");
+            result.IdTypeTonte = dr.GetInt32("id_type_tonte");
             result.NombreBetes = dr.GetInt32("nb_betes");
             result.PrixConvenu = dr.GetFloat("prix_convenu");
+            result.PrixInstallationCloture = dr.GetFloat("prix_installation_cloture");
+            result.PrixInstallationBetail = dr.GetFloat("prix_installation_betail");
+            result.PrixBetail = dr.GetFloat("prix_betail");
+            result.PrixIntervention = dr.GetFloat("prix_intervention");
+            result.PrixService = dr.GetFloat("prix_service");
+            result.PrixTVA = dr.GetFloat("prix_tva");
+
             result.DateDebut = dr.GetDateTime("date_debut");
             result.DateFin = dr.GetDateTime("date_fin");
             result.TypeInstallationFinal = dr.GetBoolean("type_installation_final");
+            result.FrequenceIntervention = dr.GetInt32("frequence_intervention");
+            result.IdConditionsAnnulation = dr.GetInt32("id_condition");
 
-            if (!dr.IsDBNull(dr.GetOrdinal("id_motif")))
+            if (!dr.IsDBNull(dr.GetOrdinal("id_ancienne")))
             {
-                result.IdMotifAnnulation = dr.GetInt32("id_motif");
+                result.IdAncienne = dr.GetInt32("id_ancienne");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("id_motif_refus")))
+            {
+                result.IdMotifRefus = dr.GetInt32("id_motif_refus");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("id_motif_annulation")))
+            {
+                result.IdMotifAnnulation = dr.GetInt32("id_motif_annulation");
             }
             if (!dr.IsDBNull(dr.GetOrdinal("id_offre")))
             {
@@ -96,11 +125,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Prestation p = DataReaderToPrestation(dr);
             PrestationDetail pd = new();
-            pd = (PrestationDetail)p;
             pd.Id = p.Id;
             pd.IdMotifAnnulation = p.IdMotifAnnulation;
             pd.IdTerrain = p.IdTerrain;
             pd.IdTroupeau = p.IdTroupeau;
+            pd.IdTypeTonte = p.IdTypeTonte;
             pd.IdOffre = p.IdOffre;
             pd.NombreBetes = p.NombreBetes;
             pd.IdMotifRefus = p.IdMotifRefus;
@@ -111,14 +140,30 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             pd.DateAnnulation = p.DateAnnulation;
             pd.DescriptionAnnulation = p.DescriptionAnnulation;
             pd.PrixConvenu = p.PrixConvenu;
+            pd.PrixInstallationCloture = p.PrixInstallationCloture;
+            pd.PrixInstallationBetail = p.PrixInstallationBetail;
+            pd.PrixBetail = p.PrixBetail;
+            pd.PrixIntervention = p.PrixIntervention;
+            pd.PrixService = p.PrixService;
+            pd.PrixTVA = p.PrixTVA;
+            pd.FrequenceIntervention = p.FrequenceIntervention;
             pd.DateDebut = p.DateDebut;
             pd.DateFin = p.DateFin;
             pd.TypeInstallationFinal = p.TypeInstallationFinal;
+            pd.IdConditionsAnnulation = p.IdConditionsAnnulation;
 
             pd.NomTerrain = dr.GetString("nom_terrain");
             pd.PrenomEleveur = dr.GetString("prenom_eleveur");
             pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
             pd.NomRaceTroupeau = dr.GetString("nom_race");
+            pd.NomTypeTonte = dr.GetString("nom_type");
+            pd.IdEleveur = dr.GetInt32("id_eleveur");
+            if (!dr.IsDBNull(dr.GetOrdinal("distance")))
+            {
+            pd.Distance = dr.GetDouble("distance");
+            }
+            
+            pd.IdClient = dr.GetInt32("id_utilisateur");
 
             return pd;
         }
@@ -147,28 +192,124 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
-        public List<Prestation> GetAllByUtilisateurId(int id)
+        public List<PrestationDetail> GetAllByUtilisateurId(int id)
         {
-            List<Prestation> result = null;
+            List<PrestationDetail> result = new();
 
             MySqlCommand cmd = CreerCommande();
 
             //Inner Join ?
-            cmd.CommandText = @"SELECT *
-                                FROM prestation
-                                WHERE id_offre = @id";
-            cmd.Parameters.Add(new MySqlParameter("id", id));
+            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom 'prenom_eleveur',u2.id_utilisateur 'id_eleveur',tr.id_troupeau,
+                                r.nom_race,tt.nom_type, d.distance, u.id_utilisateur FROM prestation p
+                                LEFT JOIN terrain t on p.id_terrain = t.id_terrain
+                                LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
+                                LEFT JOIN race r on tr.id_race = r.id_race
+                                LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = t.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = t.id_ville)
+                                WHERE u.id_utilisateur = @id";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
 
             cmd.Connection.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
 
-            while(dr.Read())
+            while (dr.Read())
             {
-                result.Add(DataReaderToPrestation(dr));
+                result.Add(DataReaderToPrestationDetail(dr));
             }
             cmd.Connection.Close();
 
             return result;
+        }
+
+        public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDetail pd = new PrestationDetail();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT p.*, tt.nom_type, t.nom_terrain, tr.nom_troupeau, u.prenom 'prenom_eleveur', e.nom_espece,
+                                r.nom_race, d.distance, t.id_utilisateur, tr.id_utilisateur 'id_eleveur'
+                                FROM prestation p
+                                LEFT JOIN type_tonte tt ON p.id_type_tonte = tt.id_type
+                                LEFT JOIN terrain t ON t.id_terrain = p.id_terrain
+                                LEFT JOIN troupeau tr ON tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u ON tr.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN race r ON tr.id_race = r.id_race
+                                LEFT JOIN espece e ON e.id_espece = r.id_espece
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = t.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = t.id_ville)
+                                WHERE p.id_prestation = @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                pd = DataReaderToPrestationDetail(dr);
+            }
+
+            cmd.Connection.Close();
+
+            return pd;
+        }
+
+        public void Update(Prestation p)
+        {
+            MySqlCommand cmd = CreerCommande();
+
+            //Tout ce qui peut normalement être modifié dans l'évolution normale de la prestation
+            // (validation ou refus, annulation) en premier,
+
+            //Les modifications portant sur la négociation en deuxième
+            cmd.CommandText = @"UPDATE prestation
+                                SET id_motif_annulation = @id_motif,
+                                id_motif_refus = @date_validation
+                                description_annulation = @date_validation
+                                description_refus = @date_validation
+                                date_annulation = @date_validation
+                                date_refus = @date_validation
+
+                                id_terrain = @id_terrain
+                                prix_convenu = @prix_convenu
+                                prix_installation_cloture = @prix_installation_cloture
+                                prix_installation_betail = @prix_installation_betail
+                                prix_betail = @prix_betail
+                                prix_service = @prix_service
+                                prix_tva = @prix_tva
+                                date_debut = @date_debut
+                                date_fin = @date_fin
+                                nb_betes = @nb_betes
+                                type_installation_final = @type_installation_final
+
+                                WHERE id_prestation = @id_prestation";
+
+            cmd.Parameters.Add(new MySqlParameter("@date_annulation", p.DateAnnulation));
+            cmd.Parameters.Add(new MySqlParameter("@date_validation", p.DateValidation));
+            cmd.Parameters.Add(new MySqlParameter("@date_refus", p.DateRefus));
+            cmd.Parameters.Add(new MySqlParameter("@id_prestation", p.Id));
+
+            cmd.Parameters.Add(new MySqlParameter("@id_terrain", p.IdTerrain));
+            cmd.Parameters.Add(new MySqlParameter("@prix_convenu", p.PrixConvenu));
+            cmd.Parameters.Add(new MySqlParameter("@prix_installation_cloture", p.PrixInstallationCloture));
+            cmd.Parameters.Add(new MySqlParameter("@prix_installation_betail", p.PrixInstallationBetail));
+            cmd.Parameters.Add(new MySqlParameter("@prix_betail", p.PrixBetail));
+            cmd.Parameters.Add(new MySqlParameter("@prix_service", p.PrixService));
+            cmd.Parameters.Add(new MySqlParameter("@prix_tva", p.PrixTVA));
+            cmd.Parameters.Add(new MySqlParameter("@date_debut", p.DateDebut));
+            cmd.Parameters.Add(new MySqlParameter("@date_fin", p.DateFin));
+            cmd.Parameters.Add(new MySqlParameter("@nb_betes", p.NombreBetes));
+            cmd.Parameters.Add(new MySqlParameter("@type_installation_final", p.TypeInstallationFinal));
+
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
+            cmd.Connection.Close();
         }
     }
 }

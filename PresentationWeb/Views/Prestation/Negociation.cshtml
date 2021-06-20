@@ -1,0 +1,128 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+
+@model PrestationDetail
+
+@{
+    string InstallationString = null;
+    if (Model.TypeInstallationFinal == true)
+    {
+        InstallationString = "de l'éleveur";
+    }
+    else
+    {
+        InstallationString = "du client";
+    }
+
+}
+
+<div class="negociation">
+    <div class="en-tete-negociation">
+        <h2>Titre Offre à négocier</h2>
+    </div>
+    <div class="card-negociation card">
+        <div class="title-caracteristique-offre">
+            <h3>
+                Caractéristiques de l’offre initiale
+            </h3>
+        </div>
+        <div class="details-offre">
+            <ul>
+                <li>@Model.NomTerrain</li>
+                <li>@Model.NomRaceTroupeau</li>
+                <li>De @Model.DateDebut à @Model.DateFin</li>
+                <li>Installation à la charge @InstallationString</li>
+                <li>Tonte @Model.NomTypeTonte</li>
+                <li>A @Model.Distance km de votre terrain choisi</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-negociation card">
+        <div class="title-negociation-card">
+            <h3>
+                1. Sélectionnez votre terrain
+            </h3>
+        </div>
+        <div class="champs-negociation">
+            <div class="champ-terrain">
+                <select name="terrain" id="terrain">
+                    @foreach (Terrain t in ViewBag.Terrains)
+                    {
+                        <option value="@t.Id">@t.Nom</option>
+                    }
+                </select>
+            </div>
+            <div class="info-distance">
+                infos à compléter
+            </div>
+        </div>
+    </div>
+    <div class="card-negociation card">
+        <div class="title-negociation-card">
+            <h3>
+                2. Sélectionnez les détails de la prestation
+            </h3>
+        </div>
+        <div class="champs-negociation">
+            <div class="type-tonte">
+                
+                <select name="type_tonte" id="type_tonte">
+                    <option value="" disabled selected>Type de tonte...</option>
+                    @foreach (TypeTonte tt in ViewBag.TypesTonte)
+                    {
+                        <option value="@tt.Id">@tt.Nom</option>
+                    }
+
+                </select>
+            </div>
+            <div class="type-installation">
+                <select name="" id="">
+                    <option value="" disabled selected>Type d'installation...</option>
+                    <option value="1">Eleveur</option>
+                    <option value="0">Client</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-negociation card">
+        <div class="title-negociation-card">
+            <h3>
+                3. Choisissez votre date de début
+            </h3>
+        </div>
+        <div class="champs-negociation">
+            <div class="date-debut">
+                <input type="date" id="date_debut" name="date_debut"
+                       value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="date-fin">
+                <input type="date" id="date_fin" name="date_fin"
+                       value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+    </div>
+    <div class="bouton-negociation">
+        <!--
+    <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
+        <input type="hidden" name="IdOffre" value=""/>
+        <input type="hidden" name="IdTerrain" value=""/>
+        <input type="hidden" name="IdTypeTonte" value=""/>
+        <input type="hidden" name="Distance" value=""/>
+        <input type="hidden" name="NbBetes" value=""/>
+        <input type="hidden" name="TypeInstallation" value=""/>
+        <input type="hidden" name="DateDebut" value=""/>
+        <input type="hidden" name="DateFin" value=""/>
+        <input type="hidden" name="Duree" value=""/>
+        <input type="hidden" name="PrixInstallationBetail" value=""/>
+        <input type="hidden" name="PrixInstallationCloture" value=""/>
+        <input type="hidden" name="PrixBetail" value=""/>
+        <input type="hidden" name="PrixIntervention" value=""/>
+        <input type="hidden" name="PrixService" value=""/>
+        <input type="hidden" name="PrixTVA" value=""/>
+        <input type="hidden" name="PrixTotal" value=""/>
+
+    </form>
+        -->
+        <button type="submit">Valider la demande de négociation</button>
+    </div>
+</div>

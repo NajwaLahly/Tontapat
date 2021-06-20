@@ -10,7 +10,8 @@ namespace Fr.EQL.AI109.Tontapat.Presentation
     {
         static void Main(string[] args)
         {
-
+            DateTime dt = new();
+            Console.WriteLine(dt);
 
         }
     }

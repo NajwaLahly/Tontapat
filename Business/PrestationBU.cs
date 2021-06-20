@@ -38,18 +38,6 @@ namespace Fr.EQL.AI109.Tontapat.Business
             }*/
             PrestationDAO dao = new();
             dao.Create(p);
-            Console.WriteLine("Create Prestation exécuté");
-        }
-
-        public Prestation GetById(int id)
-        {
-            //Id should be > 0
-            if (id <= 0)
-            {
-                throw new Exception("Id de prestation invalide");
-            }
-            PrestationDAO dao = new();
-            return dao.GetById(id);
         }
 
         public void ConvertAndInsert(OffreToPrestationDto otpdto)
@@ -69,9 +57,65 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.IdTroupeau = otpdto.OffreRef.IdTroupeau;
             p.NombreBetes = otpdto.NbBetes;
             p.DateDemande = DateTime.Now;
-            p.PrixConvenu = (float)otpdto.PrixTotal;
+            p.PrixConvenu = (float)Math.Round(otpdto.PrixTotal,2);
+            p.PrixInstallationCloture = (float)Math.Round(otpdto.PrixInstallationCloture);
+            p.PrixInstallationBetail = (float)Math.Round(otpdto.PrixInstallationBetail);
+            p.PrixBetail = (float)Math.Round(otpdto.PrixBetail);
+            p.PrixIntervention = (float)Math.Round(otpdto.PrixIntervention);
+            p.PrixService = (float)Math.Round(otpdto.PrixService);
+            p.PrixTVA = (float)Math.Round(otpdto.PrixTVA);
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
+
+            OffreBU obu = new();
+            Offre o = obu.GetById(p.IdOffre);
+            p.IdConditionsAnnulation = o.IdCondition;
+            p.FrequenceIntervention = o.FrequenceIntervention;
+            p.IdTypeTonte = o.FrequenceIntervention;
+
             return p;
         }
+
+        public Prestation GetById(int id)
+        {
+            //Id should be > 0
+            if (id <= 0)
+            {
+                throw new Exception("Id de prestation invalide");
+            }
+            PrestationDAO dao = new();
+            return dao.GetById(id);
+        }
+
+        public List<PrestationDetail> GetAllByUtilisateurId(int id)
+        {
+            PrestationDAO pdao = new();
+            List<PrestationDetail> pds = pdao.GetAllByUtilisateurId(id);
+
+            return pds;
+        }
+
+        public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDAO pdao = new();
+            PrestationDetail pd = pdao.GetWithDetailsById(id);
+            NegociationBU nbu = new();
+
+            pd.PrixInstallationCloture = Math.Round(pd.PrixInstallationCloture);
+            pd.PrixInstallationBetail = Math.Round(pd.PrixInstallationBetail);
+            pd.PrixBetail = Math.Round(pd.PrixBetail);
+            pd.PrixIntervention = Math.Round(pd.PrixIntervention);
+            pd.PrixService = Math.Round(pd.PrixService);
+            pd.PrixTVA = Math.Round(pd.PrixTVA);
+            pd.PrixConvenu = Math.Round(pd.PrixConvenu);
+            pd.Negociations = nbu.GetAllWithDetailsByPrestationId(id);
+
+            //ConditionAnnulationBU cabu = new();
+            //pd.ConditionAnnulationRef = cabu.GetById(pd.IdConditionsAnnulation);
+            return pd;
+        }
+
+        //Quand une négociation aboutit on crée une nouvelle prestation
+        // Ou on update juste l'actuelle ?
+        //public void InsertFrom
     }
 }

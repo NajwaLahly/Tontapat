@@ -13,18 +13,29 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int IdTerrain { get; set; }
         public int IdTroupeau { get; set; }
         public int IdOffre { get; set; }
+        public int IdTypeTonte { get; set; }
         public int NombreBetes { get; set; }
         public int IdMotifRefus { get; set; }
         public DateTime DateDemande { get; set; }
-        public DateTime DateValidation { get; set; }
-        public DateTime DateRefus { get; set; }
+        public DateTime? DateValidation { get; set; }
+        public DateTime? DateRefus { get; set; }
         public string DescriptionRefus { get; set; }
-        public DateTime DateAnnulation { get; set; }
+        public DateTime? DateAnnulation { get; set; }
         public string DescriptionAnnulation { get; set; }
-        public float PrixConvenu { get; set; }
+        public double PrixConvenu { get; set; }
+        public double PrixInstallationCloture { get; set; }
+        public double PrixInstallationBetail { get; set; }
+        public double PrixBetail { get; set; }
+        public double PrixIntervention { get; set; }
+        public double PrixService { get; set; }
+        public double PrixTVA { get; set; }
+
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public bool TypeInstallationFinal { get; set; }
+        public int IdAncienne { get; set; }
+        public int FrequenceIntervention { get; set; }
+        public int IdConditionsAnnulation { get; set; }
 
         public Prestation()
         {
