@@ -11,10 +11,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
     public class PropositionBU
     {
 
-        public void Insert(Proposition p)
+        public void Insert(PropositionDetail pd)
         {
             PropositionDAO pdao = new();
-            pdao.Create(p);
+            pdao.Create(pd);
 
         }
         public List<Proposition> GetAllByNegociationId(int id)
@@ -30,8 +30,8 @@ namespace Fr.EQL.AI109.Tontapat.Business
             pd = pdao.GetWithDetailsById(id);
             if(pd.IdTerrain > 0)
             {
-                TerrainBU tbu = new();
-                pd.TerrainRef = tbu.GetById((int)pd.IdTerrain);
+               // TerrainBU tbu = new();
+                //pd.TerrainRef = tbu.GetById((int)pd.IdTerrain);
             }
             return pd;
         }

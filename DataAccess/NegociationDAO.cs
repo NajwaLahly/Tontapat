@@ -33,7 +33,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             //Pour savoir quelle est l'ID de notre prestation on va compter le nombre
             //d'enregistrements dans la table après insertion
             int result = 0;
-            cmd.CommandText = @"SELECT COUNT(id_prestation) 'count' FROM prestation";
+            cmd.CommandText = @"SELECT LAST_INSERT_ID() 'count' FROM prestation";
             MySqlDataReader dr = cmd.ExecuteReader();
             if(dr.Read())
             {

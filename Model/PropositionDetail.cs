@@ -8,6 +8,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
 {
     public class PropositionDetail : Proposition
     {
-        public Terrain TerrainRef { get; set; }
+
+        public int IdPrestation { get; set; }
     }
 }
