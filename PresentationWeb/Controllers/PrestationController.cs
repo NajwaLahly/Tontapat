@@ -23,6 +23,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View(pds);
         }
 
+        [HttpGet]
         // GET: PrestationController/Details/5
         public ActionResult Details(int id)
         {
@@ -30,6 +31,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             PrestationDetail pd = bu.GetWithDetailsById(id);
             return View(pd);
         }
+
 
         // GET: PrestationController/Create
         public ActionResult Create()
@@ -94,11 +96,11 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Negociation()
+        public ActionResult Negociation(int id)
         {
             
             PrestationBU pbu = new();
-            PrestationDetail pd = pbu.GetWithDetailsById(1);
+            PrestationDetail pd = pbu.GetWithDetailsById(id);
             TerrainBU tbu = new();
             List<Terrain> terrains = tbu.GetAllByUtilisateurId(pd.IdClient);
             ViewBag.Terrains = terrains;
@@ -107,14 +109,22 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.Especes = especes;
             TypeTonteBU ttbu = new();
             List<TypeTonte> tontes = ttbu.GetAll();
-            ViewBag.TypesTonte = tontes; 
-            return View(pd);
+            ViewBag.TypesTonte = tontes;
+            ViewBag.PrestationDetail = pd;
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Negociation(Proposition pr)
+        public IActionResult Negociation(PropositionDetail prd)
         {
-            return View("Resultats");
+
+                NegociationBU nbu = new();
+                nbu.OpenNegociationInPrestation(prd);
+
+                PrestationBU pbu = new();
+                Prestation p = pbu.GetWithDetailsById((int)prd.Id);
+                return View("Succes", p);
+
+            }
         }
     }
-}

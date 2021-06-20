@@ -1,0 +1,16 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+@model PrestationDetail
+<h1>Votre proposition a bien été envoyée.</h1>
+
+<div class="Offre-container">
+    <div class="box-offre">
+        <div class="info-offre">
+            <p>Nous venons d'envoyer votre proposition à <a asp-controller="Utilisateur" asp-action="Eleveur" asp-route-id="@Model.IdEleveur">@Model.PrenomEleveur</a>. Il vous répondra dans les plus brefs délais.</p>
+            <p>N'hésitez pas à consulter <a asp-controller="Offres" asp-action="Index">d'autres offres</a> et à surveiller l'état de votre demande sur sa <a asp-controller="Prestation" asp-action="Details" asp-route-id="@Model.Id">page de détails</a>.</p>
+        </div>
+    </div>
+</div>
+<div class="box-boutons">
+    <button class="btn-success">Retour à la page d'accueil</button>
+</div>
