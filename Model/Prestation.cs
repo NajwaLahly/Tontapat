@@ -17,10 +17,10 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public int NombreBetes { get; set; }
         public int IdMotifRefus { get; set; }
         public DateTime DateDemande { get; set; }
-        public DateTime DateValidation { get; set; }
-        public DateTime DateRefus { get; set; }
+        public DateTime? DateValidation { get; set; }
+        public DateTime? DateRefus { get; set; }
         public string DescriptionRefus { get; set; }
-        public DateTime DateAnnulation { get; set; }
+        public DateTime? DateAnnulation { get; set; }
         public string DescriptionAnnulation { get; set; }
         public double PrixConvenu { get; set; }
         public double PrixInstallationCloture { get; set; }

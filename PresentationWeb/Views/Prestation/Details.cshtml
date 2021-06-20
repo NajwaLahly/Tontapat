@@ -20,7 +20,7 @@
 }
 
 
-<h1>Prestation #@Model.DateValidation.ToString("yyMMdd")-@Model.Id</h1>
+<h1>Prestation #@(Model.DateDemande.ToString("yyMMdd"))-@Model.Id</h1>
 
 <div class="box-offre-details-header">
     <div>
@@ -191,7 +191,7 @@
                         <i class="fas fa-check"></i>
                     </td>
                     <td>
-                        Demande <strong>acceptée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le @Model.DateValidation.ToString("dd/MM/yy").
+                        Demande <strong>acceptée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le @(((DateTime)(Model.DateValidation)).ToString("dd/MM/yy")).
                     </td>
                 </tr>
             }
@@ -202,7 +202,7 @@
                         <i class="fas fa-times fa-lg"></i>
                     </td>
                     <td>
-                        Demande <strong>refusée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le @Model.DateRefus.ToString("dd/MM/yy") (Motif: @Model.DescriptionRefus).
+                        Demande <strong>refusée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le @(((DateTime)(Model.DateRefus)).ToString("dd/MM/yy")) (Motif: @Model.DescriptionRefus).
                     </td>
                 </tr>
             }
