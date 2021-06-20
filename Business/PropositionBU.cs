@@ -10,6 +10,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class PropositionBU
     {
+
+        public void Insert(Proposition p)
+        {
+            PropositionDAO pdao = new();
+            pdao.Create(p);
+
+        }
         public List<Proposition> GetAllByNegociationId(int id)
         {
             PropositionDAO pdao = new();

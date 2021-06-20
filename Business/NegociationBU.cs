@@ -11,13 +11,16 @@ namespace Fr.EQL.AI109.Tontapat.Business
     public class NegociationBU
     {
 
-        public void OpenNegociationInPrestation(int id)
+        public void OpenNegociationInPrestation(int id,Proposition p)
         {
             Negociation n = new();
             n.DateOuverture = DateTime.Now;
             n.IdPrestation = id;
             NegociationDAO ndao = new();
-            ndao.Create(n);
+            n.Id = ndao.Create(n);
+            p.IdNegociation = n.Id;
+            PropositionBU pbu = new();
+            pbu.Insert(p);
         }
 
         public List<NegociationDetail> GetAllWithDetailsByPrestationId(int id)

@@ -10,7 +10,6 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 {
     public class PropositionDAO : DAO
     {
-
         public void Create(Proposition p)
         {
             MySqlCommand cmd = CreerCommande();
@@ -39,6 +38,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
             cmd.Connection.Close();
         }
+
         private Proposition DataReaderToProposition(MySqlDataReader dr)
         {
             Proposition result = new();

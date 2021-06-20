@@ -10,7 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 {
     public class NegociationDAO : DAO
     {
-        public void Create(Negociation n)
+        public int Create(Negociation n)
         {
             MySqlCommand cmd = CreerCommande();
 
@@ -25,7 +25,19 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Connection.Open();
             cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
+
+            //Pour savoir quelle est l'ID de notre prestation on va compter le nombre
+            //d'enregistrements dans la table après insertion
+            int result = 0;
+            cmd.CommandText = @"SELECT COUNT(id_prestation) 'count' FROM prestation";
+            MySqlDataReader dr = cmd.ExecuteReader();
+            if(dr.Read())
+            {
+                result = dr.GetInt32("count");
+            }
             cmd.Connection.Close();
+
+            return result;
         }
         private Negociation DataReaderToNegociation(MySqlDataReader dr)
         {
