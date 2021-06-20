@@ -6,21 +6,99 @@
 @{
 }
 
-<h4 style="text-align: center">Mes Troupeaux</h4>
+<h4 style="text-align: center; padding:15px">Mes Troupeaux</h4>
 
 
 @if (Model.MesTroupeaux.Any())
 {
-    @foreach (Troupeau t in Model.MesTroupeaux)
-    {
-        <div class="box_troupeau">
-            <p> vOICI MON TROUPEAU @t.NomTroupeau et @t.NombreBetes </p>
-        </div>
+
+<div class="box_troupeau">
+    <table class="prestations-list">
+        <tr>
+            <th scope="col">
+                Référence
+            </th>
+            <th scope="col">
+                Nom
+            </th>
+            <th scope="col">
+                Race
+            </th>
+            <th scope="col">
+                Nombre
+            </th>
+            <th>
+                Ville
+            </th>
+            <th scope="col">
+                Code postal
+            </th>
+            <th scope="col">
+                Date d'ajout
+            </th>
+            <th scope="col">
+                Divisibilité
+            </th>
+
+        </tr>
+
+
+        @foreach (TroupeauDetail t in Model.MesTroupeaux)
+        {
+            @*
+                <div>
+                    <table>*@
+            <tr>
+                <td>
+                    <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
+                        #@(t.Id)
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
+                        @t.NomTroupeau
+                    </a>
+                </td>
+                <td>
+                    @t.Race
+                </td>
+                <td>
+                    @t.NombreBetes
+                </td>
+                <td>
+                    @t.Ville
+                </td>
+                <td>
+                    @t.CodePostal
+                </td>
+                <td>
+                    @t.DateAjout.ToString("dd/MM/yy")
+                </td>
+                <td>
+                    @if (t.Divisibilite)
+                    {
+                    <span>Oui</span>
+                    }
+                    else
+                    {
+                    <span>Non</span>
+                    }
+
+                </td>
+
+            </tr>
+
+        }
+    </table>
+</div>
     }
-}
+
             else
             {
-                <p>Vous ne disposez pas de troupeau pour le moment.</p>
+                 <div class="no_troupeau">
+                    <p>Vous ne disposez pas de troupeau pour le moment.</p>
+                    <img src="~/img/photos/troupeaux/troupeau0.jpg" />
+                </div>
             }
 
 

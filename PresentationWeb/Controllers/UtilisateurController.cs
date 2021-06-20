@@ -43,11 +43,10 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         public IActionResult Update(UtilisateurDetail util)
         {
             UtilisateurBU bu = new UtilisateurBU();
-            Console.WriteLine("Hello");
+        
             if (ModelState.IsValid)
             {
                 bu.MAJ(util);
-                Console.WriteLine("Hello les copains");
                 return View("Success");
             }
             else

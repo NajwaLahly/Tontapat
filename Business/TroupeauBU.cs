@@ -56,5 +56,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             TroupeauDAO dao = new();
             return dao.GetAllWithDetailByUtilisateurId(id);
         }
+        public TroupeauDetail GetAllWithDetailById(int id)
+        {
+            TroupeauDAO dao = new();
+            return dao.GetAllWithDetailById(id);
+        }
+
     }
 }

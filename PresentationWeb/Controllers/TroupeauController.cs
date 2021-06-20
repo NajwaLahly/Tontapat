@@ -21,73 +21,13 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View(ud);
         }
 
-        // GET: TroupeauController/Details/5
+        
         public ActionResult Details(int id)
         {
-            return View();
+            TroupeauBU tbu = new();
+            TroupeauDetail td = tbu.GetAllWithDetailById(id);
+            return View(td);
         }
 
-        // GET: TroupeauController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: TroupeauController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TroupeauController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: TroupeauController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TroupeauController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TroupeauController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
