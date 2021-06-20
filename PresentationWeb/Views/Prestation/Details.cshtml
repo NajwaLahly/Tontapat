@@ -63,7 +63,10 @@
                     </h3>
                     <div class="box-boutons">
                         <button class="btn-warning" type="reset" form="offre" value="demande-intervention">Demande d'intervention</button>
-                        <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+                        <form asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">
+                            <button class="btn-primary" type="submit" form="offre" value="negociate">Négocier</button>
+                        </form>
+                        
                         <button class="btn-danger" type="submit" form="offre" value="cancel">Annuler la prestation</button>
                     </div>
                 }
@@ -73,7 +76,9 @@
                         Validée
                     </h3>
                     <div class="box-boutons">
-                        <button class="btn-primary" type="reset" form="offre" value="negociate">Négocier</button>
+                        <form name="negociation" method="get" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">
+                            <button class="btn-primary" type="submit" form="negociation" value="negociate">Négocier</button>
+                        </form>
                         <button class="btn-danger" type="submit" form="offre" value="cancel">Annuler la prestation</button>
                     </div>
                 }
