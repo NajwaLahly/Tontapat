@@ -133,7 +133,32 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return troupeaux;
 
         }
+        public TroupeauDetail GetAllWithDetailById(int id)
+        {
+            TroupeauDetail td = new();
 
+            MySqlCommand cmd = CreerCommande();
+            cmd.CommandText = @"SELECT tr.*, r.nom_race, v.nom_ville, v.code_postal, e.nom_espece
+                                FROM troupeau tr
+                                LEFT JOIN race r ON r.id_race = tr.id_race
+                                LEFT JOIN espece e ON e.id_espece = r.id_espece
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                WHERE tr.id_troupeau = @id_troupeau;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_troupeau", id));
+
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+
+            if (dr.Read())
+            {
+                td = DataReaderToTroupeauDetail(dr);
+            }
+
+            cmd.Connection.Close();
+            return td;
+        }
         private TroupeauDetail DataReaderToTroupeauDetail(MySqlDataReader dr)
         {
             Troupeau troupeau = DataReaderToTroupeau(dr);
@@ -154,6 +179,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             td.DateRetrait = troupeau.DateRetrait;
             td.Divisibilite = troupeau.Divisibilite;
             td.Race = dr.GetString("nom_race");
+            td.CodePostal = dr.GetInt32("code_postal");
             td.Espece = dr.GetString("nom_espece");
             td.Ville = dr.GetString("nom_ville");
 
