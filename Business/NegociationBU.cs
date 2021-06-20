@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace Fr.EQL.AI109.Tontapat.Business
 {
-    public class NegotiationBU
+    public class NegociationBU
     {
+        public void Insert(Negociation n)
+        {
+            NegociationDAO ndao = new();
+            ndao.create(n);
+        }
     }
 }

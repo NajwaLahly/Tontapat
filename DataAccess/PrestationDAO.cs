@@ -96,7 +96,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
         {
             Prestation p = DataReaderToPrestation(dr);
             PrestationDetail pd = new();
-            pd = (PrestationDetail)p;
+           
             pd.Id = p.Id;
             pd.IdMotifAnnulation = p.IdMotifAnnulation;
             pd.IdTerrain = p.IdTerrain;
@@ -119,6 +119,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             pd.PrenomEleveur = dr.GetString("prenom_eleveur");
             pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
             pd.NomRaceTroupeau = dr.GetString("nom_race");
+            pd.NomTypeTonte = dr.GetString("nom_type");
+            pd.Distance = dr.GetDouble("distance");
+            pd.IdClient = dr.GetInt32("id_utilisateur");
 
             return pd;
         }
@@ -162,13 +165,46 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
 
-            while(dr.Read())
+            while (dr.Read())
             {
                 result.Add(DataReaderToPrestation(dr));
             }
             cmd.Connection.Close();
 
             return result;
+        }
+
+        public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDetail pd = new PrestationDetail();
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT p.*, tt.nom_type, t.nom_terrain, tr.nom_troupeau, u.prenom 'prenom_eleveur', e.nom_espece, r.nom_race, d.distance, t.id_utilisateur
+                                FROM prestation p
+                                LEFT JOIN type_tonte tt ON p.id_type_tonte = tt.id_type
+                                LEFT JOIN terrain t ON t.id_terrain = p.id_terrain
+                                LEFT JOIN troupeau tr ON tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u ON tr.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN race r ON tr.id_race = r.id_race
+                                LEFT JOIN espece e ON e.id_espece = r.id_espece
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = t.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = t.id_ville)
+                                WHERE p.id_prestation = @id;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                pd = DataReaderToPrestationDetail(dr);
+            }
+
+            cmd.Connection.Close();
+
+            return pd;
         }
     }
 }

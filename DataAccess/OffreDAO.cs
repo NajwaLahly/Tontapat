@@ -66,14 +66,14 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
                                 LEFT JOIN condition_annulation c ON c.id_condition = o.id_condition
                                 INNER JOIN terrain te ON te.id_terrain = @idTerrain
                                 INNER JOIN distance_villes d ON 
-                                (d.id_ville = id_terrain AND d.vil_id_ville = tr.id_ville)
-                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = id_terrain)
+                                (d.id_ville = te.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = te.id_ville)
 
                                 WHERE d.distance <= o.zone_couverture
                                 and o.date_debut <= @dateDebut
                                 and (o.date_fin >= @dateFin)
                                 and ((tr.nombre_betes <= @nbBetes + 5 and tr.nombre_betes >= @nbBetes - 5)
-                                or (tr.nombre_betes > @nbBetes and tr.divisibilite = true))";
+                                or (tr.nombre_betes > @nbBetes + 5 and tr.divisibilite = true))";
 
             if (rod.IdEspece != null)
                 commandText += " and r.id_espece = @idEspece";

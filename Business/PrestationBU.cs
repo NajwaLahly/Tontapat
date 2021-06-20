@@ -73,5 +73,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
             return p;
         }
+        public PrestationDetail GetWithDetailsById(int id)
+        {
+            PrestationDAO pdao = new();
+            return pdao.GetWithDetailsById(id);
+        }
     }
 }
