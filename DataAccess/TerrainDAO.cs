@@ -53,41 +53,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
         }
 
-        private Terrain DataReaderToTerrain(MySqlDataReader dr)
-        {
-            Terrain result = new();
 
-            result.Id = dr.GetInt32("id_terrain");
-            result.IdVille = dr.GetInt32("id_ville");
-            result.IdCloture = dr.GetInt32("id_cloture");
-            result.IdUtilisateur = dr.GetInt32("id_utilisateur");
-            result.IdTypeTerrain = dr.GetInt32("id_type_terrain");
-            result.Nom = dr.GetString("nom_terrain");
-            result.Superficie = dr.GetFloat("superficie_terrain");
-            result.Description = dr.GetString("description");
-            result.DateAjout = dr.GetDateTime("date_ajout");
-            result.AccesPublic = dr.GetBoolean("acces_public");
-            result.AdresseVoie = dr.GetString("adresse_voie");
-            /*
-             * result.Photo1 = dr.GetString("photo1");
-            result.Photo2 = dr.GetString("photo2");
-            result.Photo3 = dr.GetString("photo3");
-            result.Photo4 = dr.GetString("photo4");
-            result.Photo5 = dr.GetString("photo5");
-            */
-            result.PresenceCamera = dr.GetBoolean("presence_camera");
-            result.ServiceSecurite = dr.GetBoolean("presence_service_securite");
-
-            if (!dr.IsDBNull(dr.GetOrdinal("adresse_long")))
-            {
-                result.AdresseLong = dr.GetFloat("adresse_long");
-            }
-            if (!dr.IsDBNull(dr.GetOrdinal("adresse_lat")))
-            {
-                result.AdresseLat = dr.GetFloat("adresse_lat");
-            }
-            return result;
-        }
 
         public Terrain GetById(int id)
         {
@@ -135,6 +101,96 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Connection.Close();
 
+            return result;
+        }
+
+        public List<TerrainDetail> GetAllWithDetailByUtilisateurId(int id)
+        {
+            List<TerrainDetail> terrains = new();
+
+            MySqlCommand cmd = CreerCommande();
+            cmd.CommandText = @"SELECT tr.*, tc.nom_cloture, v.nom_ville, v.code_postal, tt.nom_type_terrain
+                                FROM terrain tr
+                                LEFT JOIN type_cloture tc ON tc.id_cloture = tr.id_cloture
+                                LEFT JOIN type_terrain tt ON tt.id_type_terrain = tr.id_type_terrain
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville 
+                                WHERE id_utilisateur = @id_utilisateur;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                TerrainDetail td = DataReaderToTerrainDetail(dr);
+                terrains.Add(td);
+            }
+
+            cmd.Connection.Close();
+            return terrains;
+        }
+
+        private TerrainDetail DataReaderToTerrainDetail(MySqlDataReader dr)
+        {
+            Terrain tr = DataReaderToTerrain(dr);
+            TerrainDetail td = new();
+
+            td.Id = tr.Id;
+            td.IdVille = tr.IdVille;
+            td.IdCloture = tr.IdCloture;
+            td.IdUtilisateur = tr.IdUtilisateur;
+            td.IdTypeTerrain = tr.IdTypeTerrain;
+            td.Nom = tr.Nom;
+            td.Superficie = tr.Superficie;
+            td.DateAjout = tr.DateAjout;
+            td.AccesPublic = tr.AccesPublic;
+            td.AdresseLat = tr.AdresseLat;
+            td.AdresseLong = tr.AdresseLong;
+            td.AdresseVoie = tr.AdresseVoie;
+            td.PresenceCamera = tr.PresenceCamera;
+            td.ServiceSecurite = tr.ServiceSecurite;
+            td.DateRetrait = tr.DateRetrait;
+            td.CodePostal = dr.GetInt32("code_postal");
+            td.Ville = dr.GetString("nom_ville");
+            td.Cloture = dr.GetString("nom_cloture");
+            td.Type = dr.GetString("nom_type_terrain");
+
+            return td;
+            
+        }
+        private Terrain DataReaderToTerrain(MySqlDataReader dr)
+        {
+            Terrain result = new();
+
+            result.Id = dr.GetInt32("id_terrain");
+            result.IdVille = dr.GetInt32("id_ville");
+            result.IdCloture = dr.GetInt32("id_cloture");
+            result.IdUtilisateur = dr.GetInt32("id_utilisateur");
+            result.IdTypeTerrain = dr.GetInt32("id_type_terrain");
+            result.Nom = dr.GetString("nom_terrain");
+            result.Superficie = dr.GetFloat("superficie_terrain");
+            result.Description = dr.GetString("description");
+            result.DateAjout = dr.GetDateTime("date_ajout");
+            result.AccesPublic = dr.GetBoolean("acces_public");
+            result.AdresseVoie = dr.GetString("adresse_voie");
+            /*
+             * result.Photo1 = dr.GetString("photo1");
+            result.Photo2 = dr.GetString("photo2");
+            result.Photo3 = dr.GetString("photo3");
+            result.Photo4 = dr.GetString("photo4");
+            result.Photo5 = dr.GetString("photo5");
+            */
+            result.PresenceCamera = dr.GetBoolean("presence_camera");
+            result.ServiceSecurite = dr.GetBoolean("presence_service_securite");
+
+            if (!dr.IsDBNull(dr.GetOrdinal("adresse_long")))
+            {
+                result.AdresseLong = dr.GetFloat("adresse_long");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("adresse_lat")))
+            {
+                result.AdresseLat = dr.GetFloat("adresse_lat");
+            }
             return result;
         }
     }

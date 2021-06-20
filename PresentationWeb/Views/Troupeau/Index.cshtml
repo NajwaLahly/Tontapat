@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Fr.EQL.AI109.Tontapat.Model;
+@model UtilisateurDetail
+@{
+}
+
+<h4 style="text-align: center">Mes Troupeaux</h4>
+
+
+@if (Model.MesTroupeaux.Any())
+{
+    @foreach (Troupeau t in Model.MesTroupeaux)
+    {
+        <div class="box_troupeau">
+            <p> vOICI MON TROUPEAU @t.NomTroupeau et @t.NombreBetes </p>
+        </div>
+    }
+}
+            else
+            {
+                <p>Vous ne disposez pas de troupeau pour le moment.</p>
+            }
+
+
+

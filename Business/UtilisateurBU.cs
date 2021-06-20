@@ -36,11 +36,21 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             UtilisateurDAO dao = new();
 
+
             UtilisateurDetail ud= dao.GetAllWithDetailsById(id);
             EvaluationBU ebu= new();
+            TroupeauBU tbu = new();
+            TerrainBU terbu = new();
+            ud.MesTerrains = terbu.GetAllWithDetailByUtilisateurId(id);
+            ud.MesTroupeaux = tbu.GetAllWithDetailByutilisateurId(id);
             ud.MesEvals = ebu.GetAllWithDetailsByUtilisateurId(id);
 
             return ud;
+        }
+        public void MAJ(UtilisateurDetail d)
+        {
+            UtilisateurDAO dao = new();
+            dao.Update(d);
         }
     }
 }

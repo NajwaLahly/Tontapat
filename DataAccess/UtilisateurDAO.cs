@@ -47,7 +47,34 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             #endregion
 
         }
+        public void Update(UtilisateurDetail ud)
+        {
+            MySqlCommand cmd = CreerCommande();
+            cmd.CommandText = @"UPDATE utilisateur SET email = @email, mot_de_passe = @mot_de_passe, date_naissance = @date_naissance, nom = @nom, prenom = @prenom,
+                                adresse_voie = @adresse_voie, carte_numero = @carte_numero, carte_expiration = @carte_expiration, carte_cvc = @carte_cvc, virement_iban = @virement_iban,
+                                virement_bic = @virement_bic, paypal_email = @paypal_email, presentation = @presentation
+                                WHERE id_utilisateur = @id_utilisateur;";
 
+            cmd.Parameters.Add(new MySqlParameter("@email", ud.Email));
+            cmd.Parameters.Add(new MySqlParameter("@mot_de_passe", ud.MotDePasse));
+            cmd.Parameters.Add(new MySqlParameter("@date_naissance", ud.DateNaissance));
+            cmd.Parameters.Add(new MySqlParameter("@nom", ud.Nom));
+            cmd.Parameters.Add(new MySqlParameter("@prenom", ud.Prenom));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_voie", ud.AdresseVoie));
+            cmd.Parameters.Add(new MySqlParameter("@carte_numero", ud.CarteNumero));
+            cmd.Parameters.Add(new MySqlParameter("@carte_expiration", ud.CarteExpiration));
+            cmd.Parameters.Add(new MySqlParameter("@carte_cvc", ud.CarteCVC));
+            cmd.Parameters.Add(new MySqlParameter("@virement_iban", ud.VirementIBAN));
+            cmd.Parameters.Add(new MySqlParameter("@virement_bic", ud.BIC));
+            cmd.Parameters.Add(new MySqlParameter("@paypal_email", ud.PayPalEmail));
+            cmd.Parameters.Add(new MySqlParameter("@presentation", ud.Presentation));
+            cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", ud.Id));
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery(); 
+            cmd.Connection.Close();
+
+        }
         public Utilisateur GetById(int id)
         {
             Utilisateur result = null;
@@ -77,7 +104,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             UtilisateurDetail result = new();
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT u.*, e.note_evaluation, v.nom_ville
+            cmd.CommandText = @"SELECT u.*, e.note_evaluation, v.nom_ville, v.Code_postal
                                 FROM utilisateur u 
                                 LEFT JOIN evaluation e ON e.id_utilisateur = u.id_utilisateur
                                 LEFT JOIN ville v ON v.id_ville = u.id_ville
@@ -195,6 +222,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.PayPalEmail = u.PayPalEmail;
             result.Presentation = u.Presentation;
             result.NomVille = dr.GetString("nom_ville");
+            result.CodePostal = dr.GetInt32("Code_postal");
             result.Moyenne = GetAverageByUtilisateurId(u.Id);
             result.NbEvaluation = GetNbEvaluationByUtilisateurId(u.Id);
 
