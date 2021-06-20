@@ -38,16 +38,16 @@
             <div class="info-offre">
                 <h3>Sélectionnez les détails de la prestation</h3>
 
-                <p>
-                    <label for="espece">Type de bétail :</label>
-                    <select name="IdEspece" id="espece-select">
-                        <option value="">Tous</option>
-                        @foreach (Espece e in ViewBag.Especes)
-                        {
-                            <option value="@e.Id">@e.Nom</option>
-                        }
-                        }
-                    </select>
+            <p>
+                <label for="espece">Type de bétail :</label>
+                <select name="IdEspece" id="espece-select">
+                    
+                    <option value="">Tous</option>
+                    @foreach (Espece e in ViewBag.Especes)
+                    {
+                        <option value="@e.Id">@e.Nom</option>
+                    }
+                </select>
 
                     <label for="tonte">Type de tonte :</label>
                     <select name="IdTypeTonte" id="tonte-select" onchange="getDateFinMinMax()">

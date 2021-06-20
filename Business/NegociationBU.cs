@@ -10,8 +10,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class NegociationBU
     {
-
-        public void OpenNegociationInPrestation(int id,Proposition p)
+        public void OpenNegociationInPrestation(int id, Proposition p)
         {
             Negociation n = new();
             n.DateOuverture = DateTime.Now;
@@ -47,7 +46,7 @@ namespace Fr.EQL.AI109.Tontapat.Business
             Negociation n = new();
             n.DateFermeture = DateTime.Now;
             n.Id = p.IdNegociation;
-            if(p.DateValidation != null)
+            if (p.DateValidation != null)
             {
 
             }

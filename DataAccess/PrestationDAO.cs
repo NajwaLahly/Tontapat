@@ -52,6 +52,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.Connection.Open();
             cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
+            Console.WriteLine("Prestation bien créée");
             cmd.Connection.Close();
         }
 
@@ -152,12 +153,17 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             pd.IdConditionsAnnulation = p.IdConditionsAnnulation;
 
             pd.NomTerrain = dr.GetString("nom_terrain");
-            pd.PrenomEleveur = dr.GetString("prenom");
+            pd.PrenomEleveur = dr.GetString("prenom_eleveur");
             pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
             pd.NomRaceTroupeau = dr.GetString("nom_race");
             pd.NomTypeTonte = dr.GetString("nom_type");
-            pd.IdEleveur = dr.GetInt32("id_utilisateur");
-
+            pd.IdEleveur = dr.GetInt32("id_eleveur");
+            if (!dr.IsDBNull(dr.GetOrdinal("distance")))
+            {
+            pd.Distance = dr.GetDouble("distance");
+            }
+            
+            pd.IdClient = dr.GetInt32("id_utilisateur");
 
             return pd;
         }
@@ -193,13 +199,17 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             MySqlCommand cmd = CreerCommande();
 
             //Inner Join ?
-            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom,u2.id_utilisateur,tr.id_troupeau,r.nom_race,tt.nom_type FROM prestation p
+            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom 'prenom_eleveur',u2.id_utilisateur 'id_eleveur',tr.id_troupeau,
+                                r.nom_race,tt.nom_type, d.distance, u.id_utilisateur FROM prestation p
                                 LEFT JOIN terrain t on p.id_terrain = t.id_terrain
                                 LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
                                 LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
                                 LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
                                 LEFT JOIN race r on tr.id_race = r.id_race
                                 LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = t.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = t.id_ville)
                                 WHERE u.id_utilisateur = @id";
             cmd.Parameters.Add(new MySqlParameter("@id", id));
 
@@ -217,31 +227,36 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
         public PrestationDetail GetWithDetailsById(int id)
         {
-            PrestationDetail result = new();
-
+            PrestationDetail pd = new PrestationDetail();
             MySqlCommand cmd = CreerCommande();
 
-            //Inner Join ?
-            cmd.CommandText = @"SELECT p.*,t.nom_terrain,u2.prenom,u2.id_utilisateur,tr.id_troupeau,r.nom_race,tt.nom_type FROM prestation p
-                                LEFT JOIN terrain t on p.id_terrain = t.id_terrain
-                                LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
-                                LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
-                                LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
-                                LEFT JOIN race r on tr.id_race = r.id_race
-                                LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
+            cmd.CommandText = @"SELECT p.*, tt.nom_type, t.nom_terrain, tr.nom_troupeau, u.prenom 'prenom_eleveur', e.nom_espece,
+                                r.nom_race, d.distance, t.id_utilisateur, tr.id_utilisateur 'id_eleveur'
+                                FROM prestation p
+                                LEFT JOIN type_tonte tt ON p.id_type_tonte = tt.id_type
+                                LEFT JOIN terrain t ON t.id_terrain = p.id_terrain
+                                LEFT JOIN troupeau tr ON tr.id_troupeau = p.id_troupeau
+                                LEFT JOIN utilisateur u ON tr.id_utilisateur = u.id_utilisateur
+                                LEFT JOIN race r ON tr.id_race = r.id_race
+                                LEFT JOIN espece e ON e.id_espece = r.id_espece
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville
+                                INNER JOIN distance_villes d ON 
+                                (d.id_ville = t.id_ville AND d.vil_id_ville = tr.id_ville)
+                                OR (d.id_ville = tr.id_ville AND d.vil_id_ville = t.id_ville)
                                 WHERE p.id_prestation = @id;";
-            cmd.Parameters.Add(new MySqlParameter("@id", id));
 
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
             cmd.Connection.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
 
             if (dr.Read())
             {
-                result = DataReaderToPrestationDetail(dr);
+                pd = DataReaderToPrestationDetail(dr);
             }
+
             cmd.Connection.Close();
 
-            return result;
+            return pd;
         }
 
         public void Update(Prestation p)

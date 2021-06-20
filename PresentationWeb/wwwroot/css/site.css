@@ -623,6 +623,71 @@ div.corps-recap h6 {
     border: 1px solid transparent;
     border-radius: 4px 4px 0 0;
 }
+.principal-profil{
+    margin-top:18px !important;
+}
+
+/*Negociation page*/
+.negociation {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.card-negociation {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+}
+
+.champs-negociation {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+    margin-top: 50px;
+}
+
+.details-offre li {
+    list-style-type: none;
+}
+
+.champ-terrain {
+    flex: 2;
+    padding: 10px 0 10px 60px;
+}
+
+.info-distance {
+    flex: 4;
+    padding: 10px 0 10px 0px;
+}
+
+.date-debut, .date-fin, .type-installation, .type-tonte {
+    flex: 3;
+    padding: 10px 0 10px 60px;
+}
+
+.bouton-negociation {
+    align-self: center;
+}
+
+.title-negociation-card {
+    margin-top: 15px;
+    padding-left: 25px;
+}
+
+.en-tete-negociation {
+    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.title-caracteristique-offre {
+    margin-top: 15px;
+    padding-left: 25px;
+}
 
 .principal-profil {
     margin-top: 18px !important;

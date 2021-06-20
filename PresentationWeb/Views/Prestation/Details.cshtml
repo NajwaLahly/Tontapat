@@ -76,8 +76,8 @@
                         Validée
                     </h3>
                     <div class="box-boutons">
-                        <form name="negociation" method="get" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">
-                            <button class="btn-primary" type="submit" form="negociation" value="negociate">Négocier</button>
+                        <form name="negociation" method="get">
+                            <button class="btn-primary" type="submit" form="negociation" value="negociate" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Négocier</button>
                         </form>
                         <button class="btn-danger" type="submit" form="offre" value="cancel">Annuler la prestation</button>
                     </div>
