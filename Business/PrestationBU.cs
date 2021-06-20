@@ -124,7 +124,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
             pdao.Update(p);
         }
 
-        public PrestationDetail 
+       // public PrestationDetail 
         public void FaireValiderEleveur(int id)
+        {
+
+        }
     }
 }
