@@ -12,94 +12,99 @@
 @if (Model.MesTroupeaux.Any())
 {
 
-<div class="box_troupeau">
-    <table class="prestations-list">
-        <tr>
-            <th scope="col">
-                Référence
-            </th>
-            <th scope="col">
-                Nom
-            </th>
-            <th scope="col">
-                Race
-            </th>
-            <th scope="col">
-                Nombre
-            </th>
-            <th>
-                Ville
-            </th>
-            <th scope="col">
-                Code postal
-            </th>
-            <th scope="col">
-                Date d'ajout
-            </th>
-            <th scope="col">
-                Divisibilité
-            </th>
-
-        </tr>
-
-
-        @foreach (TroupeauDetail t in Model.MesTroupeaux)
-        {
-            @*
-                <div>
-                    <table>*@
+    <div class="box_troupeau">
+        <table class="prestations-list">
             <tr>
-                <td>
-                    <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
-                        #@(t.Id)
-                    </a>
-                </td>
-                <td>
-                    <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
-                        @t.NomTroupeau
-                    </a>
-                </td>
-                <td>
-                    @t.Race
-                </td>
-                <td>
-                    @t.NombreBetes
-                </td>
-                <td>
-                    @t.Ville
-                </td>
-                <td>
-                    @t.CodePostal
-                </td>
-                <td>
-                    @t.DateAjout.ToString("dd/MM/yy")
-                </td>
-                <td>
-                    @if (t.Divisibilite)
-                    {
-                    <span>Oui</span>
-                    }
-                    else
-                    {
-                    <span>Non</span>
-                    }
-
-                </td>
+                <th scope="col">
+                    Référence
+                </th>
+                <th scope="col">
+                    Nom
+                </th>
+                <th scope="col">
+                    Race
+                </th>
+                <th scope="col">
+                    Nombre
+                </th>
+                <th>
+                    Ville
+                </th>
+                <th scope="col">
+                    Code postal
+                </th>
+                <th scope="col">
+                    Date d'ajout
+                </th>
+                <th scope="col">
+                    Divisibilité
+                </th>
 
             </tr>
 
-        }
-    </table>
-</div>
-    }
 
-            else
+            @foreach (TroupeauDetail t in Model.MesTroupeaux)
             {
-                 <div class="no_troupeau">
-                    <p>Vous ne disposez pas de troupeau pour le moment.</p>
-                    <img src="~/img/photos/troupeaux/troupeau0.jpg" />
-                </div>
+                @*
+                    <div>
+                        <table>*@
+                <tr>
+                    <td>
+                        <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
+                            #@(t.Id)
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Troupeau" asp-action="Details" asp-route-id="@t.Id">
+                            @t.NomTroupeau
+                        </a>
+                    </td>
+                    <td>
+                        @t.Race
+                    </td>
+                    <td>
+                        @t.NombreBetes
+                    </td>
+                    <td>
+                        @t.Ville
+                    </td>
+                    <td>
+                        @t.CodePostal
+                    </td>
+                    <td>
+                        @t.DateAjout.ToString("dd/MM/yy")
+                    </td>
+                    <td>
+                        @if (t.Divisibilite)
+                        {
+                            <span>Oui</span>
+                        }
+                        else
+                        {
+                            <span>Non</span>
+                        }
+
+                    </td>
+
+                </tr>
+
             }
+        </table>
+    </div>
+}
+
+else
+{
+<div class="no_troupeau">
+    <p>Vous ne disposez pas de troupeau pour le moment.</p>
+    <div class="button-update">
+        <a class="btn btn-primary btn-lg active" style="background-color:seagreen; border-color: darkseagreen" role="button" aria-pressed="true" asp-controller="Troupeau" asp-action="Update" asp-route-id="1" >Nouveau troupeau</a>
+    </div>
+    <img src="~/img/photos/troupeaux/troupeau0.jpg" />
+</div>
+    
+
+}
 
 
 
