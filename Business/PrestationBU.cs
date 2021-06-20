@@ -117,5 +117,14 @@ namespace Fr.EQL.AI109.Tontapat.Business
         //Quand une négociation aboutit on crée une nouvelle prestation
         // Ou on update juste l'actuelle ?
         //public void InsertFrom
+
+        public void Update(Prestation p)
+        {
+            PrestationDAO pdao = new();
+            pdao.Update(p);
+        }
+
+        public PrestationDetail 
+        public void FaireValiderEleveur(int id)
     }
 }

@@ -13,7 +13,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
     public class PrestationController : Controller
     {
-       
+
 
         // GET: PrestationController
         public ActionResult Index()
@@ -98,7 +98,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         [HttpGet]
         public ActionResult Negociation(int id)
         {
-            
+
             PrestationBU pbu = new();
             PrestationDetail pd = pbu.GetWithDetailsById(id);
             TerrainBU tbu = new();
@@ -118,13 +118,20 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         public IActionResult Negociation(PropositionDetail prd)
         {
 
-                NegociationBU nbu = new();
-                nbu.OpenNegociationInPrestation(prd);
+            NegociationBU nbu = new();
+            nbu.OpenNegociationInPrestation(prd);
 
-                PrestationBU pbu = new();
-                Prestation p = pbu.GetWithDetailsById((int)prd.Id);
-                return View("Succes", p);
+            PrestationBU pbu = new();
+            Prestation p = pbu.GetWithDetailsById((int)prd.Id);
+            return View("Succes", p);
 
-            }
+        }
+        public void FaireValiderEleveur(int id)
+        {
+            PropositionBU pbu = new();
+            pbu.FaireRepondreEleveur(id);
         }
     }
+
+
+}

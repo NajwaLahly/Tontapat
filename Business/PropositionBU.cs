@@ -35,5 +35,26 @@ namespace Fr.EQL.AI109.Tontapat.Business
             }
             return pd;
         }
+
+        public void RefuseProposition(int id)
+        {
+
+        }
+
+        public void SendContreProposition(int id, PropositionDetail pd)
+        {
+            RefuseProposition(id);
+            Insert(pd);
+
+        }
+        public void FaireRepondreEleveur(int id)
+        {
+            PropositionDetail pd = new();
+            pd.DateCreation = DateTime.Now;
+            pd.Description = "Salut Charles-Henri, j'espère que votre oral se passe bien, hors de question de commencer la prestation à cette date, par contre je suis dispo à partir du 27 juillet. Prends soin de toi petit hipster.";
+            pd.DateDebutPrestation = new DateTime(2021,07,27);
+
+            SendContreProposition(id,pd);
+        }
     }
 }
