@@ -67,7 +67,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
 
             OffreBU obu = new();
-            Offre o = obu.GetById(p.IdOffre);
+
+            Offre o = new();
+            if (p.IdOffre != null)
+            {
+                int i = (int)p.IdOffre;
+                o = obu.GetById(i);
+            }
             p.IdConditionsAnnulation = o.IdCondition;
             p.FrequenceIntervention = o.FrequenceIntervention;
             p.IdTypeTonte = o.FrequenceIntervention;
@@ -117,5 +123,23 @@ namespace Fr.EQL.AI109.Tontapat.Business
         //Quand une négociation aboutit on crée une nouvelle prestation
         // Ou on update juste l'actuelle ?
         //public void InsertFrom
+
+        public void Update(Prestation p)
+        {
+            PrestationDAO pdao = new();
+            pdao.Update(p);
+        }
+
+        public void CancelPrestation(Prestation p)
+        {
+            p.DateAnnulation = DateTime.Now;
+            Update(p);
+        }
+
+       // public PrestationDetail 
+        public void FaireValiderEleveur(int id)
+        {
+
+        }
     }
 }
