@@ -41,5 +41,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             TerrainDAO dao = new();
             return dao.GetAllByUtilisateurId(id);
         }
+
+        public List<TerrainDetail> GetAllWithDetailByUtilisateurId(int id)
+        {
+            TerrainDAO dao = new();
+            return dao.GetAllWithDetailByUtilisateurId(id);
+        }
     }
 }

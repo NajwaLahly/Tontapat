@@ -10,18 +10,18 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 {
     public class PropositionDAO : DAO
     {
-        public void Create(Proposition p)
+        public void Create(PropositionDetail p)
         {
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"INSERT INTO negociation
+            cmd.CommandText = @"INSERT INTO proposition
                                 (id_negociation, id_utilisateur,date_creation,description,
                                 date_debut_prestation,date_fin_prestation,prix_propose,
-                                type_installation, id_terrain)
+                                type_installation, id_terrain, id_type_tonte)
                                VALUES
                                 (@id_negociation, @id_utilisateur,@date_creation,@description,
                                 @date_debut_prestation,@date_fin_prestation,@prix_propose,
-                                @type_installation, @id_terrain)";
+                                @type_installation, @id_terrain, @id_type_tonte)";
 
             cmd.Parameters.Add(new MySqlParameter("@id_negociation", p.IdNegociation));
             cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", p.IdUtilisateur));
@@ -32,6 +32,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Parameters.Add(new MySqlParameter("@prix_propose", p.PrixPropose));
             cmd.Parameters.Add(new MySqlParameter("@type_installation", p.TypeInstallation));
             cmd.Parameters.Add(new MySqlParameter("@id_terrain", p.IdTerrain));
+            cmd.Parameters.Add(new MySqlParameter("@id_type_tonte", p.IdTypeTonte));
+
 
 
             cmd.Connection.Open();
@@ -46,6 +48,8 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.IdNegociation = dr.GetInt32("id_negociation");
             result.IdUtilisateur = dr.GetInt32("id_utilisateur");
             result.DateCreation = dr.GetDateTime("date_creation");
+            result.IdTerrain = dr.GetInt32("id_terrain");
+
             if (!dr.IsDBNull(dr.GetOrdinal("date_annulation")))
             {
                 result.DateAnnulation = dr.GetDateTime("date_annulation");
@@ -79,6 +83,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             {
                 result.TypeInstallation = dr.GetBoolean("type_installation");
             }
+            if (!dr.IsDBNull(dr.GetOrdinal("id_type_tonte")))
+            {
+                result.IdTypeTonte = dr.GetInt32("id_type_tonte");
+            }
 
             return result;
         }
@@ -100,6 +108,19 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.PrixPropose = p.PrixPropose;
             result.TypeInstallation = p.TypeInstallation;
             result.IdTerrain = p.IdTerrain;
+            result.IdTypeTonte = p.IdTypeTonte;
+
+            result.IdPrestation = dr.GetInt32("id_prestation");
+
+            if (!dr.IsDBNull(dr.GetOrdinal("nom_terrain")))
+            {
+                result.NomTerrain = dr.GetString("nom_terrain");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("nom_type")))
+            {
+                result.NomTypeTonte = dr.GetString("nom_type");
+            }
+
             return result;
         }
        
@@ -108,8 +129,9 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             List<Proposition> result = new();
 
             MySqlCommand cmd = CreerCommande();
-            cmd.CommandText = @"SELECT p.* from proposition p
-                                WHERE id_negociation = @id";
+            cmd.CommandText = @"SELECT p.*, ne.id_prestation from proposition p
+                                LEFT JOIN negociation ne ON ne.id_negociation = p.id_negociation
+                                WHERE p.id_negociation = @id";
             cmd.Parameters.Add(new MySqlParameter("@id", id));
 
             cmd.Connection.Open();
@@ -130,7 +152,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             MySqlCommand cmd = CreerCommande();
 
-            cmd.CommandText = @"SELECT n.* from proposition p
+            cmd.CommandText = @"SELECT p.*, ne.id_prestation, tt.nom_type, t.nom_terrain, t.id_terrain from proposition p
+                                LEFT JOIN negociation ne ON ne.id_negociation = p.id_negociation
+                                LEFT JOIN type_tonte tt ON p.id_type_tonte = tt.id_type
+                                LEFT JOIN terrain t on p.id_terrain = t.id_terrain
                                 WHERE id_proposition = @id";
             cmd.Parameters.Add(new MySqlParameter("@id", id));
 
@@ -153,7 +178,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             cmd.CommandText = @"UPDATE proposition
                                 SET date_annulation = @date_annulation,
-                                date_validation = @date_validation
+                                date_validation = @date_validation,
                                 date_refus = @date_refus
                                 WHERE id_proposition = @id_proposition";
 

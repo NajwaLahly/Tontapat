@@ -1,0 +1,296 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+@model PropositionDetail
+
+@{
+    string InstallationString = null;
+    if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+    {
+        InstallationString = "de l'éleveur";
+    }
+    else
+    {
+        InstallationString = "du client";
+    }
+
+}
+
+
+<h1>Visualisation de la proposition #@Model.Id-@Model.Id</h1>
+@*    <h4>Prestation #@ViewBag.PrestationDetail.DateDemande.ToString("yyMMdd")-@ViewBag.PrestationDetail.Id</h4>
+
+    <div class="box-offre-details-header">
+        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(ViewBag.PrestationDetail.IdEleveur).png" />
+        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@ViewBag.PrestationDetail.Id">@ViewBag.PrestationDetail.PrenomEleveur</a>
+    </div>*@
+
+
+<form name="PropositionDetail" method="post">
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="IdUtilisateur" value="@ViewBag.PrestationDetail.IdClient" />
+
+    <div class="negociation">
+        <div class="card-negociation card">
+            <div class="title-caracteristique-offre">
+                <h3>
+                    Récapitulatif de la prestation
+                </h3>
+            </div>
+            <div class="details-offre">
+                <table class="offre-features">
+                    <tr>
+                        <td>
+                            <i class="fas fa-location-arrow"></i>
+                        </td>
+                        <td>
+                            @ViewBag.PrestationDetail.NomTerrain, @ViewBag.PrestationDetail.NomVille
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/espece/@(ViewBag.PrestationDetail.IdEspeceTroupeau).png" />
+                        </td>
+                        <td>
+                            @ViewBag.PrestationDetail.NomRaceTroupeau (@ViewBag.PrestationDetail.NombreBetes)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-calendar-alt"></i>
+                        </td>
+                        <td>
+                            Du @ViewBag.PrestationDetail.DateDebut.ToString("dd/MM/yy") au @ViewBag.PrestationDetail.DateFin.ToString("dd/MM/yy")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </td>
+                        <td>
+                            Type de tonte : @ViewBag.PrestationDetail.NomTypeTonte
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="icon-list" src="~/img/icons/install.png" />
+                        </td>
+                        <td>
+                            Installation à @InstallationString
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-binoculars"></i>
+                        </td>
+                        <td>
+                            Fréquence d'intervention : tous les @ViewBag.PrestationDetail.FrequenceIntervention jours
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-times fa-lg"></i>
+                        </td>
+                        <td>
+                            Conditions d'annulation : Strictes
+                            <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="card-negociation card">
+            <div class="title-negociation-card">
+                <h3>
+                    1. Terrain de la proposition
+                </h3>
+            </div>
+            <div class="champs-negociation">
+                <div class="champ-terrain">
+                (Un éleveur ne peut modifier le terrain de la prestation)
+                    <label asp-for="IdTypeTonte">Votre terrain : </label>
+                    <select asp-for="IdTerrain" id="terrain" disabled>
+                        @foreach (Terrain t in ViewBag.Terrains)
+                        {
+                            if (t.Id == ViewBag.PrestationDetail.IdTerrain)
+                            {
+                                <option value="@t.Id" selected>@t.Nom</option>
+                            }
+                            else
+                            {
+                                <option value="@t.Id">@t.Nom</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="info-distance">
+
+                </div>
+            </div>
+        </div>
+        <div class="card-negociation card">
+            <div class="title-negociation-card">
+                <h3>
+                    Détails de la prestation
+                </h3>
+            </div>
+            <div class="champs-negociation">
+                <div class="type-tonte">
+                    <label asp-for="IdTypeTonte">Type de tonte : </label>
+                    <select asp-for="IdTypeTonte" id="type_tonte">
+                        <option value="" disabled selected>Type de tonte...</option>
+                        @foreach (TypeTonte tt in ViewBag.TypeTonte)
+                        {
+                            if (tt.Id == Model.IdTypeTonte)
+                            {
+                                <option value="@tt.Id" selected>@tt.Nom</option>
+                            }
+                            else
+                            {
+                                if (tt.Id == 4)
+                                {
+                                    <option value="@tt.Id">@tt.Nom</option>
+                                }
+
+                            }
+
+                        }
+                        @if(Model.IdTypeTonte == ViewBag.PrestationDetail.IdTypeTonte)
+            {
+                <i> (inchangé par l'éleveur)</i>
+            }
+                        else
+            {
+                <i> (Modifié par l'éleveur)</i>
+            }
+
+                    </select>
+                </div>
+                <div class="type-installation">
+                    <label asp-for="IdTypeTonte">Type d'installation : </label>
+                    <select asp-for="TypeInstallation" id="">
+                        <option value="" disabled selected>Type d'installation...</option>
+                        @if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+                        {
+                            <option value="true" selected>Eleveur</option>
+                            <option value="false">Client</option>
+                        }
+                        else if (ViewBag.PrestationDetail.TypeInstallationFinal == false)
+                        {
+                            <option value="true">Eleveur</option>
+                            <option value="false" selected>Client</option>
+                        }
+
+                        @if (Model.TypeInstallation == ViewBag.PrestationDetail.TypeInstallationFinal)
+                        {
+                            <i> (inchangé par l'éleveur)</i>
+                        }
+                        else
+                        {
+                            <i> (Modifié par l'éleveur)</i>
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-negociation card">
+            <div class="title-negociation-card">
+                <h3>
+                    Dates de la prestation
+                </h3>
+            </div>
+            <div class="champs-negociation">
+                <div class="date-debut">
+                    <label asp-for="IdTypeTonte">Date de début : </label>
+                    <input type="date" id="date_debut" asp-for="DateDebutPrestation"
+                           value="@ViewBag.PrestationDetail.DateDebut.ToString("yyyy-MM-dd")" />
+                    @if (((DateTime)Model.DateDebutPrestation).ToString("yyyy-MM-dd") == ViewBag.PrestationDetail.DateDebut.ToString("yyyy-MM-dd"))
+                    {
+                        <i> (inchangé par l'éleveur)</i>
+                    }
+                    else
+                    {
+                        <i> (Modifié par l'éleveur)</i>
+                    }
+                </div>
+                <div class="date-fin">
+                    <label asp-for="IdTypeTonte">Date de fin : </label>
+                    <input type="date" id="date_fin" name="DateFinPrestation"
+                           value="@ViewBag.PrestationDetail.DateFin.ToString("yyyy-MM-dd")" />
+                    @if (((DateTime)Model.DateFinPrestation).ToString("yyyy-MM-dd") == ViewBag.PrestationDetail.DateFin.ToString("yyyy-MM-dd"))
+                    {
+                        <i> (inchangé)</i>
+                    }
+                    else
+                    {
+                        <i> (modifié)</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-negociation card">
+            <div class="title-negociation-card">
+                <h3>
+                    Prix proposé
+                </h3>
+            </div>
+            <div class="champs-negociation">
+                <div class="prix-propose">
+                    <label asp-for="PrixPropose">Prix final : </label>
+                    <input type="text" id="prix_propose" asp-for="PrixPropose"
+                           value="@ViewBag.PrestationDetail.PrixConvenu" /> €
+                    @if (Model.PrixPropose == ViewBag.PrestationDetail.PrixConvenu)
+                    {
+                        <i> (inchangé)</i>
+                    }
+                    else
+                    {
+                        <i> (modifié)</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="bouton-negociation">
+            <!--
+            <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
+                <input type="hidden" name="IdOffre" value=""/>
+                <input type="hidden" name="IdTerrain" value=""/>
+                <input type="hidden" name="IdTypeTonte" value=""/>
+                <input type="hidden" name="Distance" value=""/>
+                <input type="hidden" name="NbBetes" value=""/>
+                <input type="hidden" name="TypeInstallation" value=""/>
+                <input type="hidden" name="DateDebut" value=""/>
+                <input type="hidden" name="DateFin" value=""/>
+                <input type="hidden" name="Duree" value=""/>
+                <input type="hidden" name="PrixInstallationBetail" value=""/>
+                <input type="hidden" name="PrixInstallationCloture" value=""/>
+                <input type="hidden" name="PrixBetail" value=""/>
+                <input type="hidden" name="PrixIntervention" value=""/>
+                <input type="hidden" name="PrixService" value=""/>
+                <input type="hidden" name="PrixTVA" value=""/>
+                <input type="hidden" name="PrixTotal" value=""/>
+
+            </form>
+                -->
+            <div class="box-boutons">
+                <button class="btn-success" type="submit">Valider la proposition</button>
+                <button class="btn-danger" type="reset">Annuler</button>
+            </div>
+        </div>
+    </div>
+    <div class="box-boutons">
+        @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
+        {
+            <a class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id">Accepter la proposition</a>
+            <a class="btn btn-warning" asp-controller="Proposition" asp-action="ContreProposer" asp-route-id="@Model.Id">Faire une contre-proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Refuser</a>
+        }
+        else
+        {
+            <a class="btn btn-success" asp-controller="Proposition" asp-action="MettreAJour" asp-route-id="@Model.Id>Mettre à jour la proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Id">Annuler la négociation</a>
+
+        }
+    </div>
+</form>

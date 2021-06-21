@@ -510,42 +510,45 @@ input[type=date] {
     color: rgb(180 180 180);
     font-size: 1rem;
 }
-/*   Mon Profil*/
+      /*   Mon Profil*/
 .profil-container {
-    text-align: center;
+    text-align:center;
     display: flex;
     flex-direction: column;
 }
-
 .img-container-form {
-    text-align: center;
+    text-align:center;
     max-width: 8rem;
     border-radius: 50%;
     outline: .2rem solid rgb(200, 200, 200);
     outline-offset: -.1rem;
 }
 
-.rate-profil {
-    display: flex;
+.rate-profil{
+    display:flex;
     padding-right: 5px;
-    flex-direction: row;
+    flex-direction:row;
     margin: 0 auto;
     width: 100px;
 }
-
-#rate-number-profil {
-    padding-left: 5px
+#rate-number-profil{
+    padding-left:5px
 }
-
 .barre-menu {
     display: inline-flex !important;
     flex-direction: row !important;
     margin: 0 auto;
 }
 
-    .barre-menu p {
-        padding: 25px 50px;
-    }
+.barre-menu p{
+    padding: 25px 50px;
+}
+}
+
+
+
+
+
 
 /*Page Recap*/
 .recap {
@@ -603,28 +606,133 @@ div.corps-recap h6 {
     padding-left: 10px;
 }
 
-.container-details-profil {
+                /*MON PROFIL*/
+
+.identite-profil {
     display: flex;
     text-align: center;
     margin: 10px;
     border: 1px solid rgb(230,230,230);
     box-shadow: 0px 0px 3px 2px rgb(240,240,240);
     border-radius: 6px;
+    flex-direction: row;
+}
+.adresse {
+    display: flex;
     flex-direction: column;
+    margin: auto;
+    padding: 10px;
+    margin-left:50px;
 }
 
-.tab-content #menu {
-    margin-left: 50px
+.identite {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 10px;
+}
+
+.btn-change-profil{
+    display: flex;
+    flex-direction:row;
+    text-align:center;
 }
 
 .nav-tabs > li > a {
     margin-left: 100px !important;
-    line-height: 1.42857143;
-    border: 1px solid transparent;
-    border-radius: 4px 4px 0 0;
 }
-.principal-profil{
-    margin-top:18px !important;
+.button-update {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profil-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.img-container-form {
+    text-align: center;
+    max-width: 8rem;
+    border-radius: 50%;
+    outline: .2rem solid rgb(200, 200, 200);
+    outline-offset: -.1rem;
+}
+
+.rate-profil {
+    display: flex;
+    padding-right: 5px;
+    flex-direction: row;
+    margin: 0 auto;
+    width: 100px;
+}
+
+#rate-number-profil {
+    padding-left: 5px
+}
+
+.courriel-password {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 15px;
+}
+.logo-paiement{
+    width:150px;
+    height:150px;
+}
+.img-paiement{
+    padding: 15px;
+}
+.tableau-notes {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+    margin: 10px;
+}
+    /*.tableau-note .rate-profil{
+        padding: 10px;
+    }*/
+
+/*TROUPEAU-LIST*/
+
+.box_troupeau {
+
+    display: flex;
+    margin: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+    flex-direction: row;
+}
+
+.no_troupeau {
+    display: flex;
+    padding: 15px;
+    text-align:center;
+    flex-direction:column;
+}
+
+.img_troupeau {
+    width: 250px;
+    border-radius: 10px 0 0 10px;
+    height: 180px;
+}
+
+.description_troupeaux {
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    text-align: center;
+    padding: 10px;
 }
 
 /*Negociation page*/
@@ -641,6 +749,7 @@ div.corps-recap h6 {
     margin-bottom: 20px;
     border: 1px solid rgb(230,230,230);
     box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    padding: 0 15px 15px 15px;
 }
 
 .champs-negociation {
@@ -742,5 +851,21 @@ div.corps-recap h6 {
 
 .succes {
     text-align: center;
+}
 
+.img-action-logo {
+    max-width: 10rem;
+}
+.action-confirmation {
+    text-align: center;
+width: 100%;
+padding-top: 1rem;
+}
+
+i.modifie {
+    color: red;
+}
+
+i.inchange {
+    color: lightgray;
 }

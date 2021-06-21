@@ -28,13 +28,35 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View(ud);
         }
 
+        [HttpGet]
         [Route("Utilisateur/Profil/{id:int}")]
-        public IActionResult Profil(int id)
+        public IActionResult Update(int id)
         {
             UtilisateurBU bu = new();
             UtilisateurDetail ud = bu.GetAllWithDetailById(id);
 
-            return View(ud);
+            return View("Profil", ud);
+        }
+
+        [HttpPost]
+        [Route("Utilisateur/Profil/{id:int}")]
+        public IActionResult Update(UtilisateurDetail util)
+        {
+            UtilisateurBU bu = new UtilisateurBU();
+        
+            if (ModelState.IsValid)
+            {
+                bu.MAJ(util);
+                return View("Success");
+            }
+            else
+            {
+            
+                UtilisateurDetail ud = bu.GetAllWithDetailById(1);
+
+                return View("Profil");
+            } 
+          
         }
     }
 }

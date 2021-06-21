@@ -8,6 +8,6 @@ namespace Fr.EQL.AI109.Tontapat.Model
 {
     public class NegociationDetail : Negociation
     {
-        public List<Proposition> Propositions { get; set; }
+        public List<Proposition>? Propositions { get; set; }
     }
 }

@@ -18,15 +18,15 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public  string Description { get; set; }
         public DateTime DateAjout { get; set; }
         public bool AccesPublic { get; set; }
-        public float AdresseLat { get; set; }
-        public float AdresseLong { get; set; }
+        public float? AdresseLat { get; set; }
+        public float? AdresseLong { get; set; }
         public string AdresseVoie { get; set; }
-        public string Photo1 { get; set; }
-        public string Photo2 { get; set; }
-        public string Photo3 { get; set; }
-        public string Photo4 { get; set; }
-        public string Photo5 { get; set; }
-        public DateTime DateRetrait { get; set; }
+        public string? Photo1 { get; set; }
+        public string? Photo2 { get; set; }
+        public string? Photo3 { get; set; }
+        public string? Photo4 { get; set; }
+        public string? Photo5 { get; set; }
+        public DateTime? DateRetrait { get; set; }
         public bool PresenceCamera { get; set; }
         public bool ServiceSecurite { get; set; }
 

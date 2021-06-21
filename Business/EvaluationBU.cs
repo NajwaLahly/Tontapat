@@ -32,6 +32,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
             EvaluationDAO dao = new();
             return dao.GetAllWithDetailsByOffreId(idOffre);
         }
-
+        public List<EvaluationDetail> GetAllWithDetailsByUtilisateurId(int id)
+        {
+            EvaluationDAO dao = new();
+            return dao.GetAllWithDetailsByUtilisateurId(id);
+        }
     }
 }

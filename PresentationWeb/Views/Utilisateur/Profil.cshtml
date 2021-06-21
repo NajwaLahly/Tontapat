@@ -42,67 +42,191 @@
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <div class="container mt-3">
-                    <form>
-                        <h3>Identité</h3>
-                        <label for="get">Nom:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.Nom" id="demo" name="email">
 
+                    <form method="post" id="profil-form">
+                        <div class="identite-profil">
+                            <div class="identite">
+                                <h4>Identité</h4>
+                                <label asp-for="Nom">Nom</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="Nom">
+
+                                </div>
+                                <label asp-for="Prenom">Prenom</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="Prenom">
+                                </div>
+                                <label asp-for="DateNaissance">Date de naissance</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="DateNaissance">
+                                </div>
+                            </div>
+                            <div class="adresse">
+                                <h4>Adresse</h4>
+                                <label asp-for="AdresseVoie">N* de voie et complément</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="AdresseVoie">
+                                </div>
+                                <label asp-for="CodePostal">Code postal</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="CodePostal">
+                                </div>
+                                <label asp-for="NomVille">Ville</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="NomVille">
+                                </div>
+                            </div>
                         </div>
-                        <label for="get">Prenom:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.Prenom" id="demo" name="email">
-                        </div>
-                        <label for="get">Date de naissance:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.DateNaissance" id="demo" name="email">
-                        </div>
-                        <h3>Adresse</h3>
-                        <label for="get">N* de voie et complément:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.AdresseVoie" id="demo" name="email">
-                        </div>
-                        <label for="get">Code postal:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="code postal" id="demo" name="email">
-                        </div>
-                           <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.NomVille" id="demo" name="email">
+
+                        <input type="hidden" asp-for="Email">
+                        <input type="hidden" asp-for="MotDePasse">
+                        <input type="hidden" asp-for="DateInscription">
+                        <input type="hidden" asp-for="RaisonSociale">
+                        <input type="hidden" asp-for="CarteNumero">
+                        <input type="hidden" asp-for="CarteCVC">
+                        <input type="hidden" asp-for="CarteExpiration">
+                        <input type="hidden" asp-for="VirementIBAN">
+                        <input type="hidden" asp-for="PayPalEmail">
+                        <input type="hidden" asp-for="BIC">
+                        <input type="hidden" asp-for="Presentation">
+                        
+
+                        <div class="button-update">
+                            <button class="btn-success" value="submit" id="profil-form" asp-controller="Utilisateur" asp-action="Update">Valider changements</button>
                         </div>
                     </form>
+
                 </div>
             </div>
+
             <div id="menu1" class="tab-pane fade">
                 <div class="container mt-3">
-                    <form>
-                        <label for="get">Courriel:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.Email" id="demo" name="email">
-
+                    <form method="post" id="profil-form">
+                        <div class="identite-profil">
+                            <div class="courriel-password">
+                                <h4>Mes coordonnées</h4>
+                                <label asp-for="Email">Adresse e-mail</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="Email">
+                                </div>
+                                <label asp-for="MotDePasse">Nouveau mot de passe</label>
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control" asp-for="MotDePasse">
+                                </div>
+                            </div>
                         </div>
-                        <label for="get">Mot de passe:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="@Model.MotDePasse" id="demo" name="email">
+
+                        <input type="hidden" asp-for="DateNaissance">
+                        <input type="hidden" asp-for="NomVille">
+                        <input type="hidden" asp-for="Nom">
+                        <input type="hidden" asp-for="Prenom">
+                        <input type="hidden" asp-for="AdresseVoie">
+                        <input type="hidden" asp-for="CodePostal">
+                        <input type="hidden" asp-for="DateInscription">
+                        <input type="hidden" asp-for="RaisonSociale">
+                        <input type="hidden" asp-for="CarteNumero">
+                        <input type="hidden" asp-for="CarteCVC">
+                        <input type="hidden" asp-for="CarteExpiration">
+                        <input type="hidden" asp-for="VirementIBAN">
+                        <input type="hidden" asp-for="PayPalEmail">
+                        <input type="hidden" asp-for="BIC">
+                        <input type="hidden" asp-for="Presentation">
+
+                        <div class="button-update">
+                            <button class="btn-success" type="submit" id="profil-form" asp-controller="Utilisateur" asp-action="Update">Valider changements</button>
                         </div>
                     </form>
                 </div>
             </div>
+
             <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                <div class="container mt-3">
+                    <form method="post" id="profil-form">
+                        <div class="identite-profil">
+                            <div class="identite">
+                                <h4>Carte bancaire</h4>
+                                <label asp-for="CarteNumero">N* de carte</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="CarteNumero">
+                                </div>
+                                <label asp-for="CarteExpiration">Date d'expiration</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="CarteExpiration">
+                                </div>
+                                <label asp-for="CarteCVC">CVC</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" asp-for="CarteCVC">
+                                </div>
+                            </div>
+                            <div class="adresse">
+                                <div class="img-paiement">
+                                    <div class="cont-visa-master">
+                                        <img class="logo-paiement" src="~/img/icons/paiement/visa_master.jpg" />
+                                    </div>
+
+                                    <div class="img-virement">
+                                        <img class="logo-paiement" src="~/img/icons/paiement/sepa.png" />
+                                    </div>
+
+
+                                    <div class="img-paypal">
+                                        <img class="logo-paiement" src="~/img/icons/paiement/paypal.png" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" asp-for="DateNaissance">
+                            <input type="hidden" asp-for="NomVille">
+                            <input type="hidden" asp-for="Nom">
+                            <input type="hidden" asp-for="Prenom">
+                            <input type="hidden" asp-for="AdresseVoie">
+                            <input type="hidden" asp-for="CodePostal">
+                            <input type="hidden" asp-for="DateInscription">
+                            <input type="hidden" asp-for="RaisonSociale">
+                            <input type="hidden" asp-for="Email">
+                            <input type="hidden" asp-for="MotDePasse">
+                            <input type="hidden" asp-for="VirementIBAN">
+                            <input type="hidden" asp-for="PayPalEmail">
+                            <input type="hidden" asp-for="BIC">
+                            <input type="hidden" asp-for="Presentation">
+
+                        </div>
+                        <div class="button-update">
+                            <button class="btn-success" id="profil-form" type="submit" asp-controller="Utilisateur" asp-action="Update">Valider changements</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+           
             <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+
+                @{
+                    if (Model.NbEvaluation != 0)
+                    {
+                        foreach (EvaluationDetail ev in Model.MesEvals)
+                        {
+                            <div class="tableau-notes">
+                                <p style="font-weight: bold; padding-top: 7px;">@ev.Note/5 <span id="rate-number-profil"> par @ev.PrenomTiers </span></p>
+
+                                <br />
+                                <p>@ev.Commentaire</p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="tableau-notes" style="text-align: center;">
+                            <p>(Aucune évaluation à ce jour.)</p>
+                        </div>
+                    }
+
+                }
+
             </div>
         </div>
     </div>
 </div>
-@*    <div class="container-details-profil">
-        <div class="courriel-profil">
-            <h2>Courriel</h2>
-            <p>Adresse courriel : hello@wanadoo.fr</p>
-        </div>*@
+
 
 
     
