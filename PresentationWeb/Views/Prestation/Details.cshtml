@@ -96,7 +96,7 @@
                             }
                             else
                             {
-                                <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route="@Model.Negociations.Last().Propositions.Last().Id">Voir la proposition de @Model.PrenomEleveur</a>
+                                <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Voir la proposition de @Model.PrenomEleveur</a>
                             }
 
                         }

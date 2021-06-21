@@ -962,7 +962,7 @@ i.inchange {
 
 #home-img {
     /*background-color: yellow;*/
-    width: 60vw;
+    width: 600px;
 }
 
 #Temoignages {
@@ -1029,4 +1029,8 @@ i.inchange {
 .decouv-image {
     overflow-x: hidden;
     
+}
+
+#A-propos {
+    padding-bottom: 30px;
 }
