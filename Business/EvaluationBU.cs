@@ -37,5 +37,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
             EvaluationDAO dao = new();
             return dao.GetAllWithDetailsByUtilisateurId(id);
         }
+
+        public bool IsAlreadyEvaluee(int idPrestation, int IdEleveur)
+        {
+            return true;
+        }
     }
 }

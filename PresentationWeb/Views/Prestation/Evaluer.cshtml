@@ -1,18 +1,45 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 
-@Model Evaluation
+@model Evaluation
 
 <h1>Evaluer votre prestation avec @ViewBag.PrestationDetail.PrenomEleveur</h1>
 
-<div class="box-offre">
-    <div class="action-confirmation">
-        <img class="img-action-logo" src="~/img/tontapat_sad.png" />
-        <p>Qu'avez-vous pensé de la prestation de Gérard ?</p>
-        <p>
-            Il ne verra votre évaluation qu'une fois qu'il vous aura lui-même évalué, ou passée la période d'évaluation de 7 jours.'
-        </p>
-        <p>
-            <label asp-for="Com">Décrivez votre expérience avec @ViewBag.PrestationDetail.PrenomEleveur :</label>
-        </p>
+<form method="post">
+    <div class="box-offre">
+        <div class="action-confirmation">
+            <img class="img-action-logo" src="~/img/tontapat_sad.png" />
+            <p>
+                Qu'avez-vous pensé de la qualité de la prestation ?
+                <br />Il ne verra votre évaluation qu'une fois qu'il vous aura lui-même évalué, ou passée la période d'évaluation de 7 jours.
+            </p>
+
+            <div class="note-eval">
+                <div id="noteNombre">3</div>
+                <div class="evaluation-etoiles">
+                    <a onclick="setStarNote(1)"><i class="fas fa-star star-full" id="1"></i></a>
+                    <a onclick="setStarNote(2)"> <i class="fas fa-star star-full" id="2"></i></a>
+                    <a onclick="setStarNote(3)"><i class="fas fa-star star-full" id="3"></i></a>
+                    <a onclick="setStarNote(4)"><i class="fas fa-star star-empty" id="4"></i></a>
+                    <a onclick="setStarNote(5)"><i class="fas fa-star star-empty" id="5"></i></a>
+
+                </div>
+            </div>
+            <input type="hidden" asp-for="Note" value="3" id="noteChamp"/>
+            <p>
+                <label asp-for="Commentaire">Décrivez votre expérience avec @ViewBag.PrestationDetail.PrenomEleveur (1000 caractères maximum) :</label>
+            </p>
+            <p>
+                <textarea cols="50" rows="10" style="height: 150px;" asp-for="Commentaire"></textarea>
+            </p>
+        </div>
     </div>
-</div>
+    <input type="hidden" asp-for="IdPrestation" value="@ViewBag.PrestationDetail.Id" />
+    <input type="hidden" asp-for="IdUtilisateurCible" value="@ViewBag.PrestationDetail.IdEleveur" />
+
+    <div class="box-boutons">
+        <button class="btn btn-success" id="valider" type="submit" disabled>Valider mon évaluation</button>
+        <button class="btn btn-danger" type="reset">Annuler</button>
+
+    </div>
+
+</form>
