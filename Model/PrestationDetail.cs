@@ -21,7 +21,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
 
         public ConditionAnnulation ConditionAnnulationRef { get; set; }
 
-        public List<NegociationDetail> Negociations { get; set; }
+        public List<NegociationDetail>? Negociations { get; set; }
 
         public List<InterventionDetail> Interventions { get; set; }
 

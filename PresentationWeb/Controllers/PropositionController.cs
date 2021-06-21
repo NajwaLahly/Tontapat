@@ -12,11 +12,45 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 {
     public class PropositionController : Controller
     {
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
+            ViewBag.Terrains = terrains;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> tts = ttbu.GetAll();
+            ViewBag.TypeTonte = tts;
+            PropositionBU pbu = new();
+            PropositionDetail pd = pbu.GetWithDetailsById(id);
+            PrestationBU prbu = new();
+            PrestationDetail prd = prbu.GetWithDetailsById(pd.IdPrestation);
+            ViewBag.PrestationDetail = prd;
+            return View(pd);
+        }
         public IActionResult Accepter(int id)
         {
             return View();
         }
 
+        [HttpGet]
+        public IActionResult ContreProposer(int id)
+        {
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
+            ViewBag.Terrains = terrains;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> tts = ttbu.GetAll();
+            ViewBag.TypeTonte = tts;
+            PropositionBU pbu = new();
+            PropositionDetail pd = pbu.GetWithDetailsById(id);
+            PrestationBU prbu = new();
+            PrestationDetail prd = prbu.GetWithDetailsById(pd.IdPrestation);
+            ViewBag.PrestationDetail = prd;
+            return View(pd);
+        }
         [HttpGet]
         public IActionResult Annuler(int id)
         {
@@ -25,13 +59,11 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Annuler(int id,PropositionDetail pd)
+        public IActionResult Annuler(int id, PropositionDetail prod)
         {
             PropositionBU propbu = new();
-            PrestationBU prebu = new();
-            Prestation p = prebu.GetWithDetailsById(propbu.GetWithDetailsById(id).IdPrestation);
-            propbu.CancelProposition(p);
-            ViewBag.Prestation = p;
+            propbu.CancelProposition(prod);
+
             return View("Annulee");
         }
     }

@@ -130,10 +130,8 @@ namespace Fr.EQL.AI109.Tontapat.Business
             pdao.Update(p);
         }
 
-        public void CancelPrestation(int id)
+        public void CancelPrestation(Prestation p)
         {
-            Prestation p = new();
-            p.Id = id;
             p.DateAnnulation = DateTime.Now;
             Update(p);
         }

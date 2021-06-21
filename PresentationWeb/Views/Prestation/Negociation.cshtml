@@ -90,7 +90,7 @@
                                 <i class="fa fa-times fa-lg"></i>
                             </td>
                             <td>
-                                Conditions d'annulation : ???????????
+                                Conditions d'annulation : Strictes
                                 <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
                             </td>
                         </tr>
@@ -112,7 +112,14 @@
                         <select asp-for="IdTerrain" id="terrain">
                             @foreach (Terrain t in ViewBag.Terrains)
                             {
-                                <option value="@t.Id">@t.Nom</option>
+                                if (t.Id == ViewBag.PrestationDetail.IdTerrain)
+                                {
+                                    <option value="@t.Id" selected>@t.Nom</option>
+                                }
+                                else
+                                {
+                                    <option value="@t.Id">@t.Nom</option>
+                                }
                             }
                         </select>
                     </div>
@@ -134,7 +141,19 @@
                             <option value="" disabled selected>Type de tonte...</option>
                             @foreach (TypeTonte tt in ViewBag.TypesTonte)
                             {
-                                <option value="@tt.Id">@tt.Nom</option>
+                                if (tt.Id == ViewBag.PrestationDetail.IdTypeTonte)
+                                {
+                                    <option value="@tt.Id" selected>@tt.Nom</option>
+                                }
+                                else
+                                {
+                                    if(tt.Id == 4)
+                    {
+                        <option value="@tt.Id">@tt.Nom</option>
+                    }
+                                    
+                                }
+
                             }
 
                         </select>
@@ -143,8 +162,17 @@
                         <label asp-for="IdTypeTonte">Type d'installation : </label>
                         <select asp-for="TypeInstallation" id="">
                             <option value="" disabled selected>Type d'installation...</option>
-                            <option value="true">Eleveur</option>
-                            <option value="false">Client</option>
+                            @if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+                            {
+                                <option value="true" selected>Eleveur</option>
+                                <option value="false">Client</option>
+                            }
+                            else if (ViewBag.PrestationDetail.TypeInstallationFinal == false)
+                            {
+                                <option value="true">Eleveur</option>
+                                <option value="false" selected>Client</option>
+                            }
+
                         </select>
                     </div>
                 </div>
@@ -159,37 +187,51 @@
                     <div class="date-debut">
                         <label asp-for="IdTypeTonte">Date de début : </label>
                         <input type="date" id="date_debut" asp-for="DateDebutPrestation"
-                               value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" />
+                               value="@ViewBag.PrestationDetail.DateDebut.ToString("yyyy-MM-dd")" />
                     </div>
                     <div class="date-fin">
                         <label asp-for="IdTypeTonte">Date de fin : </label>
                         <input type="date" id="date_fin" name="DateFinPrestation"
-                               value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")" />
+                               value="@ViewBag.PrestationDetail.DateFin.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-negociation card">
+                <div class="title-negociation-card">
+                    <h3>
+                        3. Proposez un prix final
+                    </h3>
+                </div>
+                <div class="champs-negociation">
+                    <div class="prix-propose">
+                        <label asp-for="PrixPropose">Prix final : </label>
+                        <input type="text" id="prix_propose" asp-for="PrixPropose"
+                               value="@ViewBag.PrestationDetail.PrixConvenu" /> €
                     </div>
                 </div>
             </div>
             <div class="bouton-negociation">
                 <!--
-            <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
-                <input type="hidden" name="IdOffre" value=""/>
-                <input type="hidden" name="IdTerrain" value=""/>
-                <input type="hidden" name="IdTypeTonte" value=""/>
-                <input type="hidden" name="Distance" value=""/>
-                <input type="hidden" name="NbBetes" value=""/>
-                <input type="hidden" name="TypeInstallation" value=""/>
-                <input type="hidden" name="DateDebut" value=""/>
-                <input type="hidden" name="DateFin" value=""/>
-                <input type="hidden" name="Duree" value=""/>
-                <input type="hidden" name="PrixInstallationBetail" value=""/>
-                <input type="hidden" name="PrixInstallationCloture" value=""/>
-                <input type="hidden" name="PrixBetail" value=""/>
-                <input type="hidden" name="PrixIntervention" value=""/>
-                <input type="hidden" name="PrixService" value=""/>
-                <input type="hidden" name="PrixTVA" value=""/>
-                <input type="hidden" name="PrixTotal" value=""/>
+        <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
+            <input type="hidden" name="IdOffre" value=""/>
+            <input type="hidden" name="IdTerrain" value=""/>
+            <input type="hidden" name="IdTypeTonte" value=""/>
+            <input type="hidden" name="Distance" value=""/>
+            <input type="hidden" name="NbBetes" value=""/>
+            <input type="hidden" name="TypeInstallation" value=""/>
+            <input type="hidden" name="DateDebut" value=""/>
+            <input type="hidden" name="DateFin" value=""/>
+            <input type="hidden" name="Duree" value=""/>
+            <input type="hidden" name="PrixInstallationBetail" value=""/>
+            <input type="hidden" name="PrixInstallationCloture" value=""/>
+            <input type="hidden" name="PrixBetail" value=""/>
+            <input type="hidden" name="PrixIntervention" value=""/>
+            <input type="hidden" name="PrixService" value=""/>
+            <input type="hidden" name="PrixTVA" value=""/>
+            <input type="hidden" name="PrixTotal" value=""/>
 
-            </form>
-                -->
+        </form>
+            -->
                 <div class="box-boutons">
                     <button class="btn-success" type="submit">Valider la proposition</button>
                     <button class="btn-danger" type="reset">Annuler</button>

@@ -31,69 +31,6 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View(pd);
         }
 
-
-        // GET: PrestationController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PrestationController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PrestationController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
         [HttpGet]
         public ActionResult Negociation(int id)
         {
@@ -126,16 +63,23 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
         }
 
-        [HttpGet]
+/*        [HttpGet]
         public IActionResult Proposition(int id)
         {
+            TerrainBU tbu = new();
+            List<Terrain> terrains = tbu.GetAllByUtilisateurId(1);
+            ViewBag.Terrains = terrains;
+
+            TypeTonteBU ttbu = new();
+            List<TypeTonte> tts = ttbu.GetAll();
+            ViewBag.TypeTonte = tts;
             PropositionBU pbu = new();
             PropositionDetail pd = pbu.GetWithDetailsById(id);
             PrestationBU prbu = new();
             PrestationDetail prd = prbu.GetWithDetailsById(pd.IdPrestation);
             ViewBag.PrestationDetail = prd;
             return View(pd);
-        }
+        }*/
 
 
         [HttpGet]
@@ -150,7 +94,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         public IActionResult Annuler(int id,Prestation p)
         { 
             PrestationBU pbu = new();
-            pbu.CancelPrestation(id);
+            pbu.CancelPrestation(p);
             return View("Annulee");
         }
 

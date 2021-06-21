@@ -861,3 +861,11 @@ div.corps-recap h6 {
 width: 100%;
 padding-top: 1rem;
 }
+
+i.modifie {
+    color: red;
+}
+
+i.inchange {
+    color: lightgray;
+}
