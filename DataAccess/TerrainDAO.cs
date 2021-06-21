@@ -53,7 +53,45 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
         }
 
+        public void Update(Terrain t)
+        {
+            MySqlCommand cmd = CreerCommande();
 
+            cmd.CommandText = @"UPDATE terrain SET id_ville = @id_ville, id_cloture = @id_cloture, id_utilisateur = @id_utilisateur,
+                                id_type_terrain = @id_type_terrain, nom_terrain = @nom_terrain, superficie_terrain = @superficie_terrain,
+                                description = @description, date_ajout = @date_ajout, acces_public = @acces_public, adresse_lat = @adresse_lat,
+                                adresse_long = @adresse_long, adresse_voie = @adresse_voie, photo1 = @photo1, photo2 = @photo2, photo3 = @photo3,
+                                photo4 = @photo4, photo5 = @photo5, date_retrait_terrain = @date_retrait_terrain, presence_camera = @presence_camera,
+                                presence_service_securite = @presence_service_securite
+                                WHERE id_terrain = @id_terrain;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_ville", t.IdVille));
+            cmd.Parameters.Add(new MySqlParameter("@id_cloture", t.IdCloture));
+            cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", t.IdUtilisateur));
+            cmd.Parameters.Add(new MySqlParameter("@id_type_terrain", t.IdTypeTerrain));
+            cmd.Parameters.Add(new MySqlParameter("@nom_terrain", t.Nom));
+            cmd.Parameters.Add(new MySqlParameter("@superficie_terrain", t.Superficie));
+            cmd.Parameters.Add(new MySqlParameter("@description", t.Description));
+            cmd.Parameters.Add(new MySqlParameter("@date_ajout", t.DateAjout));
+            cmd.Parameters.Add(new MySqlParameter("@acces_public", t.AccesPublic));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_long", t.AdresseLong));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_lat", t.AdresseLat));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_voie", t.AdresseVoie));
+            cmd.Parameters.Add(new MySqlParameter("@date_retrait_terrain", t.DateRetrait));
+            cmd.Parameters.Add(new MySqlParameter("@photo1", t.Photo1));
+            cmd.Parameters.Add(new MySqlParameter("@photo2", t.Photo2));
+            cmd.Parameters.Add(new MySqlParameter("@photo3", t.Photo3));
+            cmd.Parameters.Add(new MySqlParameter("@photo4", t.Photo4));
+            cmd.Parameters.Add(new MySqlParameter("@photo5", t.Photo5));
+            cmd.Parameters.Add(new MySqlParameter("@presence_camera", t.PresenceCamera));
+            cmd.Parameters.Add(new MySqlParameter("@presence_service_securite", t.ServiceSecurite));
+            cmd.Parameters.Add(new MySqlParameter("id_terrain", t.Id));
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
 
         public Terrain GetById(int id)
         {
@@ -166,6 +204,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             td.IdUtilisateur = tr.IdUtilisateur;
             td.IdTypeTerrain = tr.IdTypeTerrain;
             td.Nom = tr.Nom;
+            td.Description = tr.Description;
             td.Superficie = tr.Superficie;
             td.DateAjout = tr.DateAjout;
             td.AccesPublic = tr.AccesPublic;

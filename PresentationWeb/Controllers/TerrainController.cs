@@ -79,7 +79,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         }
 
         [HttpGet]
-        [Route("terrain/modifier/{id:int}")]
+        [Route("terrain/Details/{id:int}")]
         public IActionResult Update(int id)
         {
             TerrainBU trbu = new();
@@ -105,9 +105,42 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.Nouveau = nouveau;
             return View("Edition", t);
 
-
-
         }
+        
+        [HttpPost]
+        [Route("terrain/Details/{id:int}")]
+        public IActionResult Update(Terrain t)
+        {
+            TerrainBU trbu = new();
 
+            if(ModelState.IsValid)
+            {
+                trbu.MAJ(t);
+                return View("Success");
+            }
+            else
+            {
+
+                VilleBU vbu = new();
+                List<Ville> villes = vbu.GetAll();
+                ViewBag.Villes = villes;
+
+                TypeTerrainBU tbu = new();
+                List<TypeTerrain> types = tbu.GetAll();
+                ViewBag.Types = types;
+
+                TypeClotureBU tcbu = new();
+                List<TypeCloture> clotures = tcbu.GetAll();
+                ViewBag.Clotures = clotures;
+
+                TypeVegeToxiqueBU tvbu = new();
+                List<TypeVegeToxique> vegetations = tvbu.GetAll();
+                ViewBag.Vegetations = vegetations;
+
+                bool nouveau = false;
+                ViewBag.Nouveau = nouveau;
+                return View("Edition", t);
+            }
+        }
     }
 }

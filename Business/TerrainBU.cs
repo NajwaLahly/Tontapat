@@ -20,7 +20,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             TerrainDAO dao = new();
             dao.Create(t);
         }
-
+        public void MAJ(Terrain t)
+        {
+            TerrainDAO dao = new();
+            dao.Update(t);
+        }
         public Terrain GetById(int id)
         {
             if(id <= 0)
