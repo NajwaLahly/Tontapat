@@ -28,6 +28,9 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         {
             PrestationBU bu = new();
             PrestationDetail pd = bu.GetWithDetailsById(id);
+
+            EvaluationBU ebu = new();
+            ViewBag.IsAlreadyEvaluee = ebu.IsAlreadyEvaluee(id, pd.IdEleveur);
             return View(pd);
         }
 

@@ -38,9 +38,24 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetAllWithDetailsByUtilisateurId(id);
         }
 
-        public bool IsAlreadyEvaluee(int idPrestation, int IdEleveur)
+        public List<Evaluation> GetAllByPrestationId(int id)
         {
-            return true;
+            EvaluationDAO edao = new();
+            return edao.GetAllByPrestationId(id);
+        }
+
+        public bool IsAlreadyEvaluee(int idPrestation, int idUtilisateurCible)
+        {
+            EvaluationDAO edao = new();
+            List<Evaluation> evaluations = edao.GetAllByPrestationId(idPrestation);
+            foreach(Evaluation e in evaluations)
+            {
+                if(e.IdUtilisateurCible == idUtilisateurCible)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

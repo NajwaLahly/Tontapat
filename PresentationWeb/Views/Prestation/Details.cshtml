@@ -1,12 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@using Fr.EQL.AI109.Tontapat.Model
+﻿@using Fr.EQL.AI109.Tontapat.Model
 
 @model PrestationDetail
 
 @{
+
+        ViewData["Title"] = "Détails de votre prestation";
+
     string InstallationString = null;
     if (Model.TypeInstallationFinal == true)
     {
@@ -25,7 +24,7 @@
 <div class="box-offre-details-header">
     <div>
         <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(Model.IdEleveur).png" />
-        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a>
+        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.IdEleveur">@Model.PrenomEleveur</a>
     </div>
     <div class="prestation-statut">
         @{ if (Model.DateAnnulation != null)
@@ -54,7 +53,14 @@
                     <div class="box-boutons">
                         @if (DateTime.Now.AddDays(-7) <= Model.DateFin)
                         {
-                            <a class="btn btn-info" asp-controller="Prestation" asp-action="Evaluer" asp-route-id="@Model.Id">Evaluer la prestation</a>
+                            if (ViewBag.IsAlreadyEvaluee)
+                            {
+                                <a class="btn btn-info" disabled>Evaluation en attente de publication</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-info" asp-controller="Prestation" asp-action="Evaluer" asp-route-id="@Model.Id">Evaluer la prestation</a>
+                            }
                         }
                         <a class="btn btn-success" asp-controller="Utilisateur" asp-action="Eleveur" asp-route-id="@Model.IdEleveur">Voir les autres offres de @Model.PrenomEleveur</a>
                     </div>
@@ -88,15 +94,15 @@
                                     {
                                         if (n.Propositions.Last().IdUtilisateur == 1)
                                         {
-                                        <a class="btn btn-success" asp-controller="Proposition" asp-action="Details" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Voir votre proposition</a>
+                                            <a class="btn btn-success" asp-controller="Proposition" asp-action="Details" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Voir votre proposition</a>
 
-                                        <a class="btn btn-warning" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Annuler la proposition</a>
+                                            <a class="btn btn-warning" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Annuler la proposition</a>
 
                                             break;
                                         }
                                         else
                                         {
-                                        <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route="@Model.Negociations[Model.Negociations.Count].Propositions[Model.Negociations[Model.Negociations.Count].Propositions.Count]">Voir la proposition de @Model.PrenomEleveur</a>
+                                            <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route="@Model.Negociations[Model.Negociations.Count].Propositions[Model.Negociations[Model.Negociations.Count].Propositions.Count]">Voir la proposition de @Model.PrenomEleveur</a>
                                             break;
                                         }
                                     }
@@ -396,12 +402,12 @@
                             }*@
                     </ul>
                     <ul>
-                    <li>
-                        <strong>Intervention demandée</strong> par <strong>vous</strong> le xx/xx/xx
-                    </li>
-                    <li>
-                        Demande d'intervention <strong>acceptée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le xx/xx/xx
-                    </li>
+                        <li>
+                            <strong>Intervention demandée</strong> par <strong>vous</strong> le xx/xx/xx
+                        </li>
+                        <li>
+                            Demande d'intervention <strong>acceptée</strong> par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@Model.Id">@Model.PrenomEleveur</a> le xx/xx/xx
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -411,10 +417,9 @@
                     <i class="fas fa-hourglass-end"></i>
                 </td>
                 <td>
-                    La prestation s'est <strong>terminée</strong> le @Model.DateFin.ToString("dd/MM/yy")
+                    La prestation <strong>@(Model.DateFin > DateTime.Today ? "se terminera" : "s'est terminée")</strong> le @Model.DateFin.ToString("dd/MM/yy")
                 </td>
             </tr>
         </table>
     </div>
 </div>
-}

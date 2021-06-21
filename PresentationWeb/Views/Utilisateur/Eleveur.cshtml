@@ -4,17 +4,18 @@
 @using Fr.EQL.AI109.Tontapat.Model;
 @model UtilisateurDetail
 @{
+        ViewData["Title"] = "Profil de l'éleveur " + Model.Prenom;
     double averg = new double();
     if (Model.Moyenne == null)
     {
         averg = 0;
     }
-            else
-            {
-            averg = (double) Model.Moyenne;
-            }
-   double average = Math.Round(averg, 1);
-       
+    else
+    {
+        averg = (double)Model.Moyenne;
+    }
+    double average = Math.Round(averg, 1);
+
 }
 
 

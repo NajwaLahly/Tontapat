@@ -17,6 +17,10 @@
     }
 }
 
+@{
+    ViewData["Title"] = Model.NomOffre + " - Offres";
+}
+
 <h1>@Model.NomOffre</h1>
 
 
@@ -56,9 +60,9 @@
 
                 @foreach (Terrain t in ViewBag.Terrains)
                 {
-                <option value="@t.Id">
-                    @t.Nom
-                </option>
+                    <option value="@t.Id">
+                        @t.Nom
+                    </option>
                 }
             </select>
         </div>
@@ -96,7 +100,7 @@
                    name="datedebut"
                    value=""
                    onchange="ChangeOffreDetails()"
-                   disabled/>
+                   disabled />
         </div>
     </div>
 
@@ -112,11 +116,11 @@
                    value=""
                    min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")"
                    onchange="ChangeOffreDetails()"
-                   disabled/>
+                   disabled />
         </div>
     </div>
 </div>
- 
+
 <div class="box-offre-details">
 
     <div class="offre-details-main">

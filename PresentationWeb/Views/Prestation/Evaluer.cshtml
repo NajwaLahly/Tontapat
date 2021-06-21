@@ -2,6 +2,10 @@
 
 @model Evaluation
 
+@{
+    ViewData["Title"] = "Evaluer une prestation";
+}
+
 <h1>Evaluer votre prestation avec @ViewBag.PrestationDetail.PrenomEleveur</h1>
 
 <form method="post">
@@ -24,7 +28,7 @@
 
                 </div>
             </div>
-            <input type="hidden" asp-for="Note" value="3" id="noteChamp"/>
+            <input type="hidden" asp-for="Note" value="3" id="noteChamp" />
             <p>
                 <label asp-for="Commentaire">Décrivez votre expérience avec @ViewBag.PrestationDetail.PrenomEleveur (1000 caractères maximum) :</label>
             </p>

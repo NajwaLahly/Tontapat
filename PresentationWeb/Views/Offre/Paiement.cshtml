@@ -1,7 +1,9 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 @using Fr.EQL.AI109.Tontapat.Dto
 
-
+@{
+    ViewData["Title"] = "Paiement de votre prestation";
+}
 @model OffreToPrestationDto
 <div class="box-boutons">
     <form id="offre" method="get" asp-controller="Offre" asp-action="NouvellePrestation">
