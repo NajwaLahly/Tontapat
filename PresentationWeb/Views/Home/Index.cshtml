@@ -1,8 +1,139 @@
-﻿@{
+﻿@using Fr.EQL.AI109.Tontapat.Model
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    string titre = "...";
+    string description = "...";
+}
+<div class="page_accueil">
+    <div class="Prestation-card">
+        <h3>Mes prestation programmées</h3>
+        @foreach (PrestationDetail pd in ViewBag.prestations)
+        {
+            <a class="box-offre-link" asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
+                <div class="box-offre box-clickable">
+                    <div class="img-offre">
+                        <img class="home-offre-thumbnail" src="~/img/photos/troupeaux/@(pd.IdTroupeau)_1.jpg" />
+                    </div>
+                    <div class="info-offre">
+                        <div class="en-tete-offre">
+                            <h3>
+                                Sur mon terrain @pd.NomTerrain
+                            </h3>
+                            <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(pd.IdEleveur).png" />
+                            Avec @pd.PrenomEleveur.
+
+                            <i>Elle Commence le @pd.DateDebut.ToShortDateString()</i>
+                            
+                        </div>
+
+                      
+                    </div>
+
+                </div>
+            </a>
+        }
+        </div>
+    <div class="section-card">
+        <div class="terrains-card">
+            <h3 class="section-card-title">Mes terrains</h3>
+            @foreach (Terrain t in ViewBag.terrains)
+            {
+        <a class="box-offre-link" asp-controller="Terrain" asp-action="Details" asp-route-id="@t.Id">
+            <div class="box-offre box-clickable">
+                <div class="img-offre">
+                    <img class="offre-thumbnail" src="~/img/photos/terrains/@(t.Id)_1.jpg" />
+                </div>
+                <div class="info-offre">
+                    <div class="en-tete-offre">
+                        <h3 class="home-new-offre-title">
+                            @t.Nom
+                        </h3>
+                        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(t.IdUtilisateur).png" />
+
+                    </div>
+
+                    <div class="description">
+                        <p>
+                            <i>
+
+                                @if (t.Description.Length > 40)
+                                {
+                                    @(t.Description.Substring(0, 40) + description)
+                                }
+
+                                else
+                                {
+                                    @t.Description
+                                }
+
+                            </i>
+                        </p>
+                    </div>
+                    <div class="info-footer">
+
+                        <div>
+                            <img class="icon-terrain" src="~/img/icons/terrain.png">@t.Superficie ha
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </a>
+            }
+        </div>
+        <div class="nouvelles-offres-card">
+            <h3 class="section-card-title">Découvrez les nouvelles offres</h3>
+            @foreach (OffreDetail od in ViewBag.offres)
+            {
+                <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
+                    <div class="box-offre box-clickable">
+                        <div class="img-offre">
+                            <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
+                        </div>
+                        <div class="info-offre">
+                            <div class="en-tete-offre">
+                                <h3 class="home-new-offre-title">
+                                    @od.NomOffre
+                                </h3>
+                                <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
+                                @od.PrenomEleveur,
+
+                                <i>@od.VilleTroupeau</i>
+                                (et @(od.ZoneCouverture)km autour)
+                            </div>
+
+                            <div class="description">
+                                <p>
+                                    <i>
+                                        @if (od.DescriptionOffre.Length > 40)
+                                        {
+                                            @(od.DescriptionOffre.Substring(0, 40) + description)
+                                        }
+
+                                        else
+                                        {
+                                            @od.DescriptionOffre
+                                        }
+                                    </i>
+                                </p>
+                            </div>
+
+                            <div class="info-footer">
+                                
+                                <div>
+                                    <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
 </div>

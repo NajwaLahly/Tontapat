@@ -40,6 +40,8 @@ namespace Fr.EQL.AI109.Tontapat.Business
             dao.Create(p);
         }
 
+       
+
         public void ConvertAndInsert(OffreToPrestationDto otpdto)
         {
 
@@ -128,6 +130,12 @@ namespace Fr.EQL.AI109.Tontapat.Business
         public void FaireValiderEleveur(int id)
         {
 
+        }
+
+        public List<PrestationDetail> GetAllEnCoursByUtilisateurId(int id)
+        {
+            PrestationDAO pdao = new();
+            return pdao.GetAllEnCoursByUtilisateurId(id);
         }
     }
 }

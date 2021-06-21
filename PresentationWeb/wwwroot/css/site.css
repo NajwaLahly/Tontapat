@@ -851,4 +851,41 @@ div.corps-recap h6 {
 .succes {
     text-align: center;
 
-}}}
+}
+
+.page_accueil {
+    display: flex;
+    flex-direction: column;
+}
+.section-card {
+    display: flex;
+    flex-direction: row;
+}
+.nouvelles-offres-card {
+    flex: 2;
+}
+.terrains-card {
+    flex: 1;
+}
+
+.home-new-offre-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    padding: 0 5px 0 5px;
+}
+
+.home-offre-thumbnail {
+    width: 150px;
+    height: 90px;
+}
+
+.section-card-title {
+    margin-top: 15px;
+}
+
+.icon-terrain {
+    width: 25px;
+    opacity: 100%;
+}
