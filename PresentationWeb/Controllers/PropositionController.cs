@@ -29,6 +29,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.PrestationDetail = prd;
             return View(pd);
         }
+
         public IActionResult Accepter(int id)
         {
             return View();
@@ -51,6 +52,7 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             ViewBag.PrestationDetail = prd;
             return View(pd);
         }
+
         [HttpGet]
         public IActionResult Annuler(int id)
         {
@@ -65,6 +67,36 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             propbu.CancelProposition(prod);
 
             return View("Annulee");
+        }
+    
+        [HttpGet]
+        public IActionResult ForcerReponse(int id)
+        {
+            PropositionBU pbu = new();
+            PropositionDetail pd = pbu.GetWithDetailsById(id);
+            NegociationBU nbu = new();
+            NegociationDetail nd = nbu.GetWithDetailsById((int)pd.IdNegociation);
+            PrestationBU prestbu = new();
+            PrestationDetail prestd = prestbu.GetWithDetailsById(nd.IdPrestation);
+
+            PropositionDetail pEleveurMechant = new();
+            pEleveurMechant.DateDebutPrestation = new DateTime(2022, 04, 01);
+            pEleveurMechant.DateFinPrestation = new DateTime(2023, 04, 01);
+            pEleveurMechant.TypeInstallation = false;
+            pEleveurMechant.IdTypeTonte = 1;
+            pEleveurMechant.PrixPropose = 51666.99;
+            pEleveurMechant.Description = "Salut mon p'tit bonhomme,\nc'est toi qui me forces à répondre aussi vite à tes demandes ? C'est que j'ai pas que ça à faire moi.\nTiens, une offre qui te plaira je suis sûr.\nBon oral et au plaisir";
+            pEleveurMechant.IdNegociation = nd.Id;
+            pEleveurMechant.DateCreation = DateTime.Now;
+            pEleveurMechant.IdUtilisateur = prestd.IdEleveur;
+            pEleveurMechant.IdTerrain = prestd.IdTerrain;
+
+
+            pbu.SendContreProposition(id, pEleveurMechant);
+
+
+
+            return View("../Prestation/Details", prestd);
         }
     }
 }

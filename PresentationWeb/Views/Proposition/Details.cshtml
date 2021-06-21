@@ -99,6 +99,22 @@
         </div>
     </div>
     <div class="card-negociation card">
+      
+        <div class="title-negociation-card">
+                @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
+                {
+                <h3>
+                    Message de @ViewBag.PrestationDetail.PrenomEleveur
+                    </h3>
+                    }
+                    else
+                    {
+            <h3>
+                Votre message
+            </h3>
+                    }
+        </div>
+        @Model.Description
 
         <div class="title-negociation-card">
             <h3>
@@ -251,3 +267,22 @@
 
         }
     </div>
+    <p></p>
+    @if (ViewBag.PrestationDetail.Negociations.Count > 0)
+    {
+        foreach (NegociationDetail n in ViewBag.PrestationDetail.Negociations)
+        {
+            if (n.DateFermeture == null)
+            {
+                if (n.Propositions.Count > 0)
+                {
+                    if (n.Propositions.Last().IdUtilisateur == 1)
+                    {
+                        <div class="box-boutons">
+                            <a class="btn btn-dark" asp-controller="Proposition" asp-action="ForcerReponse" asp-route-id="@Model.Id"><i class="fas fa-skull-crossbones"></i> Forcer @ViewBag.PrestationDetail.PrenomEleveur à répondre à ma proposition</a>
+                        </div>
+                    }
+                }
+            }
+        }
+    }

@@ -108,7 +108,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             MySqlCommand cmd = CreerCommande();
 
             cmd.CommandText = @"SELECT n.* from negociation n
-                                WHERE id_prestation = @id";
+                                WHERE id_negociation = @id";
             cmd.Parameters.Add(new MySqlParameter("@id", id));
 
             cmd.Connection.Open();

@@ -60,12 +60,12 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.NombreBetes = otpdto.NbBetes;
             p.DateDemande = DateTime.Now;
             p.PrixConvenu = (float)Math.Round(otpdto.PrixTotal,2);
-            p.PrixInstallationCloture = (float)Math.Round(otpdto.PrixInstallationCloture);
-            p.PrixInstallationBetail = (float)Math.Round(otpdto.PrixInstallationBetail);
-            p.PrixBetail = (float)Math.Round(otpdto.PrixBetail);
-            p.PrixIntervention = (float)Math.Round(otpdto.PrixIntervention);
-            p.PrixService = (float)Math.Round(otpdto.PrixService);
-            p.PrixTVA = (float)Math.Round(otpdto.PrixTVA);
+            p.PrixInstallationCloture = (float)Math.Round(otpdto.PrixInstallationCloture,2);
+            p.PrixInstallationBetail = (float)Math.Round(otpdto.PrixInstallationBetail,2);
+            p.PrixBetail = (float)Math.Round(otpdto.PrixBetail,2);
+            p.PrixIntervention = (float)Math.Round(otpdto.PrixIntervention,2);
+            p.PrixService = (float)Math.Round(otpdto.PrixService,2);
+            p.PrixTVA = (float)Math.Round(otpdto.PrixTVA,2);
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
 
             OffreBU obu = new();
@@ -108,13 +108,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
             PrestationDetail pd = pdao.GetWithDetailsById(id);
             NegociationBU nbu = new();
 
-            pd.PrixInstallationCloture = Math.Round(pd.PrixInstallationCloture);
-            pd.PrixInstallationBetail = Math.Round(pd.PrixInstallationBetail);
-            pd.PrixBetail = Math.Round(pd.PrixBetail);
-            pd.PrixIntervention = Math.Round(pd.PrixIntervention);
-            pd.PrixService = Math.Round(pd.PrixService);
-            pd.PrixTVA = Math.Round(pd.PrixTVA);
-            pd.PrixConvenu = Math.Round(pd.PrixConvenu);
+            pd.PrixInstallationCloture = (float)Math.Round(pd.PrixInstallationCloture, 2);
+            pd.PrixInstallationBetail = (float)Math.Round(pd.PrixInstallationBetail, 2);
+            pd.PrixBetail = (float)Math.Round(pd.PrixBetail, 2);
+            pd.PrixIntervention = (float)Math.Round(pd.PrixIntervention, 2);
+            pd.PrixService = (float)Math.Round(pd.PrixService, 2);
+            pd.PrixTVA = (float)Math.Round(pd.PrixTVA, 2);
+            pd.PrixConvenu = (float)Math.Round(pd.PrixConvenu, 2);
             pd.Negociations = nbu.GetAllWithDetailsByPrestationId(id);
 
             //ConditionAnnulationBU cabu = new();
@@ -139,9 +139,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
         }
 
        // public PrestationDetail 
-        public void FaireValiderEleveur(int id)
+        public void ValidatePrestation(int id)
         {
-
+            Prestation p = new();
+            p.Id = id;
+            p.DateValidation = DateTime.Now;
+            PrestationDAO pdao = new();
+            Update(p);
         }
 
         public List<PrestationDetail> GetAllEnCoursByUtilisateurId(int id)

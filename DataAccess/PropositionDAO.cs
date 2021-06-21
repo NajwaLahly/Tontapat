@@ -15,12 +15,12 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             MySqlCommand cmd = CreerCommande();
 
             cmd.CommandText = @"INSERT INTO proposition
-                                (id_negociation, id_utilisateur,date_creation,description,
-                                date_debut_prestation,date_fin_prestation,prix_propose,
+                                (id_negociation, id_utilisateur,date_creation, description,
+                                date_debut_prestation, date_fin_prestation, prix_propose,
                                 type_installation, id_terrain, id_type_tonte)
                                VALUES
-                                (@id_negociation, @id_utilisateur,@date_creation,@description,
-                                @date_debut_prestation,@date_fin_prestation,@prix_propose,
+                                (@id_negociation, @id_utilisateur,@date_creation, @description,
+                                @date_debut_prestation, @date_fin_prestation, @prix_propose,
                                 @type_installation, @id_terrain, @id_type_tonte)";
 
             cmd.Parameters.Add(new MySqlParameter("@id_negociation", p.IdNegociation));

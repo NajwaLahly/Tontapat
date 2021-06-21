@@ -16,13 +16,13 @@
         <input type="hidden" name="DateDebut" value="@Model.DateDebut.ToString("dd-MM-yyyy")" />
         <input type="hidden" name="DateFin" value="@Model.DateFin.ToString("dd-MM-yyyy")" />
         <input type="hidden" name="Duree" value="@Model.Duree" />
-        <input type="hidden" name="PrixInstallationBetail" value="@Model.PrixInstallationBetail" />
-        <input type="hidden" name="PrixInstallationCloture" value="@Model.PrixInstallationCloture" />
-        <input type="hidden" name="PrixBetail" value="@Model.PrixBetail" />
-        <input type="hidden" name="PrixIntervention" value="@Model.PrixIntervention" />
-        <input type="hidden" name="PrixService" value="@Model.PrixService" />
-        <input type="hidden" name="PrixTVA" value="@Model.PrixTVA" />
-        <input type="hidden" name="PrixTotal" value="@Model.PrixTotal" />
+        <input type="hidden" name="PrixInstallationBetail" value="@(((string)(Model.PrixInstallationBetail).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixInstallationCloture" value="@(((string)(Model.PrixInstallationCloture).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixBetail" value="@(((string)(Model.PrixBetail).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixIntervention" value="@(((string)(Model.PrixIntervention).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixService" value="@(((string)(Model.PrixService).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixTVA" value="@(((string)(Model.PrixTVA).ToString().Replace(',','.')))" />
+        <input type="hidden" name="PrixTotal" value="@(((string)(Model.PrixTotal).ToString().Replace(',','.')))" />
         <button class="btn-success" type="submit" form="offre" value="submit">Payer et valider</button>
         <button class="btn-primary" type="reset" form="offre" value="negociate">Annuler</button>
     </form>
