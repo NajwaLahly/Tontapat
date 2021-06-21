@@ -10,5 +10,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class VilleBU
     {
+        public List<Ville> GetAll()
+        {
+            VilleDAO dao = new();
+            return dao.GetAll();
+        }
     }
 }

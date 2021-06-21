@@ -130,6 +130,31 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return terrains;
         }
 
+        public TerrainDetail GetWithDetailById(int id)
+        {
+            TerrainDetail terrain = new();
+
+            MySqlCommand cmd = CreerCommande();
+            cmd.CommandText = @"SELECT tr.*, tc.nom_cloture, v.nom_ville, v.code_postal, tt.nom_type_terrain
+                                FROM terrain tr
+                                LEFT JOIN type_cloture tc ON tc.id_cloture = tr.id_cloture
+                                LEFT JOIN type_terrain tt ON tt.id_type_terrain = tr.id_type_terrain
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville 
+                                WHERE tr.id_terrain = @id_terrain;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_terrain", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                terrain = DataReaderToTerrainDetail(dr);
+      
+            }
+
+            cmd.Connection.Close();
+            return terrain;
+        }
         private TerrainDetail DataReaderToTerrainDetail(MySqlDataReader dr)
         {
             Terrain tr = DataReaderToTerrain(dr);

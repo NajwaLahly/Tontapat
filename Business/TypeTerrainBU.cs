@@ -10,5 +10,10 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class TypeTerrainBU
     {
+        public List<TypeTerrain> GetAll()
+        {
+            TypeTerrainDAO dao = new();
+            return dao.GetAll();
+        }
     }
 }
