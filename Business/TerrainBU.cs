@@ -20,7 +20,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             TerrainDAO dao = new();
             dao.Create(t);
         }
-
+        public void MAJ(Terrain t)
+        {
+            TerrainDAO dao = new();
+            dao.Update(t);
+        }
         public Terrain GetById(int id)
         {
             if(id <= 0)
@@ -31,7 +35,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetById(id);
         }
 
-       
+        public void Retrait(int id)
+        {
+            TerrainDAO dao = new();
+            dao.RetraitTerrain(id);
+        }
 
         public List<Terrain> GetAllByUtilisateurId(int id)
         {
@@ -54,6 +62,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             TerrainDAO dao = new();
             return dao.GetLatest(id, nbre);
+        }
+        public TerrainDetail GetTerrainDetailById(int id)
+        {
+            TerrainDAO dao = new();
+            return dao.GetWithDetailById(id);
         }
     }
 }

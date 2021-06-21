@@ -1,0 +1,175 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Fr.EQL.AI109.Tontapat.Model;
+@model TerrainDetail;
+
+@{
+    string titre;
+    bool nouveau = ViewBag.Nouveau;
+    if(!nouveau)
+    {
+        titre = Model.Nom;
+    }
+    else
+    {
+        titre = "Nouveau terrain";
+    }
+}
+
+<h1 style="text-align:center; font-weight:bold;">@titre</h1>
+<div class="creation_terrain">
+    <form method="post">
+
+        <div class="box_create">
+
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3> Nom et adresse </h3>
+                </div>
+                <div class="adresse_input">
+                    <div class="element_input">
+
+                        <label asp-for="Nom">Nom</label>
+                        <div class="input-group mb-3">
+                            <input class="form-control" asp-for="Nom">
+                            @Html.ValidationMessage("Nom")
+                        </div>
+                    </div>
+                    <div class="element_input">
+                        <label asp-for="AdresseVoie">N° voie et complément</label>
+                        <div class="input-group mb-3">
+                            <input class="form-control" asp-for="AdresseVoie">
+                        </div>
+                    </div>
+                    <div class="box_input">
+                        <label asp-for="IdVille">Ville</label>
+                        <div>
+                            <select asp-for="IdVille">
+                                @foreach (Ville v in ViewBag.Villes)
+                                {
+                                    <option value="@v.Id">@v.NomVille</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_create">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3> Type et superficie </h3>
+                </div>
+                <div class="adresse_input">
+                    <div class="element_input">
+                        <label asp-for="Superficie">Superficie (en hectare) :</label>
+                        <div class="input-group mb-3">
+                            <input class="form-control" asp-for="Superficie">
+                            @Html.ValidationMessage("Superficie")
+                        </div>
+                    </div>
+                    <div class="element_input">
+                        <label asp-for="IdTypeTerrain">Type de terrain</label>
+                        <div>
+                            <select asp-for="IdTypeTerrain">
+                                @foreach (TypeTerrain t in ViewBag.Types)
+                                {
+                                    <option value="@t.Id">@t.Nom</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="element_input">
+                        <label asp-for="IdCloture">Type de clôture</label>
+                        <div>
+                            <select asp-for="IdCloture">
+                                @foreach (TypeCloture c in ViewBag.Clotures)
+                                {
+                                    <option value="@c.Id">@c.Nom</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box_create">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3>Sécurité</h3>
+                </div>
+
+                <div class="adresse_input">
+                    <div class="element_input">
+                        <label asp-for="AccesPublic">Accès public :</label>
+                        <input type="checkbox" asp-for="AccesPublic">
+                    </div>
+                    <div class="element_input">
+                        <label asp-for="PresenceCamera">Camera :</label>
+                        <input type="checkbox" asp-for="PresenceCamera">
+                    </div>
+                    <div class="element_input">
+                        <label asp-for="ServiceSecurite">Service sécurité :</label>
+                        <input type="checkbox" asp-for="ServiceSecurite">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_create">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3>Photos</h3>
+                </div>
+                <div class="add_photo">
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo1" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo2" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo3" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo4" />
+                </div>
+            </div>
+        </div>
+
+        <div class="box_create">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3>Dates</h3>
+                </div>
+                <div class="date_modif">
+                    <div class="date_debut">
+                        <label style="margin:5px;" asp-for="DateAjout">Date de début :</label>
+                        <input type="date" asp-for="DateAjout">
+                    </div>
+                    <div class="date_fin">
+                        <label style="margin:5px;" asp-for="DateRetrait">Retrait :</label>
+                        <input type="date" id="date_retrait" asp-for="DateRetrait">
+                    </div>
+                </div>
+            </div>
+            </div>
+                <div class="box_create_hid">
+                    <label asp-for="Description">Description :</label>
+                    <div class="input-group mb-3">
+                        <textarea class="form-control" style="height: 100px;" asp-for="Description"></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" asp-for="IdUtilisateur" value="1" />
+
+                @if (nouveau)
+                {
+                    <input type="hidden" asp-for="DateAjout" value="@DateTime.Now" />
+                    <button type="submit" asp-controller="Terrain" asp-action="New">Valider</button>
+                }
+
+                else
+                {
+                    <div>
+                        <button class="btn-success" type="submit" asp-controller="Terrain" asp-action="Update">Valider changements</button>
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
+                        <button class="btn-retrait" type="submit" asp-controller="Terrain" asp-action="Retrait">Retirer terrain</button>
+                    </div>
+                }
+    </form>

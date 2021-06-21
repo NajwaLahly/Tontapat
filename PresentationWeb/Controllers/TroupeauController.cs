@@ -15,8 +15,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         [Route("Mestroupeau/Details/{id:int}")]
         public ActionResult Index(int id)
         {
-            UtilisateurBU ubu = new();
-            UtilisateurDetail ud = ubu.GetAllWithDetailById(id);
+            TroupeauBU tbu = new();
+            List<TroupeauDetail> ud = tbu.GetAllWithDetailByutilisateurId(id);
 
             return View(ud);
         }

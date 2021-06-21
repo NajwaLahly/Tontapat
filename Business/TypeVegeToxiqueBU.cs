@@ -10,5 +10,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class TypeVegeToxiqueBU
     {
+        public List<TypeVegeToxique> GetAll()
+        {
+        TypeVegeToxiqueDAO dao = new();
+        return dao.GetAll();
+
+        }
     }
 }

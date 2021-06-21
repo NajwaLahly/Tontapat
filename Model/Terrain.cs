@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,19 @@ namespace Fr.EQL.AI109.Tontapat.Model
     public class Terrain
     {
         public int Id { get; set; }
+
+
         public int IdVille { get; set; }
         public int IdCloture { get; set; }
         public int IdUtilisateur { get; set; }
         public int IdTypeTerrain { get; set; }
+
+        /*[Required(ErrorMessage = "Vous devez renseigner un nom.")] // Obligatoire
+        [MinLength(2, ErrorMessage = "Un nom doit faire au moi 3 caractères.")]
+        [RegularExpression("^[A-Z][a-z}{2}[a-z]*$", ErrorMessage = "Le nom doit commencer par une Majuscule et ne contenir que des lettres.")]*/
         public string Nom { get; set; }
+        /*[Required(ErrorMessage = "Vous devez renseigner une surperficie.")]
+        [RegularExpression("[0-9]", ErrorMessage ="La superficie doit être comprise entre 0 et 10 hectar.")]*/
         public float Superficie { get; set; }
         public  string Description { get; set; }
         public DateTime DateAjout { get; set; }

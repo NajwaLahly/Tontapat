@@ -10,5 +10,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class TypeClotureBU
     {
+        public List<TypeCloture> GetAll()
+        {
+            TypeClotureDAO dao = new();
+            return dao.GetAll();
+        }
+
     }
 }

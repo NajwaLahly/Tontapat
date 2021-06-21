@@ -12,5 +12,6 @@ namespace Fr.EQL.AI109.Tontapat.Model
         public string Ville { get; set; }
         public string Cloture { get; set; }
         public string Type { get; set; }
+        public List<TypeVegeToxique> VegetationToxique { get; set; }
     }
 }

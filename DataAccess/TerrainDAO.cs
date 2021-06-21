@@ -53,7 +53,57 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
         }
 
+        public void Update(Terrain t)
+        {
+            MySqlCommand cmd = CreerCommande();
 
+            cmd.CommandText = @"UPDATE terrain SET id_ville = @id_ville, id_cloture = @id_cloture, id_utilisateur = @id_utilisateur,
+                                id_type_terrain = @id_type_terrain, nom_terrain = @nom_terrain, superficie_terrain = @superficie_terrain,
+                                description = @description, date_ajout = @date_ajout, acces_public = @acces_public, adresse_lat = @adresse_lat,
+                                adresse_long = @adresse_long, adresse_voie = @adresse_voie, photo1 = @photo1, photo2 = @photo2, photo3 = @photo3,
+                                photo4 = @photo4, photo5 = @photo5, date_retrait_terrain = @date_retrait_terrain, presence_camera = @presence_camera,
+                                presence_service_securite = @presence_service_securite
+                                WHERE id_terrain = @id_terrain;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_ville", t.IdVille));
+            cmd.Parameters.Add(new MySqlParameter("@id_cloture", t.IdCloture));
+            cmd.Parameters.Add(new MySqlParameter("@id_utilisateur", t.IdUtilisateur));
+            cmd.Parameters.Add(new MySqlParameter("@id_type_terrain", t.IdTypeTerrain));
+            cmd.Parameters.Add(new MySqlParameter("@nom_terrain", t.Nom));
+            cmd.Parameters.Add(new MySqlParameter("@superficie_terrain", t.Superficie));
+            cmd.Parameters.Add(new MySqlParameter("@description", t.Description));
+            cmd.Parameters.Add(new MySqlParameter("@date_ajout", t.DateAjout));
+            cmd.Parameters.Add(new MySqlParameter("@acces_public", t.AccesPublic));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_long", t.AdresseLong));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_lat", t.AdresseLat));
+            cmd.Parameters.Add(new MySqlParameter("@adresse_voie", t.AdresseVoie));
+            cmd.Parameters.Add(new MySqlParameter("@date_retrait_terrain", t.DateRetrait));
+            cmd.Parameters.Add(new MySqlParameter("@photo1", t.Photo1));
+            cmd.Parameters.Add(new MySqlParameter("@photo2", t.Photo2));
+            cmd.Parameters.Add(new MySqlParameter("@photo3", t.Photo3));
+            cmd.Parameters.Add(new MySqlParameter("@photo4", t.Photo4));
+            cmd.Parameters.Add(new MySqlParameter("@photo5", t.Photo5));
+            cmd.Parameters.Add(new MySqlParameter("@presence_camera", t.PresenceCamera));
+            cmd.Parameters.Add(new MySqlParameter("@presence_service_securite", t.ServiceSecurite));
+            cmd.Parameters.Add(new MySqlParameter("id_terrain", t.Id));
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
+        public void RetraitTerrain(int id)
+        {
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"UPDATE terrain SET date_retrait_terrain = SYSDATE()
+                            where id_terrain = @id";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
 
         public Terrain GetById(int id)
         {
@@ -130,6 +180,31 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return terrains;
         }
 
+        public TerrainDetail GetWithDetailById(int id)
+        {
+            TerrainDetail terrain = new();
+
+            MySqlCommand cmd = CreerCommande();
+            cmd.CommandText = @"SELECT tr.*, tc.nom_cloture, v.nom_ville, v.code_postal, tt.nom_type_terrain
+                                FROM terrain tr
+                                LEFT JOIN type_cloture tc ON tc.id_cloture = tr.id_cloture
+                                LEFT JOIN type_terrain tt ON tt.id_type_terrain = tr.id_type_terrain
+                                LEFT JOIN ville v ON v.id_ville = tr.id_ville 
+                                WHERE tr.id_terrain = @id_terrain;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_terrain", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                terrain = DataReaderToTerrainDetail(dr);
+      
+            }
+
+            cmd.Connection.Close();
+            return terrain;
+        }
         private TerrainDetail DataReaderToTerrainDetail(MySqlDataReader dr)
         {
             Terrain tr = DataReaderToTerrain(dr);
@@ -141,6 +216,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             td.IdUtilisateur = tr.IdUtilisateur;
             td.IdTypeTerrain = tr.IdTypeTerrain;
             td.Nom = tr.Nom;
+            td.Description = tr.Description;
             td.Superficie = tr.Superficie;
             td.DateAjout = tr.DateAjout;
             td.AccesPublic = tr.AccesPublic;
@@ -173,13 +249,31 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.DateAjout = dr.GetDateTime("date_ajout");
             result.AccesPublic = dr.GetBoolean("acces_public");
             result.AdresseVoie = dr.GetString("adresse_voie");
-            /*
-             * result.Photo1 = dr.GetString("photo1");
-            result.Photo2 = dr.GetString("photo2");
-            result.Photo3 = dr.GetString("photo3");
-            result.Photo4 = dr.GetString("photo4");
-            result.Photo5 = dr.GetString("photo5");
-            */
+            if(!dr.IsDBNull(dr.GetOrdinal("photo1")))
+            {
+                result.Photo1 = dr.GetString("photo1");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo2")))
+            {
+                result.Photo1 = dr.GetString("photo2");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo3")))
+            {
+                result.Photo1 = dr.GetString("photo3");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo4")))
+            {
+                result.Photo1 = dr.GetString("photo4");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo5")))
+            {
+                result.Photo1 = dr.GetString("photo5");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("date_retrait_terrain")))
+            {
+                result.DateRetrait = dr.GetDateTime("date_retrait_terrain");
+            }
+
             result.PresenceCamera = dr.GetBoolean("presence_camera");
             result.ServiceSecurite = dr.GetBoolean("presence_service_securite");
 
