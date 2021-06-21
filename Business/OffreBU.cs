@@ -107,8 +107,20 @@ namespace Fr.EQL.AI109.Tontapat.Business
                 DistanceVillesBU dvbu = new();
 
                 otp.Distance = Math.Round(dvbu.GetDistanceBetweenIds(otp.TerrainRef.IdVille, otp.OffreRef.IdVilleTroupeau), 1); ;
-                otp.PrixInstallationBetail = Math.Round(otp.Distance * otp.OffreRef.PrixKm * otp.NbBetes * od.CoefInstallation * 2, 2); ;
-                otp.PrixInstallationCloture = Math.Round(otp.OffreRef.PrixKm * otp.Distance * otp.OffreRef.CoefInstallation * (double)otp.TerrainRef.Superficie * 2 * 100, 2);
+                otp.PrixInstallationBetail = Math.Round(otp.Distance * otp.OffreRef.PrixKm * otp.NbBetes * od.CoefInstallation * 2, 2);
+                if(otp.TypeInstallation == null)
+                {
+                    otp.PrixInstallationCloture = Math.Round(otp.OffreRef.PrixKm * otp.Distance * otp.OffreRef.CoefInstallation * (double)otp.TerrainRef.Superficie * 2 * 100, 2);
+                }
+                else { 
+                if (otp.TypeInstallation.Value == true)
+                {
+                    otp.PrixInstallationCloture = Math.Round(otp.OffreRef.PrixKm * otp.Distance * otp.OffreRef.CoefInstallation * (double)otp.TerrainRef.Superficie * 2 * 100, 2);
+                }
+                else{ 
+                    otp.PrixInstallationCloture = 0; 
+                }
+                }
                 otp.PrixBetail = Math.Round(otp.OffreRef.PrixBeteJour * otp.Duree * otp.NbBetes, 2);
                 otp.PrixIntervention = Math.Round(od.CoefIntervention * otp.Distance * od.PrixKm * (int)(otp.Duree / otp.OffreRef.FrequenceIntervention), 2);
                 double sousTotal = Math.Round(otp.Distance + otp.PrixInstallationBetail + otp.PrixInstallationCloture + otp.PrixBetail + otp.PrixIntervention,2);
