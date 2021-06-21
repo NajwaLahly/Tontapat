@@ -1,6 +1,18 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 
-@Model Evaluation 
+@Model Evaluation
 
 <h1>Evaluer votre prestation avec @ViewBag.PrestationDetail.PrenomEleveur</h1>
 
+<div class="box-offre">
+    <div class="action-confirmation">
+        <img class="img-action-logo" src="~/img/tontapat_sad.png" />
+        <p>Qu'avez-vous pensé de la prestation de Gérard ?</p>
+        <p>
+            Il ne verra votre évaluation qu'une fois qu'il vous aura lui-même évalué, ou passée la période d'évaluation de 7 jours.'
+        </p>
+        <p>
+            <label asp-for="Com">Décrivez votre expérience avec @ViewBag.PrestationDetail.PrenomEleveur :</label>
+        </p>
+    </div>
+</div>
