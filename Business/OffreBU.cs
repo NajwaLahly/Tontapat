@@ -19,6 +19,9 @@ namespace Fr.EQL.AI109.Tontapat.Business
         private const int MAX_SURFACE_ANIMAL_LENTE = 1000;
         private const int MIN_SURFACE_ANIMAL_MOYEN = 30;
         private const int MAX_SURFACE_ANIMAL_MOYEN = 49;
+
+        
+
         private const int MIN_SURFACE_ANIMAL_RAPIDE = 10;
         private const int MAX_SURFACE_ANIMAL_RAPIDE = 29;
 
@@ -203,6 +206,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
                 nbreBetes = 1;
             }
             return nbreBetes;
+        }
+        public List<OffreDetail> GetLatest(int nbre)
+        {
+            OffreDAO dao = new();
+            return dao.GetLatest(nbre);
         }
 
 

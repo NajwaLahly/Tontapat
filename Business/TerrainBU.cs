@@ -31,6 +31,8 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetById(id);
         }
 
+       
+
         public List<Terrain> GetAllByUtilisateurId(int id)
         {
             if(id <= 0)
@@ -46,6 +48,12 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             TerrainDAO dao = new();
             return dao.GetAllWithDetailByUtilisateurId(id);
+        }
+
+        public List<Terrain> GetLatest(int id, int nbre)
+        {
+            TerrainDAO dao = new();
+            return dao.GetLatest(id, nbre);
         }
         public TerrainDetail GetTerrainDetailById(int id)
         {

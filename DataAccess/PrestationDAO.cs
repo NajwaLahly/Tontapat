@@ -325,5 +325,17 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.ExecuteNonQuery(); // pour les commandes INSERT, UPDATE et DELETE
             cmd.Connection.Close();
         }
+        public List<PrestationDetail> GetAllEnCoursByUtilisateurId(int id) {
+            List<PrestationDetail> allPresta = GetAllByUtilisateurId(id);
+            List<PrestationDetail> result = new List<PrestationDetail>(); ;
+            foreach (PrestationDetail pd in allPresta)
+            {
+                if(pd.DateDebut > DateTime.Now && DateTime.Now < pd.DateFin)  {
+                    result.Add(pd);
+                }  
+            }
+            return result;
+        }
+
     }
 }

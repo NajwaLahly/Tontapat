@@ -233,5 +233,16 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             }
             return result;
         }
+
+        public List<Terrain> GetLatest(int id, int nbre)
+        {
+            List<Terrain> allTerrain = GetAllByUtilisateurId(id);
+            List<Terrain> result = new List<Terrain>(); 
+            for (int i = 0; i < nbre; i++)
+                {
+                    result.Add(allTerrain.ElementAt(i));
+                }
+            return result;
+        }
     }
 }
