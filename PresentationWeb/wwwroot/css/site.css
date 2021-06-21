@@ -775,6 +775,19 @@ div.corps-recap h6 {
     margin: 10px;
     flex-direction: column;
 }
+.box_photo {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px solid rgb(230,230,230);
+    box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    border-radius: 6px;
+}
+
+.add_photo{
+    display:flex;
+    flex-direction:row;
+}
 
 /*Negociation page*/
 .negociation {

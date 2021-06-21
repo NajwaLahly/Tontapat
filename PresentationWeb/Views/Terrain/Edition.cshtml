@@ -104,19 +104,34 @@
                 </div>
             </div>
         </div>
-        <div class="box_create_hid">
-            <label asp-for="Description">Description :</label>
-            <div class="input-group mb-3">
-                <input class="form-control" style="height: 100px;" asp-for="Description">
+        <div class="box_photo">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3>Photos</h3>
+                </div>
+                <div class="add_photo">
+                    <input type="file" class="form-control"  asp-for="Photo1" />
+                    <input type="file" class="form-control"  asp-for="Photo2" />
+                    <input type="file" class="form-control"  asp-for="Photo3" />
+                    <input type="file" class="form-control"  asp-for="Photo4" />
+                    <input type="file" class="form-control"  asp-for="Photo5" />
+                </div>
             </div>
         </div>
 
-            <input type="hidden" asp-for="IdUtilisateur" value="1" />
+                <div class="box_create_hid">
+                    <label asp-for="Description">Description :</label>
+                    <div class="input-group mb-3">
+                        <input class="form-control" style="height: 100px;" asp-for="Description">
+                    </div>
+                </div>
 
-            @if (nouveau)
-            {
-                <input type="hidden" asp-for="DateAjout" value="@DateTime.Now" />
-                <button type="submit" asp-controller="Terrain" asp-action="New">Valider</button>
-            }
+                <input type="hidden" asp-for="IdUtilisateur" value="1" />
+
+                @if (nouveau)
+                {
+                    <input type="hidden" asp-for="DateAjout" value="@DateTime.Now" />
+                    <button type="submit" asp-controller="Terrain" asp-action="New">Valider</button>
+                }
     </form>
 </div>

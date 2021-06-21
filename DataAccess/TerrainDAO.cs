@@ -198,13 +198,28 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.DateAjout = dr.GetDateTime("date_ajout");
             result.AccesPublic = dr.GetBoolean("acces_public");
             result.AdresseVoie = dr.GetString("adresse_voie");
-            /*
-             * result.Photo1 = dr.GetString("photo1");
-            result.Photo2 = dr.GetString("photo2");
-            result.Photo3 = dr.GetString("photo3");
-            result.Photo4 = dr.GetString("photo4");
-            result.Photo5 = dr.GetString("photo5");
-            */
+            if(!dr.IsDBNull(dr.GetOrdinal("photo1")))
+            {
+                result.Photo1 = dr.GetString("photo1");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo2")))
+            {
+                result.Photo1 = dr.GetString("photo2");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo3")))
+            {
+                result.Photo1 = dr.GetString("photo3");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo4")))
+            {
+                result.Photo1 = dr.GetString("photo4");
+            }
+            if (!dr.IsDBNull(dr.GetOrdinal("photo5")))
+            {
+                result.Photo1 = dr.GetString("photo5");
+            }
+
+
             result.PresenceCamera = dr.GetBoolean("presence_camera");
             result.ServiceSecurite = dr.GetBoolean("presence_service_securite");
 

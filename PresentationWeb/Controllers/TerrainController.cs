@@ -56,6 +56,24 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             }
             else
             {
+                VilleBU vbu = new();
+                List<Ville> villes = vbu.GetAll();
+                ViewBag.Villes = villes;
+
+                TypeTerrainBU tbu = new();
+                List<TypeTerrain> types = tbu.GetAll();
+                ViewBag.Types = types;
+
+                TypeClotureBU tcbu = new();
+                List<TypeCloture> clotures = tcbu.GetAll();
+                ViewBag.Clotures = clotures;
+
+                TypeVegeToxiqueBU tvbu = new();
+                List<TypeVegeToxique> vegetations = tvbu.GetAll();
+                ViewBag.Vegetations = vegetations;
+
+                bool nouveau = true;
+                ViewBag.Nouveau = nouveau;
                 return View("Edition");
             }
         }
