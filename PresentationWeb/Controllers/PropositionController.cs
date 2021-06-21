@@ -98,5 +98,23 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
 
             return View("../Prestation/Details", prestd);
         }
+
+        public IActionResult Refuser(int id)
+        {
+            PropositionBU propbu = new();
+            propbu.RefuseProposition(id);
+
+            PropositionDetail prop = propbu.GetWithDetailsById(id);
+
+            NegociationBU nbu = new();
+            nbu.CloseNegociationById((int)prop.IdNegociation);
+
+            NegociationDetail nd = nbu.GetWithDetailsById((int)prop.IdNegociation);
+
+            PrestationBU presbu = new();
+            PrestationDetail pd = presbu.GetWithDetailsById(nd.IdPrestation);
+
+            return View("Refusee", pd);
+        }
     }
 }

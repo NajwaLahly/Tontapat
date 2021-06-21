@@ -1,0 +1,18 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+@model PrestationDetail
+
+@{
+    ViewData["Title"] = "Fermeture de la négociation";
+}
+<h1>La négociation a bien été fermée.</h1>
+<div class="box-offre">
+    <div class="action-confirmation">
+        <img class="img-action-logo" src="~/img/tontapat_hustle.png" />
+        <p>Vous pouvez toujours réouvrir une négociation si vous souhaitez.</p>
+
+    </div>
+</div>
+<div class="box-boutons">
+    <a class="btn btn-success" asp-controller="Prestation" asp-action="Details" asp-route-id="@Model.Id">Revenir à ma prestation</a>
+</div>

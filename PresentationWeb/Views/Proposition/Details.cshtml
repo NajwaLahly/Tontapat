@@ -240,7 +240,7 @@
             <div class="prix-propose">
                 <label asp-for="PrixPropose">Prix final : </label>
                 <input type="text" id="prix_propose" asp-for="PrixPropose"
-                       value="@ViewBag.PrestationDetail.PrixConvenu" disabled /> €
+                       value="@Model.PrixPropose" disabled /> €
                 @if (Model.PrixPropose == ViewBag.PrestationDetail.PrixConvenu)
                 {
                     <i class="inchange"> (inchangé)</i>
@@ -257,7 +257,7 @@
         {
             <a class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id">Accepter la proposition</a>
             <a class="btn btn-warning" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Faire une contre-proposition</a>
-            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Refuser</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Fermer la négociation</a>
         }
         else
         {
