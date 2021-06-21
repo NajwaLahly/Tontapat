@@ -35,7 +35,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return dao.GetById(id);
         }
 
-       
+        public void Retrait(int id)
+        {
+            TerrainDAO dao = new();
+            dao.RetraitTerrain(id);
+        }
 
         public List<Terrain> GetAllByUtilisateurId(int id)
         {

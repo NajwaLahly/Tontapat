@@ -38,7 +38,7 @@
                     Date d'ajout
                 </th>
                 <th scope="col">
-                    Accès public
+                    Disponible
                 </th>
 
             </tr>
@@ -76,13 +76,13 @@
                         @t.DateAjout.ToString("dd/MM/yy")
                     </td>
                     <td>
-                        @if (t.AccesPublic)
+                        @if (t.DateRetrait <= DateTime.Now)
                         {
-                            <span>Oui</span>
+                            <span>Non</span>
                         }
                         else
                         {
-                            <span>Non</span>
+                            <span>Oui</span>
                         }
 
                     </td>

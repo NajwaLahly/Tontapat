@@ -5,8 +5,19 @@
 @model TerrainDetail;
 
 @{
+    string titre;
     bool nouveau = ViewBag.Nouveau;
+    if(!nouveau)
+    {
+        titre = Model.Nom;
+    }
+    else
+    {
+        titre = "Nouveau terrain";
+    }
 }
+
+<h1 style="text-align:center; font-weight:bold;">@titre</h1>
 <div class="creation_terrain">
     <form method="post">
 
@@ -22,6 +33,7 @@
                         <label asp-for="Nom">Nom</label>
                         <div class="input-group mb-3">
                             <input class="form-control" asp-for="Nom">
+                            @Html.ValidationMessage("Nom")
                         </div>
                     </div>
                     <div class="element_input">
@@ -52,9 +64,10 @@
                 </div>
                 <div class="adresse_input">
                     <div class="element_input">
-                        <label asp-for="Superficie">Superficie :</label>
+                        <label asp-for="Superficie">Superficie (en hectare) :</label>
                         <div class="input-group mb-3">
                             <input class="form-control" asp-for="Superficie">
+                            @Html.ValidationMessage("Superficie")
                         </div>
                     </div>
                     <div class="element_input">
@@ -104,42 +117,59 @@
                 </div>
             </div>
         </div>
-        <div class="box_photo">
+
+        <div class="box_create">
             <div class="name_adresse">
                 <div class="titre_terrain">
                     <h3>Photos</h3>
                 </div>
                 <div class="add_photo">
-                    <input type="file" class="form-control" asp-for="Photo1" />
-                    <input type="file" class="form-control" asp-for="Photo2" />
-                    <input type="file" class="form-control" asp-for="Photo3" />
-                    <input type="file" class="form-control" asp-for="Photo4" />
-                    <input type="file" class="form-control" asp-for="Photo5" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo1" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo2" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo3" />
+                    <input id="photo_modif" type="file" class="form-control" asp-for="Photo4" />
                 </div>
             </div>
         </div>
 
-        <div class="box_create_hid">
-            <label asp-for="Description">Description :</label>
-            <div class="input-group mb-3">
-                <textarea class="form-control" style="height: 100px;" asp-for="Description"></textarea>
+        <div class="box_create">
+            <div class="name_adresse">
+                <div class="titre_terrain">
+                    <h3>Dates</h3>
+                </div>
+                <div class="date_modif">
+                    <div class="date_debut">
+                        <label style="margin:5px;" asp-for="DateAjout">Date de début :</label>
+                        <input type="date" asp-for="DateAjout">
+                    </div>
+                    <div class="date_fin">
+                        <label style="margin:5px;" asp-for="DateRetrait">Retrait :</label>
+                        <input type="date" id="date_retrait" asp-for="DateRetrait">
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <input type="hidden" asp-for="IdUtilisateur" value="1" />
-
-        @if (nouveau)
-        {
-            <input type="hidden" asp-for="DateAjout" value="@DateTime.Now" />
-            <button type="submit" asp-controller="Terrain" asp-action="New">Valider</button>
-        }
-
-        else
-        {
-    <input type="hidden" asp-for="DateAjout" />
-            <div>
-                <button class="btn-success" type="submit" asp-controller="Terrain" asp-action="Update">Valider changements</button>
             </div>
-        }
+                <div class="box_create_hid">
+                    <label asp-for="Description">Description :</label>
+                    <div class="input-group mb-3">
+                        <textarea class="form-control" style="height: 100px;" asp-for="Description"></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" asp-for="IdUtilisateur" value="1" />
+
+                @if (nouveau)
+                {
+                    <input type="hidden" asp-for="DateAjout" value="@DateTime.Now" />
+                    <button type="submit" asp-controller="Terrain" asp-action="New">Valider</button>
+                }
+
+                else
+                {
+                    <div>
+                        <button class="btn-success" type="submit" asp-controller="Terrain" asp-action="Update">Valider changements</button>
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
+                        <button class="btn-retrait" type="submit" asp-controller="Terrain" asp-action="Retrait">Retirer terrain</button>
+                    </div>
+                }
     </form>
-</div>

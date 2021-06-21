@@ -92,6 +92,18 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.Connection.Close();
 
         }
+        public void RetraitTerrain(int id)
+        {
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"UPDATE terrain SET date_retrait_terrain = SYSDATE()
+                            where id_terrain = @id";
+            cmd.Parameters.Add(new MySqlParameter("@id", id));
+
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
 
         public Terrain GetById(int id)
         {
@@ -257,7 +269,10 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             {
                 result.Photo1 = dr.GetString("photo5");
             }
-
+            if (!dr.IsDBNull(dr.GetOrdinal("date_retrait_terrain")))
+            {
+                result.DateRetrait = dr.GetDateTime("date_retrait_terrain");
+            }
 
             result.PresenceCamera = dr.GetBoolean("presence_camera");
             result.ServiceSecurite = dr.GetBoolean("presence_service_securite");

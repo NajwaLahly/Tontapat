@@ -787,6 +787,28 @@ div.corps-recap h6 {
 .add_photo{
     display:flex;
     flex-direction:row;
+    margin-bottom: 5px;
+}
+
+.date_debut {
+    display: flex;
+    flex-direction: row;
+    margin:15px;
+}
+
+.date_fin {
+    display: flex;
+    flex-direction: row;
+    margin:15px;
+}
+
+.date_modif {
+    display: flex;
+    flex-direction: row;
+    text-align:center;
+}
+btn_retrait{
+
 }
 
 /*Negociation page*/
