@@ -61,8 +61,8 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             nbu.OpenNegociationInPrestation(prd);
 
             PrestationBU pbu = new();
-            Prestation p = pbu.GetWithDetailsById((int)prd.Id);
-            return View("Succes", p);
+            PrestationDetail pd = pbu.GetWithDetailsById((int)prd.Id);
+            return View("Succes", pd);
 
         }
 
@@ -101,12 +101,6 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View("Annulee");
         }
 
-        public void FaireValiderEleveur(int id)
-        {
-            PropositionBU pbu = new();
-            pbu.FaireRepondreEleveur(id);
-        }
-
         [HttpGet]
         public IActionResult Evaluer(int id)
         {
@@ -123,6 +117,15 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             EvaluationBU ebu = new();
             ebu.Insert(e);
             return View("Evaluee");
+        }
+
+        [HttpGet]
+        public IActionResult ForcerValidation(int id)
+        {
+            PrestationBU pbu = new();
+            pbu.ValidatePrestation(id);
+            PrestationDetail pd = pbu.GetWithDetailsById(id);
+            return View("Details",pd);
         }
 
     }

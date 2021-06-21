@@ -139,9 +139,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
         }
 
        // public PrestationDetail 
-        public void FaireValiderEleveur(int id)
+        public void ValidatePrestation(int id)
         {
-
+            Prestation p = new();
+            p.Id = id;
+            p.DateValidation = DateTime.Now;
+            PrestationDAO pdao = new();
+            Update(p);
         }
 
         public List<PrestationDetail> GetAllEnCoursByUtilisateurId(int id)

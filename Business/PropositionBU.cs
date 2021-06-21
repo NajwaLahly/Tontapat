@@ -62,7 +62,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
         
         public void RefuseProposition(int id)
         {
-
+            PropositionDAO pdao = new();
+            Proposition p = new();
+            p.Id = id;
+            p.DateRefus = DateTime.Now;
+            pdao.Update(p);
         }
 
         public void SendContreProposition(int id, PropositionDetail pd)
@@ -71,14 +75,6 @@ namespace Fr.EQL.AI109.Tontapat.Business
             Insert(pd);
 
         }
-        public void FaireRepondreEleveur(int id)
-        {
-            PropositionDetail pd = new();
-            pd.DateCreation = DateTime.Now;
-            pd.Description = "Salut Charles-Henri, j'espère que votre oral se passe bien, hors de question de commencer la prestation à cette date, par contre je suis dispo à partir du 27 juillet. Prends soin de toi petit hipster.";
-            pd.DateDebutPrestation = new DateTime(2021,07,27);
 
-            SendContreProposition(id,pd);
-        }
     }
 }

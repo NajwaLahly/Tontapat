@@ -278,6 +278,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             cmd.CommandText = @"UPDATE prestation
                                 SET id_motif_annulation = @id_motif_annulation,
                                 id_motif_refus = @id_motif_refus,
+                                date_validation = @date_validation,
                                 description_annulation = @description_annulation,
                                 description_refus = @description_refus,
                                 date_annulation = @date_annulation,
