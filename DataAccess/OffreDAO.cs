@@ -379,6 +379,17 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             return od;
         }
+
+        public List<OffreDetail> GetLatest(int nbre)
+        {
+            List<OffreDetail> allOffre = GetAllWithDetails();
+            List<OffreDetail> result = new List<OffreDetail>(); ;
+            for (int i = 0; i < nbre; i++)
+            {
+                result.Add(allOffre.ElementAt(i));
+            }
+            return result;
+        }
     }
 
 
