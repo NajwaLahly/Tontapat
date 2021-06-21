@@ -27,13 +27,13 @@
            asp-route-dateDebut="@otpdto.DateDebut.ToString("dd-MM-yyyy")"
            asp-route-dateFin="@otpdto.DateFin.ToString("dd-MM-yyyy")"
            asp-route-duree="@otpdto.Duree"
-           asp-route-prixInstallationBetail="@otpdto.PrixInstallationBetail"
-           asp-route-prixInstallationCloture="@otpdto.PrixInstallationCloture"
-           asp-route-prixBetail="@otpdto.PrixBetail"
-           asp-route-prixIntervention="@otpdto.PrixIntervention"
-           asp-route-prixService="@otpdto.PrixService"
-           asp-route-prixTVA="@otpdto.PrixTVA"
-           asp-route-prixTotal="@otpdto.PrixTotal">
+           asp-route-prixInstallationBetail="@(((string)(otpdto.PrixInstallationBetail).ToString().Replace(',','.')))"
+           asp-route-prixInstallationCloture="@(((string)(otpdto.PrixInstallationCloture).ToString().Replace(',','.')))"
+           asp-route-prixBetail="@(((string)(otpdto.PrixBetail).ToString().Replace(',','.')))"
+           asp-route-prixIntervention="@(((string)(otpdto.PrixIntervention).ToString().Replace(',','.')))"
+           asp-route-prixService="@(((string)(otpdto.PrixService).ToString().Replace(',','.')))"
+           asp-route-prixTVA="@(((string)(otpdto.PrixTVA).ToString().Replace(',','.')))"
+           asp-route-prixTotal="@(((string)(otpdto.PrixTotal).ToString().Replace(',','.')))">
 
 
 
