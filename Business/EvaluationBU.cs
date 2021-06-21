@@ -10,6 +10,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class EvaluationBU
     {
+        public void Insert(Evaluation e)
+        {
+            EvaluationDAO dao = new();
+            dao.Create(e);
+        }
         public List<EvaluationDetail> GetAllWithDetailsByClientId(int id)
         {
             EvaluationDAO dao = new();

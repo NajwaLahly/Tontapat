@@ -31,68 +31,6 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View(pd);
         }
 
-        // GET: PrestationController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PrestationController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PrestationController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PrestationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
         [HttpGet]
         public ActionResult Negociation()
         {
@@ -116,5 +54,22 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         {
             return View("Resultats");
         }
-    }
+
+        [HttpGet]
+        public IActionResult Evaluer(int id)
+        {
+            PrestationBU pbu = new();
+            PrestationDetail pd = pbu.GetWithDetailsById(id);
+            ViewBag.PrestationDetail = pd;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Evaluer(int id, Evaluation e)
+        {
+            EvaluationBU ebu = new();
+            ebu.Insert(e);
+            return View("Evaluee");
+        }
 }
