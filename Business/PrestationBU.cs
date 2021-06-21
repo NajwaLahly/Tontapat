@@ -67,7 +67,13 @@ namespace Fr.EQL.AI109.Tontapat.Business
             p.TypeInstallationFinal = otpdto.OffreRef.TypeInstallation;
 
             OffreBU obu = new();
-            Offre o = obu.GetById(p.IdOffre);
+
+            Offre o = new();
+            if (p.IdOffre != null)
+            {
+                int i = (int)p.IdOffre;
+                o = obu.GetById(i);
+            }
             p.IdConditionsAnnulation = o.IdCondition;
             p.FrequenceIntervention = o.FrequenceIntervention;
             p.IdTypeTonte = o.FrequenceIntervention;
@@ -122,6 +128,14 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             PrestationDAO pdao = new();
             pdao.Update(p);
+        }
+
+        public void CancelPrestation(int id)
+        {
+            Prestation p = new();
+            p.Id = id;
+            p.DateAnnulation = DateTime.Now;
+            Update(p);
         }
 
        // public PrestationDetail 

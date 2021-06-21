@@ -36,6 +36,16 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return pd;
         }
 
+        public void CancelProposition(Proposition p)
+        {
+            Proposition p = new();
+            p.Id = id;
+            p.DateAnnulation = DateTime.Now;
+            PropositionDAO pdao = new();
+            pdao.Update(p);
+            PrestationBU presbu = new();
+            PrestationDetail pd = presbu.GetWithDetailsById()
+        }
         public void RefuseProposition(int id)
         {
 

@@ -1,0 +1,129 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+@model PropositionDetail
+
+@{
+    string InstallationString = null;
+    if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+    {
+        InstallationString = "de l'éleveur";
+    }
+    else
+    {
+        InstallationString = "du client";
+    }
+
+}
+
+
+<h1>Visualisation de la proposition #@Model.IdPrestation-@Model.Id</h1>
+<h4>Prestation #@ViewBag.PrestationDetail.DateDemande.ToString("yyMMdd")-@ViewBag.PrestationDetail.Id</h4>
+@*    <div class="box-offre-details-header">
+        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(ViewBag.PrestationDetail.IdEleveur).png" />
+        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@ViewBag.PrestationDetail.Id">@ViewBag.PrestationDetail.PrenomEleveur</a>
+    </div>*@
+
+
+<div class="negociation">
+    <div class="card-negociation card">
+        <div class="title-caracteristique-offre">
+            <h3>
+                Récapitulatif de la prestation
+            </h3>
+        </div>
+        <div class="details-offre">
+            <table class="offre-features">
+                <tr>
+                    <td>
+                        <i class="fas fa-location-arrow"></i>
+                    </td>
+                    <td>
+                        @ViewBag.PrestationDetail.NomTerrain, @ViewBag.PrestationDetail.NomVille
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon-list" src="~/img/icons/espece/@(ViewBag.PrestationDetail.IdEspeceTroupeau).png" />
+                    </td>
+                    <td>
+                        @ViewBag.PrestationDetail.NomRaceTroupeau (@ViewBag.PrestationDetail.NombreBetes)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-calendar-alt"></i>
+                    </td>
+                    <td>
+                        Du @ViewBag.PrestationDetail.DateDebut.ToString("dd/MM/yy") au @ViewBag.PrestationDetail.DateFin.ToString("dd/MM/yy")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-tachometer-alt"></i>
+                    </td>
+                    <td>
+                        Type de tonte : @ViewBag.PrestationDetail.NomTypeTonte
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon-list" src="~/img/icons/install.png" />
+                    </td>
+                    <td>
+                        Installation à @InstallationString
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-binoculars"></i>
+                    </td>
+                    <td>
+                        Fréquence d'intervention : tous les @ViewBag.PrestationDetail.FrequenceIntervention jours
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-times fa-lg"></i>
+                    </td>
+                    <td>
+                        Conditions d'annulation : ???????????
+                        <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="card-negociation card">
+        <div class="title-negociation-card">
+            <h3>
+                Détails de la proposition
+            </h3>
+        </div>
+        <div class="champs-negociation">
+            <div class="champ-terrain">
+                <label asp-for="IdTerrain">Terrain : </label>
+                <select asp-for="IdTerrain" id="terrain">
+                    <option value="">@Model.NomTerrain</option>
+                </select>
+            </div>
+            <div class="info-distance">
+
+            </div>
+        </div>
+    </div>
+    <div class="box-boutons">
+        @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
+        {
+            <a class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id">Accepter la proposition</a>
+            <a class="btn btn-warning" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Faire une contre-proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Refuser</a>
+        }
+        else
+        {
+            <a class="btn btn-success" asp-controller="Proposition" asp-action="MettreAJour" asp-route-id="@Model.Id>Mettre à jour la proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Id">Annuler la négociation</a>
+
+        }
+    </div>
+</div>

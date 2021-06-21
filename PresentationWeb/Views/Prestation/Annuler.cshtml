@@ -1,0 +1,66 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+@model Prestation
+<form method="post">
+    <h1>Annuler une prestation</h1>
+    <div class="box-offre">
+        @*    <div class="info-offre">*@
+        <div class="action-confirmation">
+            <img class="img-action-logo" src="~/img/tontapat_sad.png" />
+            <p>Êtes-vous sûr(e) de vouloir annuler la prestation ?</p>
+            <p>Vous risquez de payer des frais conformément aux Conditions d'annulation définies par l'éleveur.</p>
+
+            <div>
+                <h3>Remplissez au moins ce petit formulaire</h3>
+                <p>Que les bêtes comprennent.</p>
+
+                <p>
+                    <label asp-for="IdMotifAnnulation">Sélectionnez un motif :</label>
+                </p>
+                <p>
+                    <select asp-for="IdMotifAnnulation">
+                        <option value="1">Problème technique</option>
+                        <option value="2">Indisponibilité à ces dates</option>
+                        <option value="3">J'ai trouvé mieux</option>
+                        <option value="4">Désaccord avec mon partenaire</option>
+                        <option value="5">Autre</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label asp-for="DescriptionAnnulation">Décrivez brièvement les raisons de votre annulation :</label>
+                </p>
+                <p>
+                    <textarea cols="50" rows="10" style="height: 150px;" asp-for="DescriptionAnnulation"></textarea>
+                </p>
+
+                @*        </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="box-boutons">
+        <button class="btn btn-success" type="submit">Je suis sûr(e), annulez-moi cette prestation</button>
+        <button class="btn btn-danger" type="reset">Non svp c'est pas ce que je voulais, annulez l'annulation</button>
+
+    </div>
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="IdTerrain" value="@Model.IdTerrain" />
+    <input type="hidden" asp-for="IdTroupeau" value="@Model.IdTroupeau" />
+    <input type="hidden" asp-for="IdOffre" value="@Model.IdOffre" />
+    <input type="hidden" asp-for="IdTypeTonte" value="@Model.IdTypeTonte" />
+    <input type="hidden" asp-for="NombreBetes" value="@Model.NombreBetes" />
+    <input type="hidden" asp-for="DateDemande" value="@Model.DateDemande" />
+    <input type="hidden" asp-for="DateValidation" value="@Model.DateValidation" />
+    <input type="hidden" asp-for="PrixConvenu" value="@Model.PrixConvenu" />
+    <input type="hidden" asp-for="PrixInstallationCloture" value="@Model.PrixInstallationCloture" />
+    <input type="hidden" asp-for="PrixInstallationBetail" value="@Model.PrixInstallationBetail" />
+    <input type="hidden" asp-for="PrixBetail" value="@Model.PrixBetail" />
+    <input type="hidden" asp-for="PrixIntervention" value="@Model.PrixIntervention" />
+    <input type="hidden" asp-for="PrixService" value="@Model.PrixService" />
+    <input type="hidden" asp-for="PrixTVA" value="@Model.PrixTVA" />
+    <input type="hidden" asp-for="DateDebut" value="@Model.DateDebut" />
+    <input type="hidden" asp-for="DateFin" value="@Model.DateFin" />
+    <input type="hidden" asp-for="TypeInstallationFinal" value="@Model.TypeInstallationFinal" />
+    <input type="hidden" asp-for="FrequenceIntervention" value="@Model.FrequenceIntervention" />
+    <input type="hidden" asp-for="IdConditionsAnnulation" value="@Model.IdConditionsAnnulation" />
+
+</form>

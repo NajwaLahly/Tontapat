@@ -1,5 +1,4 @@
 ﻿using Fr.EQL.AI109.Tontapat.Business;
-using Fr.EQL.AI109.Tontapat.DataAccess;
 using Fr.EQL.AI109.Tontapat.Dto;
 using Fr.EQL.AI109.Tontapat.Model;
 using Microsoft.AspNetCore.Http;
@@ -126,6 +125,35 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             return View("Succes", p);
 
         }
+
+        [HttpGet]
+        public IActionResult Proposition(int id)
+        {
+            PropositionBU pbu = new();
+            PropositionDetail pd = pbu.GetWithDetailsById(id);
+            PrestationBU prbu = new();
+            PrestationDetail prd = prbu.GetWithDetailsById(pd.IdPrestation);
+            ViewBag.PrestationDetail = prd;
+            return View(pd);
+        }
+
+
+        [HttpGet]
+        public IActionResult Annuler(int id)
+        {
+
+            PrestationBU pbu = new();
+            return View(pbu.GetById(id));
+        }
+
+        [HttpPost]
+        public IActionResult Annuler(int id,Prestation p)
+        { 
+            PrestationBU pbu = new();
+            pbu.CancelPrestation(id);
+            return View("Annulee");
+        }
+
         public void FaireValiderEleveur(int id)
         {
             PropositionBU pbu = new();

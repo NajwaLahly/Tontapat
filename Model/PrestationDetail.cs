@@ -27,5 +27,7 @@ namespace Fr.EQL.AI109.Tontapat.Model
 
         public double? Distance { get; set; }
         public int IdClient { get; set; }
+
+        public string NomOffre { get; set; }
     }
 }
