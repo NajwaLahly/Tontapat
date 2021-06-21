@@ -36,6 +36,30 @@ namespace Fr.EQL.AI109.Tontapat.Business
             return pd;
         }
 
+        public void CancelProposition(PropositionDetail prod)
+        {
+            PropositionDetail pd2 = GetWithDetailsById((int)prod.Id);
+            PrestationBU prebu = new();
+            PrestationDetail pred = prebu.GetWithDetailsById(pd2.IdPrestation);
+
+            if (pred.Negociations != null)
+            {
+                if (pred.Negociations.Last().Propositions.Count == 1)
+                {
+                    NegociationBU nbu = new();
+                    nbu.CloseNegociationById(pred.Negociations.Last().Id);
+                }
+            }
+
+            Proposition p = new();
+            p.Id = prod.Id;
+            p.DateAnnulation = DateTime.Now;
+
+            PropositionDAO pdao = new();
+            pdao.Update(p);
+
+        }
+        
         public void RefuseProposition(int id)
         {
 

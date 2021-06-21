@@ -15,120 +15,227 @@
 
 }
 
-<form name="PropositionDetail" method="post">
-    <input type="hidden" asp-for="IdPrestation" value="@ViewBag.PrestationDetail.Id" />
-    <input type="hidden" asp-for="IdUtilisateur" value="@ViewBag.PrestationDetail.IdClient" />
-    <input type="hidden" asp-for="DateCreation" value="@DateTime.Now" />
 
+    <h1>Négociation de la prestation #@ViewBag.PrestationDetail.DateDemande.ToString("yyMMdd")-@ViewBag.PrestationDetail.Id</h1>
 
-    <div class="negociation">
-        <div class="en-tete-negociation">
-            <h2>Titre Offre à négocier</h2>
-        </div>
-        <div class="card-negociation card">
-            <div class="title-caracteristique-offre">
-                <h3>
-                    Caractéristiques de l’offre initiale
-                </h3>
-            </div>
-            <div class="details-offre">
-                <ul>
-                    <li>@ViewBag.PrestationDetail.NomTerrain</li>
-                    <li>@ViewBag.PrestationDetail.NomRaceTroupeau</li>
-                    <li>De @ViewBag.PrestationDetail.DateDebut à @ViewBag.PrestationDetail.DateFin</li>
-                    <li>Installation à la charge @InstallationString</li>
-                    <li>Tonte @ViewBag.PrestationDetail.NomTypeTonte</li>
-                    <li>A @ViewBag.PrestationDetail.Distance km de votre terrain choisi</li>
-                </ul>
-            </div>
-        </div>
-        <div class="card-negociation card">
-            <div class="title-negociation-card">
-                <h3>
-                    1. Sélectionnez votre terrain
-                </h3>
-            </div>
-            <div class="champs-negociation">
-                <div class="champ-terrain">
-                    <select asp-for="IdTerrain" id="terrain">
-                        @foreach (Terrain t in ViewBag.Terrains)
-                        {
-                            <option value="@t.Id">@t.Nom</option>
-                        }
-                    </select>
-                </div>
-                <div class="info-distance">
-                    infos à compléter
-                </div>
-            </div>
-        </div>
-        <div class="card-negociation card">
-            <div class="title-negociation-card">
-                <h3>
-                    2. Sélectionnez les détails de la prestation
-                </h3>
-            </div>
-            <div class="champs-negociation">
-                <div class="type-tonte">
+@*    <div class="box-offre-details-header">
+            <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(ViewBag.PrestationDetail.IdEleveur).png" />
+            Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@ViewBag.PrestationDetail.Id">@ViewBag.PrestationDetail.PrenomEleveur</a>
+        </div>*@
 
-                    <select asp-for="IdTypeTonte" id="type_tonte">
-                        <option value="" disabled selected>Type de tonte...</option>
-                        @foreach (TypeTonte tt in ViewBag.TypesTonte)
-                        {
-                            <option value="@tt.Id">@tt.Nom</option>
-                        }
+    <form name="PropositionDetail" method="post">
+        <input type="hidden" asp-for="IdPrestation" value="@ViewBag.PrestationDetail.Id" />
+        <input type="hidden" asp-for="IdUtilisateur" value="@ViewBag.PrestationDetail.IdClient" />
+        <input type="hidden" asp-for="DateCreation" value="@DateTime.Now" />
 
-                    </select>
+        <div class="negociation">
+            <div class="card-negociation card">
+                <div class="title-caracteristique-offre">
+                    <h3>
+                        Récapitulatif de la prestation
+                    </h3>
                 </div>
-                <div class="type-installation">
-                    <select asp-for="TypeInstallation" id="">
-                        <option value="" disabled selected>Type d'installation...</option>
-                        <option value="true">Eleveur</option>
-                        <option value="false">Client</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="card-negociation card">
-            <div class="title-negociation-card">
-                <h3>
-                    3. Choisissez votre date de début
-                </h3>
-            </div>
-            <div class="champs-negociation">
-                <div class="date-debut">
-                    <input type="date" id="date_debut" asp-for="DateDebutPrestation"
-                           value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" />
-                </div>
-                <div class="date-fin">
-                    <input type="date" id="date_fin" name="DateFinPrestation"
-                           value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")" />
-                </div>
-            </div>
-        </div>
-        <div class="bouton-negociation">
-            <!--
-            <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
-                <input type="hidden" name="IdOffre" value=""/>
-                <input type="hidden" name="IdTerrain" value=""/>
-                <input type="hidden" name="IdTypeTonte" value=""/>
-                <input type="hidden" name="Distance" value=""/>
-                <input type="hidden" name="NbBetes" value=""/>
-                <input type="hidden" name="TypeInstallation" value=""/>
-                <input type="hidden" name="DateDebut" value=""/>
-                <input type="hidden" name="DateFin" value=""/>
-                <input type="hidden" name="Duree" value=""/>
-                <input type="hidden" name="PrixInstallationBetail" value=""/>
-                <input type="hidden" name="PrixInstallationCloture" value=""/>
-                <input type="hidden" name="PrixBetail" value=""/>
-                <input type="hidden" name="PrixIntervention" value=""/>
-                <input type="hidden" name="PrixService" value=""/>
-                <input type="hidden" name="PrixTVA" value=""/>
-                <input type="hidden" name="PrixTotal" value=""/>
+                <div class="details-offre">
+                    <table class="offre-features">
+                        <tr>
+                            <td>
+                                <i class="fas fa-location-arrow"></i>
+                            </td>
+                            <td>
+                                @ViewBag.PrestationDetail.NomTerrain, @ViewBag.PrestationDetail.NomVille
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="icon-list" src="~/img/icons/espece/@(ViewBag.PrestationDetail.IdEspeceTroupeau).png" />
+                            </td>
+                            <td>
+                                @ViewBag.PrestationDetail.NomRaceTroupeau (@ViewBag.PrestationDetail.NombreBetes)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fas fa-calendar-alt"></i>
+                            </td>
+                            <td>
+                                Du @ViewBag.PrestationDetail.DateDebut.ToString("dd/MM/yy") au @ViewBag.PrestationDetail.DateFin.ToString("dd/MM/yy")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fas fa-tachometer-alt"></i>
+                            </td>
+                            <td>
+                                Type de tonte : @ViewBag.PrestationDetail.NomTypeTonte
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="icon-list" src="~/img/icons/install.png" />
+                            </td>
+                            <td>
+                                Installation à @InstallationString
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fas fa-binoculars"></i>
+                            </td>
+                            <td>
+                                Fréquence d'intervention : tous les @ViewBag.PrestationDetail.FrequenceIntervention jours
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-times fa-lg"></i>
+                            </td>
+                            <td>
+                                Conditions d'annulation : Strictes
+                                <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                            </td>
+                        </tr>
 
-            </form>
-                -->
-            <button type="submit">Valider la demande de négociation</button>
+                    </table>
+                </div>
+            </div>
+            <div class="card-negociation card">
+                <div class="title-negociation-card">
+                    <h3>
+                        1. Sélectionnez votre nouveau terrain
+                    </h3>
+                </div>
+                <div class="champs-negociation">
+                    <div class="champ-terrain">
+                        Le choix d'un nouveau terrain entrainera un recalcul du prix total proposé en fonction de sa distance avec la localisation du troupeau.
+                        Vous pouvez également négocier le prix.
+                        <label asp-for="IdTypeTonte">Votre terrain : </label>
+                        <select asp-for="IdTerrain" id="terrain">
+                            @foreach (Terrain t in ViewBag.Terrains)
+                            {
+                                if (t.Id == ViewBag.PrestationDetail.IdTerrain)
+                                {
+                                    <option value="@t.Id" selected>@t.Nom</option>
+                                }
+                                else
+                                {
+                                    <option value="@t.Id">@t.Nom</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="info-distance">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-negociation card">
+                <div class="title-negociation-card">
+                    <h3>
+                        2. Sélectionnez les nouveaux détails de la prestation
+                    </h3>
+                </div>
+                <div class="champs-negociation">
+                    <div class="type-tonte">
+                        <label asp-for="IdTypeTonte">Type de tonte : </label>
+                        <select asp-for="IdTypeTonte" id="type_tonte">
+                            <option value="" disabled selected>Type de tonte...</option>
+                            @foreach (TypeTonte tt in ViewBag.TypesTonte)
+                            {
+                                if (tt.Id == ViewBag.PrestationDetail.IdTypeTonte)
+                                {
+                                    <option value="@tt.Id" selected>@tt.Nom</option>
+                                }
+                                else
+                                {
+                                    if(tt.Id == 4)
+                    {
+                        <option value="@tt.Id">@tt.Nom</option>
+                    }
+                                    
+                                }
+
+                            }
+
+                        </select>
+                    </div>
+                    <div class="type-installation">
+                        <label asp-for="IdTypeTonte">Type d'installation : </label>
+                        <select asp-for="TypeInstallation" id="">
+                            <option value="" disabled selected>Type d'installation...</option>
+                            @if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+                            {
+                                <option value="true" selected>Eleveur</option>
+                                <option value="false">Client</option>
+                            }
+                            else if (ViewBag.PrestationDetail.TypeInstallationFinal == false)
+                            {
+                                <option value="true">Eleveur</option>
+                                <option value="false" selected>Client</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-negociation card">
+                <div class="title-negociation-card">
+                    <h3>
+                        3. Choisissez vos nouvelles dates de prestation
+                    </h3>
+                </div>
+                <div class="champs-negociation">
+                    <div class="date-debut">
+                        <label asp-for="IdTypeTonte">Date de début : </label>
+                        <input type="date" id="date_debut" asp-for="DateDebutPrestation"
+                               value="@ViewBag.PrestationDetail.DateDebut.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="date-fin">
+                        <label asp-for="IdTypeTonte">Date de fin : </label>
+                        <input type="date" id="date_fin" name="DateFinPrestation"
+                               value="@ViewBag.PrestationDetail.DateFin.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-negociation card">
+                <div class="title-negociation-card">
+                    <h3>
+                        3. Proposez un prix final
+                    </h3>
+                </div>
+                <div class="champs-negociation">
+                    <div class="prix-propose">
+                        <label asp-for="PrixPropose">Prix final : </label>
+                        <input type="text" id="prix_propose" asp-for="PrixPropose"
+                               value="@ViewBag.PrestationDetail.PrixConvenu" /> €
+                    </div>
+                </div>
+            </div>
+            <div class="bouton-negociation">
+                <!--
+        <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
+            <input type="hidden" name="IdOffre" value=""/>
+            <input type="hidden" name="IdTerrain" value=""/>
+            <input type="hidden" name="IdTypeTonte" value=""/>
+            <input type="hidden" name="Distance" value=""/>
+            <input type="hidden" name="NbBetes" value=""/>
+            <input type="hidden" name="TypeInstallation" value=""/>
+            <input type="hidden" name="DateDebut" value=""/>
+            <input type="hidden" name="DateFin" value=""/>
+            <input type="hidden" name="Duree" value=""/>
+            <input type="hidden" name="PrixInstallationBetail" value=""/>
+            <input type="hidden" name="PrixInstallationCloture" value=""/>
+            <input type="hidden" name="PrixBetail" value=""/>
+            <input type="hidden" name="PrixIntervention" value=""/>
+            <input type="hidden" name="PrixService" value=""/>
+            <input type="hidden" name="PrixTVA" value=""/>
+            <input type="hidden" name="PrixTotal" value=""/>
+
+        </form>
+            -->
+                <div class="box-boutons">
+                    <button class="btn-success" type="submit">Valider la proposition</button>
+                    <button class="btn-danger" type="reset">Annuler</button>
+                </div>
+            </div>
         </div>
-    </div>
-</form>
+    </form>

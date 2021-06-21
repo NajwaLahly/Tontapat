@@ -1,0 +1,45 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+@model Prestation
+<form method="post">
+    <h1>Annuler une prestation</h1>
+    <div class="box-offre">
+        @*    <div class="info-offre">*@
+        <div class="action-confirmation">
+            <img class="img-action-logo" src="~/img/tontapat_sad.png" />
+            <p>Êtes-vous sûr(e) de vouloir annuler la prestation ?</p>
+            <p>Vous risquez de payer des frais conformément aux Conditions d'annulation définies par l'éleveur.</p>
+
+            <div>
+                <h3>Remplissez au moins ce petit formulaire</h3>
+                <p>Que les bêtes comprennent.</p>
+
+                <p>
+                    <label asp-for="IdMotifAnnulation">Sélectionnez un motif :</label>
+                </p>
+                <p>
+                    <select asp-for="IdMotifAnnulation">
+                        <option value="1">Problème technique</option>
+                        <option value="2">Indisponibilité à ces dates</option>
+                        <option value="3">J'ai trouvé mieux</option>
+                        <option value="4">Désaccord avec mon partenaire</option>
+                        <option value="5">Autre</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label asp-for="DescriptionAnnulation">Décrivez brièvement les raisons de votre annulation :</label>
+                </p>
+                <p>
+                    <textarea cols="50" rows="10" style="height: 150px;" asp-for="DescriptionAnnulation"></textarea>
+                </p>
+
+                @*        </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="box-boutons">
+        <button class="btn btn-success" type="submit">Je suis sûr(e), annulez-moi cette prestation</button>
+        <button class="btn btn-danger" type="reset">Non svp c'est pas ce que je voulais, annulez l'annulation</button>
+
+    </div>
+</form>

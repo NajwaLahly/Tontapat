@@ -749,6 +749,7 @@ div.corps-recap h6 {
     margin-bottom: 20px;
     border: 1px solid rgb(230,230,230);
     box-shadow: 0px 0px 3px 2px rgb(240,240,240);
+    padding: 0 15px 15px 15px;
 }
 
 .champs-negociation {
@@ -850,6 +851,7 @@ div.corps-recap h6 {
 
 .succes {
     text-align: center;
+}
 
 }
 
@@ -888,4 +890,22 @@ div.corps-recap h6 {
 .icon-terrain {
     width: 25px;
     opacity: 100%;
+}
+.img-action-logo
+{
+    max-width: 10rem;
+}
+
+.action-confirmation {
+    text-align: center;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+i.modifie {
+    color: red;
+}
+
+i.inchange {
+    color: lightgray;
 }

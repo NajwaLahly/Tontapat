@@ -10,5 +10,9 @@ namespace Fr.EQL.AI109.Tontapat.Model
     {
 
         public int IdPrestation { get; set; }
+
+        public string NomTypeTonte { get; set; }
+
+        public string NomTerrain { get; set; }
     }
 }

@@ -1,0 +1,251 @@
+﻿@using Fr.EQL.AI109.Tontapat.Model
+
+@model PropositionDetail
+
+@{
+    string InstallationString = null;
+    if (ViewBag.PrestationDetail.TypeInstallationFinal == true)
+    {
+        InstallationString = "de l'éleveur";
+    }
+    else
+    {
+        InstallationString = "du client";
+    }
+
+}
+
+
+<h1>Visualisation de la proposition #@Model.Id-@Model.Id</h1>
+@*    <h4>Prestation #@ViewBag.PrestationDetail.DateDemande.ToString("yyMMdd")-@ViewBag.PrestationDetail.Id</h4>
+
+    <div class="box-offre-details-header">
+        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(ViewBag.PrestationDetail.IdEleveur).png" />
+        Réalisée par <a asp-controller="Utilisateur" asp-action="Details" asp-route-id="@ViewBag.PrestationDetail.Id">@ViewBag.PrestationDetail.PrenomEleveur</a>
+    </div>*@
+
+<input type="hidden" asp-for="Id" value="@Model.Id" />
+<input type="hidden" asp-for="IdUtilisateur" value="@ViewBag.PrestationDetail.IdClient" />
+
+<div class="negociation">
+    <div class="card-negociation card">
+        <div class="title-caracteristique-offre">
+            <h3>
+                Récapitulatif de la prestation
+            </h3>
+        </div>
+        <div class="details-offre">
+            <table class="offre-features">
+                <tr>
+                    <td>
+                        <i class="fas fa-location-arrow"></i>
+                    </td>
+                    <td>
+                        @ViewBag.PrestationDetail.NomTerrain, @ViewBag.PrestationDetail.NomVille
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon-list" src="~/img/icons/espece/@(ViewBag.PrestationDetail.IdEspeceTroupeau).png" />
+                    </td>
+                    <td>
+                        @ViewBag.PrestationDetail.NomRaceTroupeau (@ViewBag.PrestationDetail.NombreBetes)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-calendar-alt"></i>
+                    </td>
+                    <td>
+                        Du @ViewBag.PrestationDetail.DateDebut.ToString("dd/MM/yy") au @ViewBag.PrestationDetail.DateFin.ToString("dd/MM/yy")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-tachometer-alt"></i>
+                    </td>
+                    <td>
+                        Type de tonte : @ViewBag.PrestationDetail.NomTypeTonte
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon-list" src="~/img/icons/install.png" />
+                    </td>
+                    <td>
+                        Installation à @InstallationString
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-binoculars"></i>
+                    </td>
+                    <td>
+                        Fréquence d'intervention : tous les @ViewBag.PrestationDetail.FrequenceIntervention jours
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-times fa-lg"></i>
+                    </td>
+                    <td>
+                        Conditions d'annulation : Strictes
+                        <i class="far fa-question-circle" title="Annulation gratuite jusqu’à XX jours avant la prestation, facturation de la prestation à hauteur de XX% au-delà."></i>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="card-negociation card">
+
+        <div class="title-negociation-card">
+            <h3>
+                Détails de la proposition
+            </h3>
+        </div>
+
+        <div class="title-negociation-card">
+            <h5>
+                Terrain
+            </h5>
+        </div>
+
+        <div class="type-tonte">
+            <label asp-for="IdTypeTonte">Votre terrain : </label>
+            <select asp-for="IdTerrain" id="terrain" disabled>
+                <option selected>@Model.NomTerrain</option>
+            </select>
+            @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
+            {
+                <i class="inchange"> (inchangé : un éleveur ne peut modifier le terrain)</i>
+            }
+            else
+            {
+                if (Model.IdTerrain == (int)ViewBag.PrestationDetail.IdTerrain)
+                {
+                    <i class="inchange"> (inchangé)</i>
+                }
+
+                else
+                {
+                    <i class="modifie"> (modifié)</i>
+                }
+            }
+        </div>
+
+        <div class="title-negociation-card">
+            <h5>
+                Conditions de la prestation
+            </h5>
+        </div>
+
+        <div class="type-tonte">
+            <label asp-for="IdTypeTonte">Type de tonte : </label>
+            <select asp-for="IdTypeTonte" id="type_tonte" disabled>
+                <option value="" selected>@Model.NomTypeTonte</option>
+            </select>
+
+            @if (Model.IdTypeTonte == ViewBag.PrestationDetail.IdTypeTonte)
+            {
+                <i class="inchange"> (inchangé)</i>
+            }
+
+            else
+            {
+                <i class="modifie"> (modifié)</i>
+            }
+        </div>
+        <div class="type-installation">
+            <label asp-for="IdTypeTonte">Type d'installation : </label>
+            @if (Model.TypeInstallation == true)
+            {
+                <select asp-for="TypeInstallation" id="" disabled>
+                    <option value="" selected>À la charge de l'éleveur </option>
+                </select>
+            }
+            else if (Model.TypeInstallation == false)
+            {
+                <select asp-for="TypeInstallation" id="" disabled>
+                    <option value="" selected>À votre charge</option>
+                </select>
+            }
+            @if (Model.TypeInstallation == ViewBag.PrestationDetail.TypeInstallationFinal)
+            {
+                <i class="inchange"> (inchangé)</i>
+            }
+            else
+            {
+                <i class="modifie"> (modifié)</i>
+            }
+
+
+        </div>
+
+        <div class="title-negociation-card">
+            <h5>
+                Dates de la prestation
+            </h5>
+        </div>
+
+        <div class="date-debut">
+            <label asp-for="DateDebutPrestation">Date de début : </label>
+            <input type="date" id="date_debut" asp-for="DateDebutPrestation"
+                   value="@(((DateTime)Model.DateDebutPrestation).ToString("yyyy-MM-dd"))" disabled />
+            @if (((DateTime)Model.DateDebutPrestation).ToString("yyyy-MM-dd") == ViewBag.PrestationDetail.DateDebut.ToString("yyyy-MM-dd"))
+            {
+                <i class="inchange"> (inchangé)</i>
+            }
+            else
+            {
+                <i class="modifie"> (modifié)</i>
+            }
+        </div>
+        <div class="date-fin">
+            <label asp-for="DateFinPrestation">Date de fin : </label>
+            <input type="date" id="date_fin" asp-for="DateFinPrestation"
+                   value="@(((DateTime)Model.DateFinPrestation).ToString("yyyy-MM-dd"))" disabled />
+            @if (((DateTime)Model.DateFinPrestation).ToString("yyyy-MM-dd") == ViewBag.PrestationDetail.DateFin.ToString("yyyy-MM-dd"))
+            {
+                <i class="inchange"> (inchangé)</i>
+            }
+            else
+            {
+                <i class="modifie"> (modifié)</i>
+            }
+        </div>
+
+        <div class="title-negociation-card">
+            <h5>
+                Prix proposé
+            </h5>
+
+            <div class="prix-propose">
+                <label asp-for="PrixPropose">Prix final : </label>
+                <input type="text" id="prix_propose" asp-for="PrixPropose"
+                       value="@ViewBag.PrestationDetail.PrixConvenu" disabled /> €
+                @if (Model.PrixPropose == ViewBag.PrestationDetail.PrixConvenu)
+                {
+                    <i class="inchange"> (inchangé)</i>
+                }
+                else
+                {
+                    <i class="modifie"> (modifié)</i>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="box-boutons">
+        @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
+        {
+            <a class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id">Accepter la proposition</a>
+            <a class="btn btn-warning" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Faire une contre-proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Refuser</a>
+        }
+        else
+        {
+            <a class="btn btn-warning" asp-controller="Proposition" asp-action="Modifier" asp-route-id="@Model.Id">Modifier la proposition</a>
+            <a class="btn btn-danger" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Id">Annuler la négociation</a>
+
+        }
+    </div>
