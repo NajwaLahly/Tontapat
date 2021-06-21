@@ -24,5 +24,11 @@ namespace PresentationWeb.Controllers
             return View();
         }
 
+        public IActionResult Decouvrir()
+        {
+            
+            return View();
+        }
+
     }
 }

@@ -138,9 +138,9 @@ CREATE TABLE `evaluation` (
   PRIMARY KEY (`id_evaluation`),
   KEY `FK_Association_34` (`id_prestation`),
   KEY `FK_Association_35` (`id_utilisateur`),
-  CONSTRAINT `FK_Association_34` FOREIGN KEY (`id_prestation`) REFERENCES `prestation` (`id_prestation`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_35` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_Association_34` FOREIGN KEY (`id_prestation`) REFERENCES `prestation` (`id_prestation`),
+  CONSTRAINT `FK_Association_35` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `evaluation` (
 
 LOCK TABLES `evaluation` WRITE;
 /*!40000 ALTER TABLE `evaluation` DISABLE KEYS */;
-INSERT INTO `evaluation` VALUES (1,1,1,5,'Charles-Henri est un homme admirable, il m\'a déjà vendu deux concepts avec sa start-up et sa moustache est impeccable. Quel bel homme !'),(2,1,2,5,'Très satisfait du professionnalisme des moutons de Robert, ils ont l\'esprit start-up nation ! Robert, si un jour l\'un d\'eux cherche un stage dans la tech, passe-moi un coup de bigot.'),(3,2,3,4,'Un bon boulot, l\'herbe est maintenant propre.'),(4,2,12,4,'Très sérieux.'),(5,3,3,5,'Excellent travail et des bêtes superbes !'),(6,3,13,5,'Eleveur très investi.'),(7,4,2,4,'Des moutons travailleurs et sérieux.'),(8,3,14,5,'Personne bienveillante envers les animaux.'),(9,5,3,5,'Animaux au top !'),(10,4,14,5,'Sympa et gentilhomme !'),(11,5,2,4,'Professionnel et sérieux.'),(12,5,15,3,'Rien à signaler.');
+INSERT INTO `evaluation` VALUES (1,1,1,5,'Charles-Henri est un homme admirable, il m\'a déjà vendu deux concepts avec sa start-up et sa moustache est impeccable. Quel bel homme !'),(2,1,2,5,'Très satisfait du professionnalisme des moutons de Robert, ils ont l\'esprit start-up nation ! Robert, si un jour l\'un d\'eux cherche un stage dans la tech, passe-moi un coup de bigot.'),(3,2,3,4,'Un bon boulot, l\'herbe est maintenant propre.'),(4,2,12,4,'Très sérieux.'),(5,3,3,5,'Excellent travail et des bêtes superbes !'),(6,3,13,5,'Eleveur très investi.'),(7,4,2,4,'Des moutons travailleurs et sérieux.'),(8,3,14,5,'Personne bienveillante envers les animaux.'),(9,5,3,5,'Animaux au top !'),(10,4,14,5,'Sympa et gentilhomme !'),(11,5,2,4,'Professionnel et sérieux.'),(12,5,15,3,'Rien à signaler.'),(16,17,3,5,'gg gégé');
 /*!40000 ALTER TABLE `evaluation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,10 +303,10 @@ CREATE TABLE `negociation` (
   KEY `FK_Association_23` (`id_prestation`),
   KEY `FK_Association_24` (`id_offre`),
   KEY `FK_negociation_prestation_idx` (`id_nouvelle_prestation`),
-  CONSTRAINT `FK_Association_23` FOREIGN KEY (`id_prestation`) REFERENCES `prestation` (`id_prestation`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_24` FOREIGN KEY (`id_offre`) REFERENCES `offre` (`id_offre`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Association_23` FOREIGN KEY (`id_prestation`) REFERENCES `prestation` (`id_prestation`),
+  CONSTRAINT `FK_Association_24` FOREIGN KEY (`id_offre`) REFERENCES `offre` (`id_offre`),
   CONSTRAINT `FK_negociation_prestation` FOREIGN KEY (`id_nouvelle_prestation`) REFERENCES `prestation` (`id_prestation`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +315,7 @@ CREATE TABLE `negociation` (
 
 LOCK TABLES `negociation` WRITE;
 /*!40000 ALTER TABLE `negociation` DISABLE KEYS */;
-INSERT INTO `negociation` VALUES (1,1,NULL,'2020-10-08 00:00:00','2020-10-10 00:00:00',2),(2,2,NULL,'2020-10-12 00:00:00','2020-10-13 00:00:00',4);
+INSERT INTO `negociation` VALUES (1,1,NULL,'2020-10-08 00:00:00','2020-10-10 00:00:00',2),(2,2,NULL,'2020-10-12 00:00:00','2020-10-13 00:00:00',4),(19,16,NULL,'2021-06-21 10:50:09',NULL,NULL);
 /*!40000 ALTER TABLE `negociation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +352,7 @@ CREATE TABLE `offre` (
   CONSTRAINT `FK_Association_14` FOREIGN KEY (`id_type`) REFERENCES `type_tonte` (`id_type`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_41` FOREIGN KEY (`id_condition`) REFERENCES `condition_annulation` (`id_condition`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_6` FOREIGN KEY (`id_troupeau`) REFERENCES `troupeau` (`id_troupeau`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +361,7 @@ CREATE TABLE `offre` (
 
 LOCK TABLES `offre` WRITE;
 /*!40000 ALTER TABLE `offre` DISABLE KEYS */;
-INSERT INTO `offre` VALUES (1,3,1,4,3,'Fiers moutons cherchent vertes étendues','2020-09-06 00:00:00','2020-09-07 00:00:00','2021-08-15 00:00:00','Mes moutons n\'attendent plus que votre herbe pour trouver le bonheur.',1,0.25,2,2,5,50,'1, rue de Tart-le-Haut',NULL),(2,2,2,4,2,'Je lâche les biquettes','2020-09-09 00:00:00','2020-09-12 00:00:00','2021-12-30 00:00:00','Laissez-vous tenter par cette offre réalisée sur-mesure chez-vous par ces splendides chèvres des Fossés dont 1 sataniste. Peu importe le rythme de tonte, le terrain, rien n\'est trop dur pour mes biquettes.',1,0.21,1.5,1.5,3.3,60,'15 rue Picon-Bière',NULL),(3,3,3,4,1,'Oh les vaches !','2020-09-10 00:00:00','2020-09-13 00:00:00','2021-10-31 00:00:00','Si grand-mère sait faire du bon café, moi mon truc c\'est le lait, et pour ça mes vaches ont besoin de VOTRE herbe ! Conditions flex, tonte ajustable, vaches tout-terrain... Qu\'est-ce que vous attendez quoi ?',1,0.22,2.1,0.5,3.7,70,'5, chemin Marguerite',NULL),(4,4,4,1,3,'Quatre amis en cavale','2020-09-13 00:00:00','2020-09-14 00:00:00','2023-01-01 00:00:00','Quatre, nombre magique, nombre d\'angles dans un carré, nombre de filles du docteur March, nombre de saisons... Et nombre de chevaux que vous aurez sur votre terrain, mes petites tondeuses à gazon sur pattes !',1,0.22,1,1.2,3.6,80,'27 route du Manège',NULL),(8,2,8,1,1,'Une offre qui vous rendra chèvre','2020-09-16 00:00:00','2020-09-17 00:00:00','2021-10-31 00:00:00','Derrière ce nom audacieux se cache une offre que vous ne pourrez refuser. 15 biquettes prêtes à en découdre avec vos herbes. Vous appelez ça de la mauvaise herbe, elles n\'en voient que des bons côtés.',1,0.21,1.3,1.4,4.4,40,'165 boulevard Johnny Halliday',NULL);
+INSERT INTO `offre` VALUES (1,3,1,4,3,'Fiers moutons cherchent vertes étendues','2020-09-06 00:00:00','2020-09-07 00:00:00','2021-08-15 00:00:00','Mes moutons n\'attendent plus que votre herbe pour trouver le bonheur.',1,0.25,2,2,5,50,'1, rue de Tart-le-Haut',NULL),(2,2,2,4,2,'Je lâche les biquettes','2020-09-09 00:00:00','2020-09-12 00:00:00','2021-12-30 00:00:00','Laissez-vous tenter par cette offre réalisée sur-mesure chez-vous par ces splendides chèvres des Fossés dont 1 sataniste. Peu importe le rythme de tonte, le terrain, rien n\'est trop dur pour mes biquettes.',1,0.21,1.5,1.5,3.3,60,'15 rue Picon-Bière',NULL),(3,3,3,4,1,'Oh les vaches !','2020-09-10 00:00:00','2020-09-13 00:00:00','2021-10-31 00:00:00','Si grand-mère sait faire du bon café, moi mon truc c\'est le lait, et pour ça mes vaches ont besoin de VOTRE herbe ! Conditions flex, tonte ajustable, vaches tout-terrain... Qu\'est-ce que vous attendez quoi ?',1,0.22,2.1,0.5,3.7,70,'5, chemin Marguerite',NULL),(4,4,4,1,3,'Quatre amis en cavale','2020-09-13 00:00:00','2020-09-14 00:00:00','2023-01-01 00:00:00','Quatre, nombre magique, nombre d\'angles dans un carré, nombre de filles du docteur March, nombre de saisons... Et nombre de chevaux que vous aurez sur votre terrain, mes petites tondeuses à gazon sur pattes !',1,0.22,1,1.2,3.6,80,'27 route du Manège',NULL),(8,2,8,1,1,'Une offre qui vous rendra chèvre','2020-09-16 00:00:00','2020-09-17 00:00:00','2021-10-31 00:00:00','Derrière ce nom audacieux se cache une offre que vous ne pourrez refuser. 15 biquettes prêtes à en découdre avec vos herbes. Vous appelez ça de la mauvaise herbe, elles n\'en voient que des bons côtés.',1,0.21,1.3,1.4,4.4,40,'165 boulevard Johnny Halliday',NULL),(9,3,5,2,1,'Les Solognots à Stacy ','2020-10-18 00:00:00','2020-12-15 00:00:00','2022-05-10 00:00:00','La meilleur laine du pays sur votre terrain et vivante !',1,0.25,1.4,1.6,4.7,90,'17 Avenue des Champs-Elysée',NULL),(10,2,6,4,1,'Les grandes Chèvres-Naine','2021-01-01 00:00:00','2021-05-01 00:00:00','2023-05-01 00:00:00','Elles sont grandes, elles sont naines, ce sont les meilleurs des Chèvres-Naine qui n\'attendent qu\'à manger votre herbe.',1,0.5,1.8,1.9,5.5,100,'41 Rue de Nante',NULL),(11,4,7,4,2,'L\'équipe officiel des Nantaises','2021-02-10 00:00:00','2021-02-15 00:00:00','2022-08-04 00:00:00','Interville voulaient mes vachettes, quel bougre accepterait une telle proposition? Leurs place est clairement sur votre terrain.',1,0.25,1.2,1.5,3.5,85,'10 Avenue Paul-Vaillant-Couturrier',NULL),(12,1,8,4,3,'Les Lorraines ','2021-02-15 00:00:00','2021-03-20 00:00:00','2022-01-01 00:00:00','Je vous propose mes Lorraines, n\'hesitez pas à me contacter pour plus d\'information !',2,0.3,1.1,1.2,3,55,'7 Avenue de la Paix',NULL);
 /*!40000 ALTER TABLE `offre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,15 +409,15 @@ CREATE TABLE `prestation` (
   KEY `FK_tyoe_tonte_prestation_idx` (`id_type_tonte`),
   KEY `FK_condition_prestation_idx` (`id_condition`),
   KEY `FK_prestation_ancienne_prestation_idx` (`id_ancienne`),
-  CONSTRAINT `FK_Association_15` FOREIGN KEY (`id_troupeau`) REFERENCES `troupeau` (`id_troupeau`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Association_16` FOREIGN KEY (`id_terrain`) REFERENCES `terrain` (`id_terrain`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Association_15` FOREIGN KEY (`id_troupeau`) REFERENCES `troupeau` (`id_troupeau`),
+  CONSTRAINT `FK_Association_16` FOREIGN KEY (`id_terrain`) REFERENCES `terrain` (`id_terrain`),
   CONSTRAINT `FK_Association_26` FOREIGN KEY (`id_motif_annulation`) REFERENCES `motif_annulation_prestation` (`id_motif`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Association_27` FOREIGN KEY (`id_motif_refus`) REFERENCES `motif_refus_prestation` (`id_motif`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_condition_prestation` FOREIGN KEY (`id_condition`) REFERENCES `condition_annulation` (`id_condition`),
   CONSTRAINT `FK_offre_prestation` FOREIGN KEY (`id_offre`) REFERENCES `offre` (`id_offre`),
   CONSTRAINT `FK_prestation_ancienne_prestation` FOREIGN KEY (`id_ancienne`) REFERENCES `prestation` (`id_prestation`),
   CONSTRAINT `FK_type_tonte_prestation` FOREIGN KEY (`id_type_tonte`) REFERENCES `type_tonte` (`id_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +426,7 @@ CREATE TABLE `prestation` (
 
 LOCK TABLES `prestation` WRITE;
 /*!40000 ALTER TABLE `prestation` DISABLE KEYS */;
-INSERT INTO `prestation` VALUES (1,NULL,NULL,1,1,1,NULL,'2020-10-01 00:00:00','2020-10-02 23:00:00',NULL,NULL,'2020-10-10 00:00:00',NULL,846.51,150,200,300,80,160,150,'2020-10-15 00:00:00','2020-10-30 00:00:00',1,10,2,3,3),(2,1,NULL,1,1,1,NULL,NULL,'2020-10-10 00:00:00',NULL,NULL,NULL,NULL,846.51,150,200,300,80,160,150,'2020-10-17 00:00:00','2020-11-01 00:00:00',1,10,2,3,3),(3,NULL,NULL,2,3,2,NULL,NULL,'2021-02-10 00:00:00',NULL,NULL,NULL,NULL,956.1,150,200,300,80,160,150,'2021-02-15 00:00:00','2021-02-20 00:00:00',1,10,2,2,2),(4,NULL,NULL,1,4,1,NULL,NULL,'2021-03-10 00:00:00',NULL,NULL,NULL,NULL,632.25,150,200,300,80,160,150,'2021-03-15 00:00:00','2021-03-30 00:00:00',1,10,2,3,3),(5,NULL,NULL,2,4,2,NULL,NULL,'2021-04-10 00:00:00',NULL,NULL,NULL,NULL,756.47,150,200,300,80,160,150,'2021-04-15 00:00:00','2021-04-30 00:00:00',1,10,2,2,2),(6,NULL,NULL,1,5,1,NULL,NULL,'2021-05-10 00:00:00',NULL,NULL,NULL,NULL,812.36,150,200,300,80,160,150,'2021-05-15 00:00:00','2021-05-30 00:00:00',1,10,2,3,3),(16,NULL,NULL,1,1,1,NULL,'2021-06-20 10:59:14','2021-06-20 13:51:55',NULL,NULL,NULL,NULL,2436.72,246,348,1190,185,406,41,'2021-07-04 00:00:00','2021-07-21 00:00:00',1,17,3,3,3);
+INSERT INTO `prestation` VALUES (1,NULL,NULL,1,1,1,NULL,'2020-10-01 00:00:00','2020-10-02 23:00:00',NULL,NULL,'2020-10-10 00:00:00',NULL,846.51,150,200,300,80,160,150,'2020-10-15 00:00:00','2020-10-30 00:00:00',1,10,2,3,3),(2,1,NULL,1,1,1,NULL,NULL,'2020-10-10 00:00:00',NULL,NULL,NULL,NULL,846.51,150,200,300,80,160,150,'2020-10-17 00:00:00','2020-11-01 00:00:00',1,10,2,3,3),(3,NULL,NULL,2,3,2,NULL,NULL,'2021-02-10 00:00:00',NULL,NULL,NULL,NULL,956.1,150,200,300,80,160,150,'2021-02-15 00:00:00','2021-02-20 00:00:00',1,10,2,2,2),(4,NULL,NULL,1,4,1,NULL,NULL,'2021-03-10 00:00:00',NULL,NULL,NULL,NULL,632.25,150,200,300,80,160,150,'2021-03-15 00:00:00','2021-03-30 00:00:00',1,10,2,3,3),(5,NULL,NULL,2,4,2,NULL,NULL,'2021-04-10 00:00:00',NULL,NULL,NULL,NULL,756.47,150,200,300,80,160,150,'2021-04-15 00:00:00','2021-04-30 00:00:00',1,10,2,2,2),(6,NULL,NULL,1,5,1,NULL,NULL,'2021-05-10 00:00:00',NULL,NULL,NULL,NULL,812.36,150,200,300,80,160,150,'2021-05-15 00:00:00','2021-05-30 00:00:00',1,10,2,3,3),(16,NULL,NULL,1,1,1,NULL,'2021-06-20 10:59:14','2021-06-20 13:51:55',NULL,NULL,NULL,NULL,2436.72,246,348,1190,185,406,41,'2021-07-04 00:00:00','2021-07-21 00:00:00',1,17,3,3,3),(17,NULL,NULL,2,1,2,NULL,'2021-06-20 20:36:06','2021-06-20 15:12:12',NULL,NULL,NULL,NULL,2357.7,352,499,785,179,393,103,'2021-06-05 00:00:00','2021-06-18 00:00:00',1,17,2,2,2),(18,NULL,2,2,1,2,NULL,'2021-06-21 10:24:09',NULL,NULL,NULL,'2021-06-21 10:30:12','Je ne suis plus disponible à ces dates',2159.14,352,352,752,164,360,132,'2021-01-08 00:00:00','0001-01-01 00:00:00',1,12,2,2,2);
 /*!40000 ALTER TABLE `prestation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,14 +451,17 @@ CREATE TABLE `proposition` (
   `prix_propose` double DEFAULT NULL,
   `type_installation` tinyint(1) DEFAULT NULL,
   `id_terrain` int DEFAULT NULL,
+  `id_type_tonte` int DEFAULT NULL,
   PRIMARY KEY (`id_proposition`),
   KEY `FK_Association_25` (`id_negociation`),
   KEY `FK_id_utilisateur_idx` (`id_utilisateur`),
   KEY `FK_proposition_terrain_idx` (`id_terrain`),
-  CONSTRAINT `FK_Association_25` FOREIGN KEY (`id_negociation`) REFERENCES `negociation` (`id_negociation`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  KEY `FK_prestation_tonte_idx` (`id_type_tonte`),
+  CONSTRAINT `FK_Association_25` FOREIGN KEY (`id_negociation`) REFERENCES `negociation` (`id_negociation`),
   CONSTRAINT `FK_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`),
+  CONSTRAINT `FK_prestation_tonte` FOREIGN KEY (`id_type_tonte`) REFERENCES `type_tonte` (`id_type`),
   CONSTRAINT `FK_proposition_terrain` FOREIGN KEY (`id_terrain`) REFERENCES `terrain` (`id_terrain`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -467,7 +470,7 @@ CREATE TABLE `proposition` (
 
 LOCK TABLES `proposition` WRITE;
 /*!40000 ALTER TABLE `proposition` DISABLE KEYS */;
-INSERT INTO `proposition` VALUES (1,1,1,'2020-10-08 00:00:00',NULL,NULL,'2020-10-09 00:00:00','Bonjour Robert, serait-il possible de reculer la date au lendemain ? J\'ai un petit imprévu.','2020-10-16 00:00:00','2020-10-31 00:00:00',NULL,NULL,NULL),(2,1,2,'2020-10-09 00:00:00',NULL,'2020-10-10 00:00:00',NULL,'Bonjour Charles-Henri, je ne suis pas disponible le 16, on peut commencer le 17 si vous voulez.','2020-10-17 00:00:00','2020-11-01 00:00:00',NULL,NULL,NULL);
+INSERT INTO `proposition` VALUES (1,1,1,'2020-10-08 00:00:00',NULL,NULL,'2020-10-09 00:00:00','Bonjour Robert, serait-il possible de reculer la date au lendemain ? J\'ai un petit imprévu.','2020-10-16 00:00:00','2020-10-31 00:00:00',NULL,NULL,1,NULL),(2,1,2,'2020-10-09 00:00:00',NULL,'2020-10-10 00:00:00',NULL,'Bonjour Charles-Henri, je ne suis pas disponible le 16, on peut commencer le 17 si vous voulez.','2020-10-17 00:00:00','2020-11-01 00:00:00',NULL,NULL,1,NULL),(11,19,1,'2021-06-21 10:50:02',NULL,NULL,NULL,NULL,'2021-07-04 00:00:00','2021-07-22 00:00:00',2437,1,1,3);
 /*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -605,7 +608,7 @@ CREATE TABLE `terrain` (
 
 LOCK TABLES `terrain` WRITE;
 /*!40000 ALTER TABLE `terrain` DISABLE KEYS */;
-INSERT INTO `terrain` VALUES (1,1,1,1,1,'Le garden conceptéen',0.12,'Notre jardin de 1200 mètres carrés s\'inscrit dans la pure veine des jardins dijonnais : baobabs et couscoussières côtoient une herbe qui n\'en finit plus de pousser !','2020-09-05',0,NULL,NULL,'3 bis rue de la Flexisécurité',NULL,NULL,NULL,NULL,NULL,NULL,1,0),(2,12,1,12,2,'Jardin de l\'hôtel des Impôts',0.2,'Notre jardinier Hubert étant parti plus tôt que prévu à la retraite, nous devons entretenir ce magnifique jardin à la Versailles financé par nos braves contribuables.','2020-09-11',1,NULL,NULL,'1250 impasse Morose',NULL,NULL,NULL,NULL,NULL,NULL,1,1),(3,13,2,13,8,'L\'ACAB vert',1.3,'Notre association s\'est dotée d\'un joli terrain acheté avec les fonds récoltés lors de la vente aux enchères de notre sculptures du vieux clocher de l\'église de Perrancey-les-Vieux-Moulins réalisée en allumettes.','2020-09-16',0,NULL,NULL,'14 rue Ouaille-Foux',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(4,14,1,14,2,'Jardin de la Mairie',0.6,'La présence d\'un troupeau permettrait non seulement à notre ville de doubler sa population, elle créerait sans doute assez d\'animation pour attirer les villages environnements qui viendraient découvrir une pelouse parfaitement entretenue.','2020-09-18',1,NULL,NULL,'30 rue du Colonel Moutarde',NULL,NULL,NULL,NULL,NULL,NULL,1,1),(5,15,6,15,9,'La Megaforest©',3.5,'Notre Megaforest© est l\'élément central de notre écosystème Megasoft. Parsemée d\'arbres binaires, tapissée de feuilles de style, c\'est l\'endroit parfait pour se balader et rerouver ses racines de dossiers.','2020-09-19',0,NULL,NULL,'1 rue Rougemont',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(6,16,3,16,7,'Domaine Clos-Béber',2.2,'J\'y fais pousser mon vin réputé dans toute la région. J\'avais des chèvres mais on me les a volées et j\'ai une petite idée de qui c\'est.','2020-09-25',0,NULL,NULL,'2 rue de la Cigale',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(7,8,6,1,7,'Le vignoble de Papa',6.3,'Ne se fiant qu\'à son instinct, Papa m\'a chargé de l\'entretien des pelouses de son petit vignoble de 6,3 hectares. Le raisin y est majestueux mais vos bestiaux ne pourront goûter qu\'avec les yeux. ','2020-09-26',0,NULL,NULL,'67, chemin de la Calotte de ses Morts',NULL,NULL,NULL,NULL,NULL,NULL,1,1),(8,8,1,1,6,'Les poiriers de Maman',5.7,'Sur les bons conseils de Papa, Maman m\'a également chargé de mettre son jardin aux poires en pâture. Avec le bon fertilisant, les poires de Maman seront encore plus jûteuses.','2020-09-30',0,NULL,NULL,'122, route des Petits Secrets',NULL,NULL,NULL,NULL,NULL,NULL,1,0);
+INSERT INTO `terrain` VALUES (1,1,1,1,1,'Le garden conceptéen',0.12,'Notre jardin de 1200 mètres carrés s\'inscrit dans la pure veine des jardins dijonnais : baobabs et couscoussières côtoient une herbe qui n\'en finit plus de pousser !','2020-09-05 00:00:00',0,NULL,NULL,'3 bis rue de la Flexisécurité',NULL,NULL,NULL,NULL,NULL,'2021-06-21 00:00:00',1,0),(2,12,1,12,2,'Jardin de l\'hôtel des Impôts',0.2,'Notre jardinier Hubert étant parti plus tôt que prévu à la retraite, nous devons entretenir ce magnifique jardin à la Versailles financé par nos braves contribuables.','2020-09-11',1,NULL,NULL,'1250 impasse Morose',NULL,NULL,NULL,NULL,NULL,NULL,1,1),(3,13,2,13,8,'L\'ACAB vert',1.3,'Notre association s\'est dotée d\'un joli terrain acheté avec les fonds récoltés lors de la vente aux enchères de notre sculptures du vieux clocher de l\'église de Perrancey-les-Vieux-Moulins réalisée en allumettes.','2020-09-16',0,NULL,NULL,'14 rue Ouaille-Foux',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(4,14,1,14,2,'Jardin de la Mairie',0.6,'La présence d\'un troupeau permettrait non seulement à notre ville de doubler sa population, elle créerait sans doute assez d\'animation pour attirer les villages environnements qui viendraient découvrir une pelouse parfaitement entretenue.','2020-09-18',1,NULL,NULL,'30 rue du Colonel Moutarde',NULL,NULL,NULL,NULL,NULL,NULL,1,1),(5,15,6,15,9,'La Megaforest©',3.5,'Notre Megaforest© est l\'élément central de notre écosystème Megasoft. Parsemée d\'arbres binaires, tapissée de feuilles de style, c\'est l\'endroit parfait pour se balader et rerouver ses racines de dossiers.','2020-09-19',0,NULL,NULL,'1 rue Rougemont',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(6,16,3,16,7,'Domaine Clos-Béber',2.2,'J\'y fais pousser mon vin réputé dans toute la région. J\'avais des chèvres mais on me les a volées et j\'ai une petite idée de qui c\'est.','2020-09-25',0,NULL,NULL,'2 rue de la Cigale',NULL,NULL,NULL,NULL,NULL,NULL,0,0),(7,8,6,1,7,'Le vignoble de Papa',6.3,'Ne se fiant qu\'à son instinct, Papa m\'a chargé de l\'entretien des pelouses de son petit vignoble de 6,3 hectares. Le raisin y est majestueux mais vos bestiaux ne pourront goûter qu\'avec les yeux. ','2020-09-26',0,NULL,NULL,'67, chemin de la Calotte de ses Morts',NULL,NULL,NULL,NULL,NULL,'2021-06-21 21:00:56',1,1),(8,8,1,1,6,'Les poiriers de Maman',5.7,'Sur les bons conseils de Papa, Maman m\'a également chargé de mettre son jardin aux poires en pâture. Avec le bon fertilisant, les poires de Maman seront encore plus jûteuses.','2020-09-30',0,NULL,NULL,'122, route des Petits Secrets',NULL,NULL,NULL,NULL,NULL,NULL,1,0);
 /*!40000 ALTER TABLE `terrain` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -653,7 +656,7 @@ CREATE TABLE `troupeau` (
 
 LOCK TABLES `troupeau` WRITE;
 /*!40000 ALTER TABLE `troupeau` DISABLE KEYS */;
-INSERT INTO `troupeau` VALUES (1,1,2,2,40,'Les moumoutes à Robert','Les moumoutes à Robert, c\'est 40 bêtes avec un coeur gros comme ça, prêtes à manger l\'herbe de vos terrains pour votre plus grand paisir.','1, rue de Tart-le-Haut',NULL,NULL,'2020-09-04 00:00:00','2020-09-05 00:00:00','2021-08-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(2,4,3,3,15,'Mes biquettes','Mes biquettes, mes fiertés, mes bébés ! Faites pas attention à la petite grise elle fait des tours de tête complets et marche sur ses deux pattes arrières mais c\'est ma meilleure gagneuse.','15 rue Picon-Bière',NULL,NULL,'2020-09-15 00:00:00','2020-09-16 00:00:00','2021-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(3,8,4,5,8,'Mes vachettes','Mes bretonnes Pie Noir sont les plus heureuses du monde, et comme on dit chez moi, vache qui rit, vache à moitié dans... non.','5, chemin Marguerite',NULL,NULL,'2020-09-05 00:00:00','2020-09-09 00:00:00','2021-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,0),(4,12,5,5,4,'Mes quatre chevaux','\"Maman regarde les zolis sevaux !\" Ca fait toujours son petit effet.','27 route du Manège',NULL,NULL,'2020-09-12 00:00:00','2020-09-12 00:00:00','2022-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,0),(5,2,6,8,16,'16 moutons bien roulés','Ils sont frais mes Solognot !','16 rue Nabilla',NULL,NULL,'2020-09-13 00:00:00','2020-09-14 00:00:00','2022-01-06 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(6,7,7,2,7,'Les biquettes de la Stacy','Mes 7 chèvres naines sont nommées comme dans le film de Pixar : Prof, Grincheuse, Atchoum, Dormeuse, Timide, Simplette et Joyeuse. Ce sont mes meilleures amies','15, avenue de la Macronie',NULL,NULL,'2020-09-18 00:00:00','2020-09-19 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0),(7,9,8,8,12,'Les meuh-meuh d\'Homère','12 belles Nantaises bien gaulées et affamées d\'herbe, qui dit meuh ?','31 rue du Champ de Printemps',NULL,NULL,'2020-09-19 00:00:00','2020-09-20 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0),(8,6,9,9,17,'Vous les aurez mes lorraines','Des chèvres un peu capricieuses ahahah vous me suivez. Mais niveau tonte on reconnait bien le rigorisme stakhanoviste populairement attribué à nos voisins d\'outre-Rhin.','165 boulevard Johnny Halliday',NULL,NULL,'2020-09-20 00:00:00','2020-09-21 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `troupeau` VALUES (1,1,2,2,40,'Les moumoutes à Robert','Les moumoutes à Robert, c\'est 40 bêtes avec un coeur gros comme ça, prêtes à manger l\'herbe de vos terrains pour votre plus grand paisir.','1, rue de Tart-le-Haut',NULL,NULL,'2020-09-04 00:00:00','2020-09-05 00:00:00','2021-08-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(2,4,3,3,15,'Mes biquettes','Mes biquettes, mes fiertés, mes bébés ! Faites pas attention à la petite grise elle fait des tours de tête complets et marche sur ses deux pattes arrières mais c\'est ma meilleure gagneuse.','15 rue Picon-Bière',NULL,NULL,'2020-09-15 00:00:00','2020-09-16 00:00:00','2021-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(3,8,4,5,8,'Mes vachettes','Mes bretonnes Pie Noir sont les plus heureuses du monde, et comme on dit chez moi, vache qui rit, vache à moitié dans... non.','5, chemin Marguerite',NULL,NULL,'2020-09-05 00:00:00','2020-09-09 00:00:00','2021-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,0),(4,12,5,5,4,'Mes quatre chevaux','\"Maman regarde les zolis sevaux !\" Ca fait toujours son petit effet.','27 route du Manège',NULL,NULL,'2020-09-12 00:00:00','2020-09-12 00:00:00','2022-12-31 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,0),(5,2,6,8,16,'16 moutons bien roulés','Ils sont frais mes Solognot !','16 rue Nabilla',NULL,NULL,'2020-09-13 00:00:00','2020-09-14 00:00:00','2022-01-06 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,1),(6,7,7,2,7,'Grande Chèvres-Naine','Mes chèvres  sont nommées comme dans le film de Pixar : Prof, Grincheuse, Atchoum, Dormeuse, Timide, Simplette et Joyeuse. Ce sont mes meilleures amies','15, avenue de la Macronie',NULL,NULL,'2020-09-18 00:00:00','2020-09-19 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0),(7,9,8,8,12,'Les meuh-meuh d\'Homère','12 belles Nantaises bien gaulées et affamées d\'herbe, qui dit meuh ?','31 rue du Champ de Printemps',NULL,NULL,'2020-09-19 00:00:00','2020-09-20 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0),(8,6,9,9,17,'Vous les aurez mes lorraines','Des chèvres un peu capricieuses ahahah vous me suivez. Mais niveau tonte on reconnait bien le rigorisme stakhanoviste populairement attribué à nos voisins d\'outre-Rhin.','165 boulevard Johnny Halliday',NULL,NULL,'2020-09-20 00:00:00','2020-09-21 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `troupeau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -913,4 +916,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-20 16:58:11
+-- Dump completed on 2021-06-21 21:04:21
