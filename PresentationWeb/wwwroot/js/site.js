@@ -134,6 +134,25 @@ function getOffrePrix() {
 
 }
 
+
+var noteChamp = document.getElementById("noteChamp");
+var noteNombre = document.getElementById("noteNombre");
+
+
+function setStarNote(note) {
+    noteChamp.setAttribute("value", note);
+    noteNombre.innerHTML = note;
+    for (let i = 1; i <= 5; i++) {
+        if (i <= note) {
+            document.getElementById(i).setAttribute("class","fas fa-star star-full");
+        }
+        else {
+            document.getElementById(i).setAttribute("class","fas fa-star star-empty");
+        }
+    }
+    document.getElementById("valider").removeAttribute("disabled");
+}
+
 //export { getDateFinMinMax }
 
 

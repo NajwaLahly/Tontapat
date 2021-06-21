@@ -3,8 +3,9 @@
 
 @model List<OffreToPrestationDto>
 @{
+        ViewData["Title"] = "Résultats de votr recherche (" + Model.Count + ")";
     string description = "...";
-    
+
 }
 
 <h1>Résultats de recherche (@Model.Count)</h1>
@@ -13,100 +14,100 @@
 
     @foreach (OffreToPrestationDto otpdto in Model)
     {
- 
-    <a class="box-offre-link"
-       asp-controller="Offre"
-       asp-action="DetailsPrestation"
-       asp-route-idOffre="@otpdto.IdOffre"
-       asp-route-idTerrain="@otpdto.IdTerrain"
-       asp-route-idTypeTonte="@otpdto.IdTypeTonte"
-       asp-route-distance="@otpdto.Distance"
-       asp-route-nbBetes="@otpdto.NbBetes"
-       asp-route-typeInstallation="@otpdto.TypeInstallation"
-       asp-route-dateDebut="@otpdto.DateDebut.ToString("dd-MM-yyyy")"
-       asp-route-dateFin="@otpdto.DateFin.ToString("dd-MM-yyyy")"
-       asp-route-duree="@otpdto.Duree"
-       asp-route-prixInstallationBetail="@otpdto.PrixInstallationBetail"
-       asp-route-prixInstallationCloture="@otpdto.PrixInstallationCloture"
-       asp-route-prixBetail="@otpdto.PrixBetail"
-       asp-route-prixIntervention="@otpdto.PrixIntervention"
-       asp-route-prixService="@otpdto.PrixService"
-       asp-route-prixTVA="@otpdto.PrixTVA"
-       asp-route-prixTotal="@otpdto.PrixTotal">
 
-        
-
-        <div class="box-offre box-clickable">
-            <div class="img-offre">
-                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(otpdto.OffreRef.IdTroupeau)_1.jpg" />
-            </div>
-            <div class="info-offre">
-                <div class="en-tete-offre">
-                    <h3>
-                        @otpdto.OffreRef.NomOffre
-                    </h3>
-
-                    <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(otpdto.OffreRef.IdUtilisateur).png" />
-                    @otpdto.OffreRef.PrenomEleveur,
-
-                    <i>@otpdto.OffreRef.VilleTroupeau</i> (à @(otpdto.Distance + "km"))
+        <a class="box-offre-link"
+           asp-controller="Offre"
+           asp-action="DetailsPrestation"
+           asp-route-idOffre="@otpdto.IdOffre"
+           asp-route-idTerrain="@otpdto.IdTerrain"
+           asp-route-idTypeTonte="@otpdto.IdTypeTonte"
+           asp-route-distance="@otpdto.Distance"
+           asp-route-nbBetes="@otpdto.NbBetes"
+           asp-route-typeInstallation="@otpdto.TypeInstallation"
+           asp-route-dateDebut="@otpdto.DateDebut.ToString("dd-MM-yyyy")"
+           asp-route-dateFin="@otpdto.DateFin.ToString("dd-MM-yyyy")"
+           asp-route-duree="@otpdto.Duree"
+           asp-route-prixInstallationBetail="@otpdto.PrixInstallationBetail"
+           asp-route-prixInstallationCloture="@otpdto.PrixInstallationCloture"
+           asp-route-prixBetail="@otpdto.PrixBetail"
+           asp-route-prixIntervention="@otpdto.PrixIntervention"
+           asp-route-prixService="@otpdto.PrixService"
+           asp-route-prixTVA="@otpdto.PrixTVA"
+           asp-route-prixTotal="@otpdto.PrixTotal">
 
 
 
+            <div class="box-offre box-clickable">
+                <div class="img-offre">
+                    <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(otpdto.OffreRef.IdTroupeau)_1.jpg" />
                 </div>
-                <div class="description">
-                    <p>
-                        <i>
-                            @if (otpdto.OffreRef.DescriptionOffre.Length > 100)
+                <div class="info-offre">
+                    <div class="en-tete-offre">
+                        <h3>
+                            @otpdto.OffreRef.NomOffre
+                        </h3>
+
+                        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(otpdto.OffreRef.IdUtilisateur).png" />
+                        @otpdto.OffreRef.PrenomEleveur,
+
+                        <i>@otpdto.OffreRef.VilleTroupeau</i> (à @(otpdto.Distance + "km"))
+
+
+
+                    </div>
+                    <div class="description">
+                        <p>
+                            <i>
+                                @if (otpdto.OffreRef.DescriptionOffre.Length > 100)
+                                {
+                                    @(otpdto.OffreRef.DescriptionOffre.Substring(0, 100) + description)
+                                }
+
+                                else
+                                {
+                                    @otpdto.OffreRef.DescriptionOffre
+                                }
+                            </i>
+                        </p>
+                    </div>
+
+                    <div class="info-footer">
+                        <div>
+                            <img class="icon" src="~/img/icons/espece/@(otpdto.OffreRef.IdEspece).png" />@otpdto.OffreRef.Race (@otpdto.NbBetes)
+                        </div>
+                        <div>
+                            <i class="fas fa-calendar-alt"></i>jusqu'au @otpdto.DateFin.ToString("dd/MM/yyyy")
+                        </div>
+                        <div>
+                            <i class="fas fa-tachometer-alt"></i>@otpdto.OffreRef.TypeTonte
+                        </div>
+                        <div>
+                            <i class="fa fa-times"></i>@otpdto.OffreRef.Condition
+                        </div>
+                    </div>
+                </div>
+                <div class="resultat-prix">
+                    <div class="prix">
+                        @otpdto.PrixTotal€
+
+                        <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @otpdto.PrixInstallationCloture€&#10;Prix d'installation du bétail : @otpdto.PrixInstallationBetail€&#10;Frais de bétail : @otpdto.PrixBetail€&#10;Prix d'intervention : @otpdto.PrixIntervention€"></i>
+                    </div>
+                    <div class="evaluation-offre">
+
+                        @{
+                            if (otpdto.OffreRef.Moyenne == 0)
+                                otpdto.OffreRef.Moyenne = 3.5;
+                            for (int i = 0; i < otpdto.OffreRef.Moyenne; i++)
                             {
-                                @(otpdto.OffreRef.DescriptionOffre.Substring(0, 100) + description)
+                                <i class="fas fa-star"></i>
                             }
-
-                            else
-                            {
-                                @otpdto.OffreRef.DescriptionOffre
-                            }
-                        </i>
-                    </p>
-                </div>
-
-                <div class="info-footer">
-                    <div>
-                        <img class="icon" src="~/img/icons/espece/@(otpdto.OffreRef.IdEspece).png" />@otpdto.OffreRef.Race (@otpdto.NbBetes)
-                    </div>
-                    <div>
-                        <i class="fas fa-calendar-alt"></i>jusqu'au @otpdto.DateFin.ToString("dd/MM/yyyy")
-                    </div>
-                    <div>
-                        <i class="fas fa-tachometer-alt"></i>@otpdto.OffreRef.TypeTonte
-                    </div>
-                    <div>
-                        <i class="fa fa-times"></i>@otpdto.OffreRef.Condition
-                    </div>
-                </div>
-            </div>
-            <div class="resultat-prix">
-                <div class="prix">
-                    @otpdto.PrixTotal€
-
-                    <i class="far fa-question-circle info-prix-bulle" title="Prix d'installation de clôture : @otpdto.PrixInstallationCloture€&#10;Prix d'installation du bétail : @otpdto.PrixInstallationBetail€&#10;Frais de bétail : @otpdto.PrixBetail€&#10;Prix d'intervention : @otpdto.PrixIntervention€"></i>
-                </div>
-                <div class="evaluation-offre">
-
-                    @{  
-                        if (otpdto.OffreRef.Moyenne == 0)
-                            otpdto.OffreRef.Moyenne = 3.5;
-                        for (int i = 0; i < otpdto.OffreRef.Moyenne; i++)
-                        {
-                            <i class="fas fa-star"></i>
                         }
-                    }
-                    <p>(@otpdto.OffreRef.NbEvaluations)</p>
+                        <p>(@otpdto.OffreRef.NbEvaluations)</p>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </a>
+            </div>
+        </a>
     }
-    
+
 </div>

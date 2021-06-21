@@ -17,6 +17,10 @@
     }
 }
 
+@{
+    ViewData["Title"] = Model.NomOffre + " - Offres";
+}
+
 <h1>@Model.NomOffre</h1>
 
 
@@ -56,9 +60,9 @@
 
                 @foreach (Terrain t in ViewBag.Terrains)
                 {
-                <option value="@t.Id">
-                    @t.Nom
-                </option>
+                    <option value="@t.Id">
+                        @t.Nom
+                    </option>
                 }
             </select>
         </div>
@@ -96,7 +100,7 @@
                    name="datedebut"
                    value=""
                    onchange="ChangeOffreDetails()"
-                   disabled/>
+                   disabled />
         </div>
     </div>
 
@@ -112,11 +116,11 @@
                    value=""
                    min="@DateTime.Today.AddDays(2).ToString("yyyy-MM-dd")"
                    onchange="ChangeOffreDetails()"
-                   disabled/>
+                   disabled />
         </div>
     </div>
 </div>
- 
+
 <div class="box-offre-details">
 
     <div class="offre-details-main">
@@ -237,56 +241,38 @@
                 <table class="tarif">
                     <tr>
                         <td>
-                            Installation
+                            Prix au kilomètre
                         </td>
                         <td class="prix"
                             id="prix_installation">
-                            -€
+                            @Model.PrixKm€
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Frais de bétail
+                            Prix/bête/jour
                         </td>
                         <td class="prix"
                             id="prix_betail">
-                            -€
+                            @Model.PrixBeteJour€
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Frais d'intervention
+                            Coefficient d'installation
                         </td>
                         <td class="prix"
                             id="prix_intervention">
-                            -€
+                            @Model.CoefInstallation
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Frais de service
+                            Coefficient d'intervention
                         </td>
                         <td class="prix"
                             id="prix_service">
-                            -€
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            TVA (20%)
-                        </td>
-                        <td class="prix"
-                            id="prix_tva">
-                            -€
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Total</h4>
-                        </td>
-                        </td>
-                        <td class="prix">
-                            <h4 id="prix_total">-€</h4>
+                            @Model.CoefIntervention
                         </td>
                     </tr>
                 </table>

@@ -28,6 +28,9 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
         {
             PrestationBU bu = new();
             PrestationDetail pd = bu.GetWithDetailsById(id);
+
+            EvaluationBU ebu = new();
+            ViewBag.IsAlreadyEvaluee = ebu.IsAlreadyEvaluee(id, pd.IdEleveur);
             return View(pd);
         }
 
@@ -103,7 +106,25 @@ namespace Fr.EQL.AI109.Tontapat.PresentationWeb.Controllers
             PropositionBU pbu = new();
             pbu.FaireRepondreEleveur(id);
         }
-    }
 
+        [HttpGet]
+        public IActionResult Evaluer(int id)
+        {
+            PrestationBU pbu = new();
+            PrestationDetail pd = pbu.GetWithDetailsById(id);
+            ViewBag.PrestationDetail = pd;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Evaluer(int id, Evaluation e)
+        {
+            EvaluationBU ebu = new();
+            ebu.Insert(e);
+            return View("Evaluee");
+        }
+
+    }
 
 }

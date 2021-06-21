@@ -15,6 +15,9 @@
 
 }
 
+@{
+    ViewData["Title"] = "Visualisation d'une proposition";
+}
 
 <h1>Visualisation de la proposition #@Model.Id-@Model.Id</h1>
 @*    <h4>Prestation #@ViewBag.PrestationDetail.DateDemande.ToString("yyMMdd")-@ViewBag.PrestationDetail.Id</h4>
@@ -107,7 +110,7 @@
             </div>
             <div class="champs-negociation">
                 <div class="champ-terrain">
-                (Un éleveur ne peut modifier le terrain de la prestation)
+                    (Un éleveur ne peut modifier le terrain de la prestation)
                     <label asp-for="IdTypeTonte">Votre terrain : </label>
                     <select asp-for="IdTerrain" id="terrain" disabled>
                         @foreach (Terrain t in ViewBag.Terrains)
@@ -155,14 +158,14 @@
                             }
 
                         }
-                        @if(Model.IdTypeTonte == ViewBag.PrestationDetail.IdTypeTonte)
-            {
-                <i> (inchangé par l'éleveur)</i>
-            }
+                        @if (Model.IdTypeTonte == ViewBag.PrestationDetail.IdTypeTonte)
+                        {
+                            <i> (inchangé par l'éleveur)</i>
+                        }
                         else
-            {
-                <i> (Modifié par l'éleveur)</i>
-            }
+                        {
+                            <i> (Modifié par l'éleveur)</i>
+                        }
 
                     </select>
                 </div>

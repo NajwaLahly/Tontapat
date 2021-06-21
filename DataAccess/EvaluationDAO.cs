@@ -166,5 +166,27 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             return result;
         }
 
+        public List<Evaluation> GetAllByPrestationId(int id)
+        {
+            List<Evaluation> evaluations = new();
+
+            MySqlCommand cmd = CreerCommande();
+
+            cmd.CommandText = @"SELECT e.* from evaluation e
+	                            WHERE e.id_prestation = @id_prestation;";
+
+            cmd.Parameters.Add(new MySqlParameter("@id_prestation", id));
+            cmd.Connection.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Evaluation e = DataReaderToEvaluation(dr);
+                evaluations.Add(e);
+            }
+
+            cmd.Connection.Close();
+            return evaluations;
+        }
     }
 }
