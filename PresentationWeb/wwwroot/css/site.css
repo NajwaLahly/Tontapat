@@ -962,3 +962,26 @@ i.modifie {
 i.inchange {
     color: lightgray;
 }
+
+.note-eval {
+    display:flex;
+    align-self: center;
+    flex-direction: column;
+}
+.evaluation-etoiles {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+}
+.star-full {
+    color: orange;
+    cursor: pointer;
+}
+.star-empty {
+    color: rgb(255,238,179);
+    cursor: pointer;
+}
+
+#noteNombre {
+    font-size: 4rem;
+}

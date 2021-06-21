@@ -1,9 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-    @using Fr.EQL.AI109.Tontapat.Model;
-    @model UtilisateurDetail
+@using Fr.EQL.AI109.Tontapat.Model;
+@model UtilisateurDetail
 @{
+        ViewData["Title"] = "Mon profil";
 }
 <div class="profil-container">
 
@@ -89,7 +90,7 @@
                         <input type="hidden" asp-for="PayPalEmail">
                         <input type="hidden" asp-for="BIC">
                         <input type="hidden" asp-for="Presentation">
-                        
+
 
                         <div class="button-update">
                             <button class="btn-success" value="submit" id="profil-form" asp-controller="Utilisateur" asp-action="Update">Valider changements</button>
@@ -197,7 +198,7 @@
                     </form>
                 </div>
             </div>
-           
+
             <div id="menu3" class="tab-pane fade">
 
                 @{
@@ -229,4 +230,4 @@
 
 
 
-    
+

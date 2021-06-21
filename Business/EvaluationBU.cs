@@ -10,6 +10,11 @@ namespace Fr.EQL.AI109.Tontapat.Business
 {
     public class EvaluationBU
     {
+        public void Insert(Evaluation e)
+        {
+            EvaluationDAO dao = new();
+            dao.Create(e);
+        }
         public List<EvaluationDetail> GetAllWithDetailsByClientId(int id)
         {
             EvaluationDAO dao = new();
@@ -31,6 +36,26 @@ namespace Fr.EQL.AI109.Tontapat.Business
         {
             EvaluationDAO dao = new();
             return dao.GetAllWithDetailsByUtilisateurId(id);
+        }
+
+        public List<Evaluation> GetAllByPrestationId(int id)
+        {
+            EvaluationDAO edao = new();
+            return edao.GetAllByPrestationId(id);
+        }
+
+        public bool IsAlreadyEvaluee(int idPrestation, int idUtilisateurCible)
+        {
+            EvaluationDAO edao = new();
+            List<Evaluation> evaluations = edao.GetAllByPrestationId(idPrestation);
+            foreach(Evaluation e in evaluations)
+            {
+                if(e.IdUtilisateurCible == idUtilisateurCible)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

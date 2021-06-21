@@ -2,127 +2,131 @@
 
 @model List<PrestationDetail>
 
+@{
+    ViewData["Title"] = "Mes prestations";
+}
+
 <h1>Mes prestations</h1>
 
 <div class="box-offre">
-        <table class="prestations-list">
+    <table class="prestations-list">
+        <tr>
+            <th scope="col">
+                Référence
+            </th>
+            <th scope="col">
+                Terrain
+            </th>
+            <th scope="col">
+                Statut
+            </th>
+            <th scope="col">
+                Début
+            </th>
+            <th>
+                Fin
+            </th>
+            <th scope="col">
+                Tonte
+            </th>
+            <th scope="col">
+                Prestataire
+            </th>
+            <th scope="col">
+                Prix payé
+            </th>
+            <th scope="col">
+                <i class="fas fa-download"></i>
+            </th>
+
+        </tr>
+
+
+        @foreach (PrestationDetail pd in Model)
+        {
+            @*
+                <div>
+                    <table>*@
             <tr>
-                <th scope="col">
-                    Référence
-                </th>
-                <th scope="col">
-                    Terrain
-                </th>
-                <th scope="col">
-                    Statut
-                </th>
-                <th scope="col">
-                    Début
-                </th>
-                <th>
-                    Fin
-                </th>
-                <th scope="col">
-                    Tonte
-                </th>
-                <th scope="col">
-                    Prestataire
-                </th>
-                <th scope="col">
-                    Prix payé
-                </th>
-                <th scope="col">
+                <td>
+                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
+                        #@(pd.DateDemande.ToString("yyMMdd") + pd.Id)
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
+                        @pd.NomTerrain
+                    </a>
+                </td>
+                <td class="prestation-statut">
+                    @{ if (pd.DateAnnulation != null)
+                        {
+                            <strong>Annulée</strong>;
+                        }
+                        else if (pd.DateRefus != null)
+                        {
+                            <strong>
+                                Refusée
+                            </strong>
+                            ;
+                        }
+                        else if (pd.DateValidation != null)
+                        {
+                            if (pd.DateFin < DateTime.Now)
+                            {
+                                <strong>
+                                    Terminée
+                                </strong>;
+                            }
+                            else if (DateTime.Now > pd.DateDebut && DateTime.Now < pd.DateFin)
+                            {
+                                <strong>
+                                    En cours
+                                </strong>
+                            }
+                            else if (DateTime.Now < pd.DateDebut)
+                            {
+                                <strong>
+                                    Validée
+                                </strong>
+                            }
+                        }
+                        else
+                        {
+                            <strong>
+                                En attente
+                            </strong>
+                        }
+                    }
+
+                </td>
+                <td>
+                    @pd.DateDebut.ToString("dd/MM/yy")
+                </td>
+                <td>
+                    @pd.DateFin.ToString("dd/MM/yy")
+                </td>
+                <td>
+                    @pd.NomTypeTonte
+                </td>
+                <td>
+                    <a asp-controller="Utilisateur" asp-action="Eleveur" asp-route-id="@pd.IdEleveur">
+                        @pd.PrenomEleveur
+                    </a>
+                </td>
+                <td>
+                    @Math.Round(pd.PrixConvenu, 2)
+                </td>
+                <td>
                     <i class="fas fa-download"></i>
-                </th>
+                </td>
 
             </tr>
+            @*                        </table>
+                </div>
+                </a>*@
 
+        }
+    </table>
 
-            @foreach (PrestationDetail pd in Model)
-            {
-                @*
-                    <div>
-                        <table>*@
-                            <tr>
-                                <td>
-                                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
-                                        #@(pd.DateDemande.ToString("yyMMdd") + pd.Id)
-                                        </a>
-                                </td>
-                                <td>
-                                    <a asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
-                                        @pd.NomTerrain
-                                    </a>
-                                </td>
-                                <td class="prestation-statut">
-                                    @{ if (pd.DateAnnulation != null)
-                                        {
-                                            <strong>Annulée</strong>;
-                                        }
-                                        else if (pd.DateRefus != null)
-                                        {
-                                            <strong>
-                                                Refusée
-                                            </strong>
-                                            ;
-                                        }
-                                        else if (pd.DateValidation != null)
-                                        {
-                                            if (pd.DateFin < DateTime.Now)
-                                            {
-                                                <strong>
-                                                    Terminée
-                                                </strong>;
-                                            }
-                                            else if (DateTime.Now > pd.DateDebut && DateTime.Now < pd.DateFin)
-                                            {
-                                                <strong>
-                                                    En cours
-                                                </strong>
-                                            }
-                                            else if (DateTime.Now < pd.DateDebut)
-                                            {
-                                                <strong>
-                                                    Validée
-                                                </strong>
-                                            }
-                                        }
-                                        else
-                                        {
-                                                <strong>
-                                                    En attente
-                                                </strong>
-                                        }
-                                    }
-
-                                </td>
-                                <td>
-                                    @pd.DateDebut.ToString("dd/MM/yy")
-                                </td>
-                                <td>
-                                    @pd.DateFin.ToString("dd/MM/yy")  
-                                </td>
-                                <td>
-                                    @pd.NomTypeTonte
-                                </td>
-                                <td>
-                                    <a asp-controller="Utilisateur" asp-action="Eleveur" asp-route-id="@pd.IdEleveur">
-                                        @pd.PrenomEleveur
-                                    </a>
-                                </td>
-                                <td>
-                                    @Math.Round(pd.PrixConvenu,2)
-                                </td>
-                                <td>
-                                    <i class="fas fa-download"></i>
-                                </td>
-
-                            </tr>
-@*                        </table>
-                    </div>
-                    </a>*@
-
-                    }
-            </table>
-
-    </div>
+</div>

@@ -1,5 +1,8 @@
 ﻿@using Fr.EQL.AI109.Tontapat.Model
 @model PropositionDetail
+@{
+    ViewData["Title"] = "Annulation d'une proposition";
+}
 <form method="post">
     <input type="hidden" asp-for="Id" value="@Model.Id" />
     <h1>Annuler une proposition</h1>

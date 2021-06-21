@@ -4,6 +4,7 @@
 @using Fr.EQL.AI109.Tontapat.Model;
 @model List<TroupeauDetail>
 @{
+        ViewData["Title"] = "Mes troupeaux";
     int n = 0;
 }
 
@@ -96,14 +97,14 @@
 
 else
 {
-<div class="no_troupeau">
-    <p>Vous ne disposez pas de troupeau pour le moment.</p>
-    <div class="button-update">
-        <a class="btn btn-primary btn-lg active" style="background-color:seagreen; border-color: darkseagreen" role="button" aria-pressed="true" asp-controller="Troupeau" asp-action="Update" asp-route-id="1" >Nouveau troupeau</a>
+    <div class="no_troupeau">
+        <p>Vous ne disposez pas de troupeau pour le moment.</p>
+        <div class="button-update">
+            <a class="btn btn-primary btn-lg active" style="background-color:seagreen; border-color: darkseagreen" role="button" aria-pressed="true" asp-controller="Troupeau" asp-action="Update" asp-route-id="1">Nouveau troupeau</a>
+        </div>
+        <img src="~/img/photos/troupeaux/troupeau0.jpg" />
     </div>
-    <img src="~/img/photos/troupeaux/troupeau0.jpg" />
-</div>
-    
+
 
 }
 

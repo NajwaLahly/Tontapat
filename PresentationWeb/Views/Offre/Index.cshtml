@@ -9,6 +9,7 @@
 @{
     int nbOffres = Model.Count;
     string description = "...";
+        ViewData["Title"] = "Toutes les offres";
 }
 
 <h1>Plus de @nbOffres offres Tontapat à découvrir</h1>
@@ -16,57 +17,57 @@
 <div class="Offre-container">
     @foreach (OffreDetail od in Model)
     {
-    <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
-        <div class="box-offre box-clickable">
-            <div class="img-offre">
-                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
+        <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
+            <div class="box-offre box-clickable">
+                <div class="img-offre">
+                    <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
+                </div>
+                <div class="info-offre">
+                    <div class="en-tete-offre">
+                        <h3>
+                            @od.NomOffre
+                        </h3>
+                        <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
+                        @od.PrenomEleveur,
+
+                        <i>@od.VilleTroupeau</i>
+                        (et @(od.ZoneCouverture)km autour)
+                    </div>
+
+                    <div class="description">
+                        <p>
+                            <i>
+                                @if (od.DescriptionOffre.Length > 100)
+                                {
+                                    @(od.DescriptionOffre.Substring(0, 100) + description)
+                                }
+
+                                else
+                                {
+                                    @od.DescriptionOffre
+                                }
+                            </i>
+                        </p>
+                    </div>
+
+                    <div class="info-footer">
+                        <div>
+                            <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race
+                        </div>
+                        <div>
+                            <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
+                        </div>
+                        <div>
+                            <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                        </div>
+                        <div>
+                            <i class="fa fa-times"></i>@od.Condition
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="info-offre">
-                <div class="en-tete-offre">
-                    <h3>
-                        @od.NomOffre
-                    </h3>
-                    <img class="img-offre-thumbnail-profil" src="~/img/photos/profile/@(od.IdUtilisateur).png" />
-                    @od.PrenomEleveur,
-
-                    <i>@od.VilleTroupeau</i>
-                    (et @(od.ZoneCouverture)km autour)
-                </div>
-
-                <div class="description">
-                    <p>
-                        <i>
-                            @if (od.DescriptionOffre.Length > 100)
-                            {
-                                @(od.DescriptionOffre.Substring(0, 100) + description)
-                            }
-
-                            else
-                            {
-                                @od.DescriptionOffre
-                            }
-                        </i>
-                    </p>
-                </div>
-
-            <div class="info-footer">
-                <div>
-                    <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race
-                </div>
-                <div>
-                    <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
-                </div>
-                <div>
-                    <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
-                </div>
-                <div>
-                    <i class="fa fa-times"></i>@od.Condition
-                </div>
-            </div>
-        </div>
-
-        </div>
-    </a>
+        </a>
     }
 </div>
 
