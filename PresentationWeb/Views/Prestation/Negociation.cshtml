@@ -100,10 +100,31 @@
                 </table>
             </div>
         </div>
+
+
         <div class="card-negociation card">
             <div class="title-negociation-card">
                 <h3>
-                    1. Sélectionnez votre nouveau terrain
+                    1. Argumentaire
+                </h3>
+            </div>
+
+                <div class="champ-terrain">
+                    Ecrivez un message décrivant votre besoin, la nécessité de modifier les termes de la prestation.
+
+                    <textarea cols="50" rows="10" style="height: 150px;" asp-for="Description"></textarea>
+                </div>
+        </div>
+
+
+
+
+
+
+        <div class="card-negociation card">
+            <div class="title-negociation-card">
+                <h3>
+                    2. Sélectionnez votre nouveau terrain
                 </h3>
             </div>
             <div class="champs-negociation">
@@ -133,7 +154,7 @@
         <div class="card-negociation card">
             <div class="title-negociation-card">
                 <h3>
-                    2. Sélectionnez les nouveaux détails de la prestation
+                    3. Sélectionnez les nouveaux détails de la prestation
                 </h3>
             </div>
             <div class="champs-negociation">
@@ -149,7 +170,7 @@
                             }
                             else
                             {
-                                if (tt.Id == 4)
+                                if (tt.Id != 4)
                                 {
                                     <option value="@tt.Id">@tt.Nom</option>
                                 }
@@ -182,7 +203,7 @@
         <div class="card-negociation card">
             <div class="title-negociation-card">
                 <h3>
-                    3. Choisissez vos nouvelles dates de prestation
+                    4. Choisissez vos nouvelles dates de prestation
                 </h3>
             </div>
             <div class="champs-negociation">
@@ -201,7 +222,7 @@
         <div class="card-negociation card">
             <div class="title-negociation-card">
                 <h3>
-                    3. Proposez un prix final
+                    5. Proposez un prix final
                 </h3>
             </div>
             <div class="champs-negociation">
@@ -214,26 +235,26 @@
         </div>
         <div class="bouton-negociation">
             <!--
-            <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
-                <input type="hidden" name="IdOffre" value=""/>
-                <input type="hidden" name="IdTerrain" value=""/>
-                <input type="hidden" name="IdTypeTonte" value=""/>
-                <input type="hidden" name="Distance" value=""/>
-                <input type="hidden" name="NbBetes" value=""/>
-                <input type="hidden" name="TypeInstallation" value=""/>
-                <input type="hidden" name="DateDebut" value=""/>
-                <input type="hidden" name="DateFin" value=""/>
-                <input type="hidden" name="Duree" value=""/>
-                <input type="hidden" name="PrixInstallationBetail" value=""/>
-                <input type="hidden" name="PrixInstallationCloture" value=""/>
-                <input type="hidden" name="PrixBetail" value=""/>
-                <input type="hidden" name="PrixIntervention" value=""/>
-                <input type="hidden" name="PrixService" value=""/>
-                <input type="hidden" name="PrixTVA" value=""/>
-                <input type="hidden" name="PrixTotal" value=""/>
+        <form id="negociation" method="get" asp-controller="Negociation" asp-action="index">
+            <input type="hidden" name="IdOffre" value=""/>
+            <input type="hidden" name="IdTerrain" value=""/>
+            <input type="hidden" name="IdTypeTonte" value=""/>
+            <input type="hidden" name="Distance" value=""/>
+            <input type="hidden" name="NbBetes" value=""/>
+            <input type="hidden" name="TypeInstallation" value=""/>
+            <input type="hidden" name="DateDebut" value=""/>
+            <input type="hidden" name="DateFin" value=""/>
+            <input type="hidden" name="Duree" value=""/>
+            <input type="hidden" name="PrixInstallationBetail" value=""/>
+            <input type="hidden" name="PrixInstallationCloture" value=""/>
+            <input type="hidden" name="PrixBetail" value=""/>
+            <input type="hidden" name="PrixIntervention" value=""/>
+            <input type="hidden" name="PrixService" value=""/>
+            <input type="hidden" name="PrixTVA" value=""/>
+            <input type="hidden" name="PrixTotal" value=""/>
 
-            </form>
-                -->
+        </form>
+            -->
             <div class="box-boutons">
                 <button class="btn-success" type="submit">Valider la proposition</button>
                 <button class="btn-danger" type="reset">Annuler</button>

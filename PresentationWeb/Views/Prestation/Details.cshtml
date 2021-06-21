@@ -4,7 +4,7 @@
 
 @{
 
-        ViewData["Title"] = "Détails de votre prestation";
+    ViewData["Title"] = "Détails de votre prestation";
 
     string InstallationString = null;
     if (Model.TypeInstallationFinal == true)
@@ -86,32 +86,23 @@
 
                         @if (Model.Negociations.Count > 0)
                         {
-                            foreach (NegociationDetail n in Model.Negociations)
+
+                            if (Model.Negociations.Last().Propositions.Last().IdUtilisateur == 1)
                             {
-                                if (n.DateFermeture == null)
-                                {
-                                    if (n.Propositions.Count > 0)
-                                    {
-                                        if (n.Propositions.Last().IdUtilisateur == 1)
-                                        {
-                                            <a class="btn btn-success" asp-controller="Proposition" asp-action="Details" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Voir votre proposition</a>
+                                <a class="btn btn-success" asp-controller="Proposition" asp-action="Details" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Voir votre proposition</a>
 
-                                            <a class="btn btn-warning" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Annuler la proposition</a>
+                                <a class="btn btn-warning" asp-controller="Proposition" asp-action="Annuler" asp-route-id="@Model.Negociations.Last().Propositions.Last().Id">Annuler la proposition</a>
 
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route="@Model.Negociations[Model.Negociations.Count].Propositions[Model.Negociations[Model.Negociations.Count].Propositions.Count]">Voir la proposition de @Model.PrenomEleveur</a>
-                                            break;
-                                        }
-                                    }
-                                }
                             }
+                            else
+                            {
+                                <a class="btn btn-primary" asp-controller="Proposition" asp-action="Details" asp-route="@Model.Negociations.Last().Propositions.Last().Id">Voir la proposition de @Model.PrenomEleveur</a>
+                            }
+
                         }
                         else
                         {
-                            <a class="btn btn-primary" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Négocier</a>
+                        <a class="btn btn-primary" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Négocier</a>
                         }
 
                         @*                        <a class="btn btn-primary" asp-controller="Offre" asp-action="Negociation" asp-route-id="@Model.Id">Négocier</a>*@
@@ -423,3 +414,11 @@
         </table>
     </div>
 </div>
+
+@{ if (Model.DateAnnulation == null && Model.DateRefus == null && Model.DateValidation == null)
+    {
+        <div class="box-boutons">
+            <a class="btn btn-dark" asp-controller="Prestation" asp-action="ForcerValidation" asp-route-id="@Model.Id"><i class="fas fa-skull-crossbones"></i> Forcer @Model.PrenomEleveur à valider</a>
+        </div>
+    }
+}
