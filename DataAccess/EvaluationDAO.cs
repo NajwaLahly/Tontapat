@@ -162,7 +162,11 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             result.IdPrestation = dr.GetInt32("id_prestation");
             result.IdUtilisateurCible = dr.GetInt32("id_utilisateur");
             result.Note = dr.GetInt32("note_evaluation");
-            result.Commentaire = dr.GetString("commentaire_evaluation");
+            if (!dr.IsDBNull(dr.GetOrdinal("commentaire_evaluation")))
+            {
+                result.Commentaire = dr.GetString("commentaire_evaluation");
+            }
+                
             return result;
         }
 
