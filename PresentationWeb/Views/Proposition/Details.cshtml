@@ -131,7 +131,7 @@
         <div class="type-tonte">
             <label asp-for="IdTypeTonte">Votre terrain : </label>
             <select asp-for="IdTerrain" id="terrain" disabled>
-                <option selected>@Model.NomTerrain</option>
+                <option value="@Model.IdTerrain" selected>@Model.NomTerrain</option>
             </select>
             @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
             {
@@ -255,8 +255,8 @@
     <div class="box-boutons">
         @if (Model.IdUtilisateur == ViewBag.PrestationDetail.IdEleveur)
         {
-            <a class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id">Accepter la proposition</a>
-            <a class="btn btn-warning" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id">Faire une contre-proposition</a>
+            <button class="btn btn-success" asp-controller="Proposition" asp-action="Accepter" asp-route-id="@Model.Id" disabled>Accepter la proposition</button>
+            <button class="btn btn-warning" asp-controller="Prestation" asp-action="Negociation" asp-route-id="@Model.Id" disabled>Faire une contre-proposition</button>
             <a class="btn btn-danger" asp-controller="Proposition" asp-action="Refuser" asp-route-id="@Model.Id">Fermer la négociation</a>
         }
         else
