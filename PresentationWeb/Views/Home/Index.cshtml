@@ -12,6 +12,8 @@
         <h3>Mes prestation programmées</h3>
         @foreach (PrestationDetail pd in ViewBag.prestations)
         {
+            if(pd.DateAnnulation == null)
+            { 
             <a class="box-offre-link" asp-controller="Prestation" asp-action="Details" asp-route-id="@pd.Id">
                 <div class="box-offre box-clickable">
                     <div class="img-offre">
@@ -34,6 +36,7 @@
 
                 </div>
             </a>
+            }
         }
         </div>
     <div class="section-card">
