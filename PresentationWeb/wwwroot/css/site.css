@@ -278,7 +278,7 @@ button {
 .img-profil {
     max-width: 8rem;
     border-radius: 50%;
-    outline-offset: -.1rem;
+    outline: .2rem solid rgb(200, 200, 200);
 }
 
 .info-utilisateur {

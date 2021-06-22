@@ -4,7 +4,8 @@
 @using Fr.EQL.AI109.Tontapat.Model;
 @model UtilisateurDetail
 @{
-        ViewData["Title"] = "Profil de l'éleveur " + Model.Prenom;
+    ViewData["Title"] = "Profil de l'éleveur " + Model.Prenom;
+
     double averg = new double();
     if (Model.Moyenne == null)
     {
@@ -16,6 +17,8 @@
     }
     double average = Math.Round(averg, 1);
 
+    string description = "...";
+  
 }
 
 
@@ -27,12 +30,17 @@
     <div class="info-utilisateur">
         <h2>@Model.Prenom</h2>
         <p>@Model.NomVille</p>
-        @*  star essai*@
-        <div class="rating">
-            <div class="stars-outer">
-                <div class="stars-inner"></div>
-            </div>
-            <span class="number-rating">@average</span>
+        <div class="box-evaluation">
+            @for (int i = 0; i < Model.Moyenne; i++)
+            {
+                if (Model.Moyenne - i < 1)
+                {
+                    <i class="fas fa-star-half"></i>
+                    break;
+                }
+                <i class="fas fa-star"></i>
+            }
+            @average
         </div>
     </div>
 
@@ -46,38 +54,55 @@
 <div class="Offre-container">
     @foreach (OffreDetail od in ViewBag.OffresDetails)
     {
-
-        <div class="box-offre">
-            <div class="img-offre">
-                <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
-            </div>
-            <div class="info-offre">
-                <h3>
-                    @od.NomOffre
-                </h3>
-                <p>Ici c'est l'évaluation</p>
-                <div class="info-footer">
-                    <ul class="liste-detail-eleveur">
-                        <li><img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race</li>
-                        <li><i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/mm/yyyy")</li>
-                        <li> <i class="fas fa-tachometer-alt"></i>@od.TypeTonte</li>
-                        <li><i class="fa fa-times"></i>@od.Condition</li>
-
-                    </ul>
+        <a class="box-offre-link" asp-controller="Offre" asp-action="Details" asp-route-id="@od.Id">
+            <div class="box-offre box-clickable">
+                <div class="img-offre">
+                    <img class="offre-thumbnail" src="~/img/photos/troupeaux/@(od.IdTroupeau)_1.jpg" />
                 </div>
-            </div>
+                <div class="info-offre">
+                    <div class="en-tete-offre">
+                        <h3>
+                            @od.NomOffre
+                        </h3>
+                        <i>@od.VilleTroupeau</i>
+                        (et @(od.ZoneCouverture)km autour)
+                    </div>
 
-        </div>
+                    <div class="description">
+                        <p>
+                            <i>
+                                @if (od.DescriptionOffre.Length > 100)
+                                {
+                                    @(od.DescriptionOffre.Substring(0, 100) + description)
+                                }
+
+                                else
+                                {
+                                    @od.DescriptionOffre
+                                }
+                            </i>
+                        </p>
+                    </div>
+
+                    <div class="info-footer">
+                        <div>
+                            <img class="icon" src="~/img/icons/espece/@(od.IdEspece).png" />@od.Race
+                        </div>
+                        <div>
+                            <i class="fas fa-calendar-alt"></i>jusqu'au @od.DateFin.ToString("dd/MM/yyyy")
+                        </div>
+                        <div>
+                            <i class="fas fa-tachometer-alt"></i>@od.TypeTonte
+                        </div>
+                        <div>
+                            <i class="fa fa-times"></i>@od.Condition
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </a>
     }
 </div>
 
 
-<script type="module">
-
-    import { getRating } from "/js/site.js";
-    document.addEventListener('DOMContentLoaded', getRating);
-    const note = parseFloat((@average)) ;
-    console.log(note);
-    getRating(note);
-
-</script>
