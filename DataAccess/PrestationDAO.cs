@@ -154,7 +154,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             pd.NomTerrain = dr.GetString("nom_terrain");
             pd.PrenomEleveur = dr.GetString("prenom_eleveur");
-            pd.IdEspeceTroupeau = dr.GetInt32("id_troupeau");
+            pd.IdEspeceTroupeau = dr.GetInt32("id_espece");
             pd.NomRaceTroupeau = dr.GetString("nom_race");
             pd.NomTypeTonte = dr.GetString("nom_type");
             pd.IdEleveur = dr.GetInt32("id_eleveur");
@@ -206,12 +206,13 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
 
             //Inner Join ?
             cmd.CommandText = @"SELECT p.*,o.id_offre,o.nom_offre,t.nom_terrain,u2.prenom 'prenom_eleveur',u2.id_utilisateur 'id_eleveur',tr.id_troupeau,
-                                r.nom_race,tt.nom_type, d.distance, u.id_utilisateur FROM prestation p
+                                r.nom_race,tt.nom_type, d.distance, u.id_utilisateur, e.id_espece FROM prestation p
                                 LEFT JOIN terrain t on p.id_terrain = t.id_terrain
                                 LEFT JOIN utilisateur u on t.id_utilisateur = u.id_utilisateur
                                 LEFT JOIN troupeau tr on tr.id_troupeau = p.id_troupeau
                                 LEFT JOIN utilisateur u2 on tr.id_utilisateur = u2.id_utilisateur
                                 LEFT JOIN race r on tr.id_race = r.id_race
+                                LEFT JOIN espece e on e.id_espece = r.id_espece
                                 LEFT JOIN type_tonte tt on tt.id_type = p.id_type_tonte
                                 LEFT JOIN offre o ON p.id_offre = o.id_offre
                                 INNER JOIN distance_villes d ON 
@@ -238,7 +239,7 @@ namespace Fr.EQL.AI109.Tontapat.DataAccess
             MySqlCommand cmd = CreerCommande();
 
             cmd.CommandText = @"SELECT p.*, o.id_offre, o.nom_offre,tt.nom_type, t.nom_terrain, tr.nom_troupeau, u.prenom 'prenom_eleveur', e.nom_espece,
-                                r.nom_race, d.distance, t.id_utilisateur, tr.id_utilisateur 'id_eleveur'
+                                r.nom_race, d.distance, t.id_utilisateur, tr.id_utilisateur 'id_eleveur', e.id_espece
                                 FROM prestation p
                                 LEFT JOIN type_tonte tt ON p.id_type_tonte = tt.id_type
                                 LEFT JOIN terrain t ON t.id_terrain = p.id_terrain
